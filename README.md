@@ -1,2 +1,3 @@
-# horse-property-agents
-Horse Property Agent Directory
+# Horse Property Agents
+
+Powered by Bridle & Bit Magazine.
