@@ -261,11 +261,15 @@ function renderGrid(agents) {
     bar.textContent = '';
     return;
   }
-  grid.innerHTML = agents.map(cardHTML).join('');
+  // Show 20 at a time
+  currentPage = 1;
+  filteredAgents = agents;
+  renderPage();
   bar.textContent = `Showing ${agents.length} agent${agents.length !== 1 ? 's' : ''}`;
 }
 
 function applyFilters() {
+  currentPage = 1;
   const q     = document.getElementById('search-input').value.trim().toLowerCase();
   const state = document.getElementById('state-filter').value;
   let filtered = allAgents;
@@ -285,11 +289,56 @@ function clearFilters() {
   document.getElementById('results-bar').textContent = '';
 }
 
+const PAGE_SIZE = 20;
+let currentPage = 1;
+let filteredAgents = [];
+
+function renderPage() {
+  const grid = document.getElementById('agent-grid');
+  const bar  = document.getElementById('results-bar');
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const slice = filteredAgents.slice(start, start + PAGE_SIZE);
+
+  if (!filteredAgents.length) {
+    grid.innerHTML = '<div class="empty-state"><strong>No agents found</strong>Try a different search.</div>';
+    bar.textContent = '';
+    removePagination();
+    return;
+  }
+
+  grid.innerHTML = slice.map(cardHTML).join('');
+  bar.textContent = `Showing ${start + 1}–${Math.min(start + PAGE_SIZE, filteredAgents.length)} of ${filteredAgents.length} agents`;
+  renderPagination();
+}
+
+function renderPagination() {
+  removePagination();
+  const totalPages = Math.ceil(filteredAgents.length / PAGE_SIZE);
+  if (totalPages <= 1) return;
+  const wrap = document.createElement('div');
+  wrap.id = 'pagination';
+  wrap.style.cssText = 'display:flex;gap:8px;justify-content:center;padding:24px 0 0;flex-wrap:wrap;';
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    btn.style.cssText = `font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;padding:8px 14px;border-radius:4px;cursor:pointer;border:1px solid ${i === currentPage ? '#8b5e3c' : '#d9c9b4'};background:${i === currentPage ? '#8b5e3c' : '#fff'};color:${i === currentPage ? '#fff' : '#1a1410'};`;
+    btn.onclick = () => { currentPage = i; renderPage(); document.getElementById('agent-grid').scrollIntoView({behavior:'smooth',block:'start'}); };
+    wrap.appendChild(btn);
+  }
+  document.querySelector('.agents-wrap').appendChild(wrap);
+}
+
+function removePagination() {
+  const old = document.getElementById('pagination');
+  if (old) old.remove();
+}
+
 async function init() {
   const { data } = await db
     .from('agents')
     .select('name,slug,city,state,profile_image,tagline,specialties')
-    .order('name', { ascending: true });
+    .order('name', { ascending: true })
+    .limit(1000);
 
   if (!data || !data.length) {
     document.getElementById('agent-grid').innerHTML =
