@@ -417,8 +417,8 @@ footer {
 <!-- FEATURED AGENTS -->
 <div class="featured-section">
   <div class="section-wrap">
-    <h2 class="section-heading">All Agents</h2>
-    <p class="section-sub" id="agent-count">Loading agents…</p>
+    <h2 class="section-heading">Featured Specialists</h2>
+    <p class="section-sub">Hand-selected horse property experts</p>
     <div class="agent-grid" id="agent-grid">
       <!-- skeletons -->
       ${[1,2,3,4].map(() => `
@@ -521,17 +521,13 @@ async function loadStats() {
   }
 }
 
-let allAgents = [];
-
-function renderAgents(agents) {
+async function loadFeatured() {
+  const { data } = await db.from('agents')
+    .select('name,slug,city,state,profile_image,tagline,specialties')
+    .limit(8);
   const grid = document.getElementById('agent-grid');
-  const count = document.getElementById('agent-count');
-  if (!agents.length) {
-    grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1">No agents found.</p>';
-    if (count) count.textContent = '0 agents';
-    return;
-  }
-  grid.innerHTML = agents.map(a => {
+  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
+  grid.innerHTML = data.map(a => {
     const loc = [a.city, a.state].filter(Boolean).join(', ');
     const specs = parseSpecs(a.specialties).slice(0, 2);
     const img = a.profile_image
@@ -551,17 +547,6 @@ function renderAgents(agents) {
       </div>
     </a>`;
   }).join('');
-  if (count) count.textContent = `${agents.length} specialists nationwide`;
-}
-
-async function loadFeatured() {
-  const { data } = await db.from('agents')
-    .select('name,slug,city,state,profile_image,tagline,specialties')
-    .order('name', { ascending: true });
-  const grid = document.getElementById('agent-grid');
-  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1">No agents found.</p>'; return; }
-  allAgents = data;
-  renderAgents(data);
 }
 
 async function loadStates() {
@@ -572,10 +557,10 @@ async function loadStates() {
   const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
   const grid = document.getElementById('state-grid');
   grid.innerHTML = sorted.map(([state, count]) =>
-    `<button onclick="filterByState('${state}')" class="state-btn">
+    `<a href="/agents/?state=${encodeURIComponent(state)}" class="state-btn">
       <span>${state}</span>
       <span class="count">${count}</span>
-    </button>`
+    </a>`
   ).join('');
 }
 
@@ -586,32 +571,12 @@ function parseSpecs(val) {
 }
 
 function runSearch() {
-  applyFilters();
-  const grid = document.getElementById('agent-grid');
-  if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const q = document.getElementById('search-input').value.trim();
+  if (q) window.location.href = `/agents/?q=${encodeURIComponent(q)}`;
 }
-function applyFilters() {
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  if (!allAgents.length) return;
-  const filtered = q
-    ? allAgents.filter(a =>
-        (a.name  || '').toLowerCase().includes(q) ||
-        (a.city  || '').toLowerCase().includes(q) ||
-        (a.state || '').toLowerCase().includes(q))
-    : allAgents;
-  renderAgents(filtered);
-}
-document.getElementById('search-input').addEventListener('input', applyFilters);
 document.getElementById('search-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') runSearch();
 });
-
-function filterByState(state) {
-  document.getElementById('search-input').value = '';
-  const filtered = allAgents.filter(a => a.state === state);
-  renderAgents(filtered);
-  document.getElementById('agent-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
 
 loadStats();
 loadFeatured();
