@@ -417,8 +417,8 @@ footer {
 <!-- FEATURED AGENTS -->
 <div class="featured-section">
   <div class="section-wrap">
-    <h2 class="section-heading">Featured Specialists</h2>
-    <p class="section-sub">Hand-selected horse property experts</p>
+    <h2 class="section-heading">All Agents</h2>
+    <p class="section-sub" id="agent-count">Loading agents…</p>
     <div class="agent-grid" id="agent-grid">
       <!-- skeletons -->
       ${[1,2,3,4].map(() => `
@@ -431,12 +431,7 @@ footer {
         </div>
       </div>`).join('')}
     </div>
-    <div style="text-align:center;margin-top:32px">
-      <a href="/agents/" class="btn-cta" style="display:inline-flex">
-        View All Agents
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
+
   </div>
 </div>
 
@@ -526,16 +521,22 @@ async function loadStats() {
   }
 }
 
-async function loadFeatured() {
-  const { data } = await db.from('agents').select('name,slug,city,state,profile_image,tagline,specialties').limit(8);
+let allAgents = [];
+
+function renderAgents(agents) {
   const grid = document.getElementById('agent-grid');
-  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
-  grid.innerHTML = data.map(a => {
+  const count = document.getElementById('agent-count');
+  if (!agents.length) {
+    grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1">No agents found.</p>';
+    if (count) count.textContent = '0 agents';
+    return;
+  }
+  grid.innerHTML = agents.map(a => {
     const loc = [a.city, a.state].filter(Boolean).join(', ');
     const specs = parseSpecs(a.specialties).slice(0, 2);
     const img = a.profile_image
       ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
-      : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}">`;
+      : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}" loading="lazy">`;
     return `
     <a href="/agent/${a.slug}/" class="agent-card">
       <div class="card-img-wrap">${img}</div>
@@ -550,6 +551,17 @@ async function loadFeatured() {
       </div>
     </a>`;
   }).join('');
+  if (count) count.textContent = `${agents.length} specialists nationwide`;
+}
+
+async function loadFeatured() {
+  const { data } = await db.from('agents')
+    .select('name,slug,city,state,profile_image,tagline,specialties')
+    .order('name', { ascending: true });
+  const grid = document.getElementById('agent-grid');
+  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1">No agents found.</p>'; return; }
+  allAgents = data;
+  renderAgents(data);
 }
 
 async function loadStates() {
@@ -560,10 +572,10 @@ async function loadStates() {
   const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
   const grid = document.getElementById('state-grid');
   grid.innerHTML = sorted.map(([state, count]) =>
-    `<a href="/agents/?state=${encodeURIComponent(state)}" class="state-btn">
+    `<button onclick="filterByState('${state}')" class="state-btn">
       <span>${state}</span>
       <span class="count">${count}</span>
-    </a>`
+    </button>`
   ).join('');
 }
 
@@ -574,12 +586,32 @@ function parseSpecs(val) {
 }
 
 function runSearch() {
-  const q = document.getElementById('search-input').value.trim();
-  if (q) window.location.href = `/agents/?q=${encodeURIComponent(q)}`;
+  applyFilters();
+  const grid = document.getElementById('agent-grid');
+  if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+function applyFilters() {
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+  if (!allAgents.length) return;
+  const filtered = q
+    ? allAgents.filter(a =>
+        (a.name  || '').toLowerCase().includes(q) ||
+        (a.city  || '').toLowerCase().includes(q) ||
+        (a.state || '').toLowerCase().includes(q))
+    : allAgents;
+  renderAgents(filtered);
+}
+document.getElementById('search-input').addEventListener('input', applyFilters);
 document.getElementById('search-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') runSearch();
 });
+
+function filterByState(state) {
+  document.getElementById('search-input').value = '';
+  const filtered = allAgents.filter(a => a.state === state);
+  renderAgents(filtered);
+  document.getElementById('agent-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 loadStats();
 loadFeatured();
