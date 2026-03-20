@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find a Horse Property Agent | HorsePropertyAgents.com</title>
+<meta name="description" content="Find specialized horse property real estate agents across the United States. Search by state, specialty, and location.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:      #1a1410;
+  --clay:     #8b5e3c;
+  --clay-lt:  #c49a6c;
+  --sand:     #f5ede0;
+  --sand-dk:  #e8d9c4;
+  --cream:    #faf7f2;
+  --white:    #ffffff;
+  --muted:    #7a6a58;
+  --border:   #d9c9b4;
+  --green:    #2c5f2e;
+  --max:      1200px;
+  --r:        5px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding: 64px 20px 72px;
+  text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(139,94,60,.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(196,154,108,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--clay-lt);
+  margin-bottom: 18px;
+  animation: fadeUp .5s .1s both;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  font-weight: 700; line-height: 1.1;
+  color: #fff;
+  margin-bottom: 18px;
+  animation: fadeUp .5s .2s both;
+}
+.hero h1 em {
+  font-style: italic; color: var(--clay-lt);
+}
+.hero-sub {
+  font-size: clamp(.9rem, 2vw, 1.05rem);
+  color: rgba(255,255,255,.55);
+  font-weight: 300; line-height: 1.7;
+  max-width: 520px; margin: 0 auto 40px;
+  animation: fadeUp .5s .3s both;
+}
+
+/* Search box */
+.search-box {
+  max-width: 580px; margin: 0 auto;
+  animation: fadeUp .5s .4s both;
+}
+.search-row {
+  display: flex; gap: 0;
+  background: #fff;
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,.35);
+}
+.search-row input {
+  flex: 1; border: none; outline: none;
+  font-family: 'Jost', sans-serif;
+  font-size: .97rem; color: var(--ink);
+  padding: 15px 18px;
+  background: transparent;
+}
+.search-row input::placeholder { color: #b0a090; }
+.search-row button {
+  background: var(--clay);
+  color: #fff; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 15px 24px;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.search-row button:hover { background: #a06b44; }
+.search-hint {
+  font-size: .75rem; color: rgba(255,255,255,.35);
+  margin-top: 12px; letter-spacing: .04em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STATS BAR ────────────────────────────────────────────── */
+.stats-bar {
+  background: var(--clay);
+  padding: 16px 20px;
+}
+.stats-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: center;
+  gap: 40px; flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: #fff; line-height: 1;
+}
+.stat-label {
+  font-size: .7rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  margin-top: 3px;
+}
+
+/* ── STATE BROWSE ─────────────────────────────────────────── */
+.section-wrap {
+  max-width: var(--max); margin: 0 auto;
+  padding: 52px 20px;
+}
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 700; color: var(--ink);
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: .9rem; color: var(--muted);
+  margin-bottom: 28px; font-weight: 300;
+}
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+.state-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 11px 14px;
+  font-family: 'Jost', sans-serif;
+  font-size: .83rem; font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, transform .15s;
+}
+.state-btn:hover {
+  border-color: var(--clay);
+  background: var(--sand);
+  transform: translateY(-1px);
+}
+.state-btn .count {
+  margin-left: auto;
+  font-size: .72rem; font-weight: 600;
+  color: var(--clay);
+  background: var(--sand);
+  border-radius: 99px;
+  padding: 2px 7px;
+  min-width: 22px; text-align: center;
+}
+
+/* ── FEATURED AGENTS ──────────────────────────────────────── */
+.featured-section {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.agent-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--cream);
+  display: flex; flex-direction: column;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+}
+.agent-card:hover {
+  border-color: var(--clay);
+  box-shadow: 0 4px 20px rgba(139,94,60,.12);
+  transform: translateY(-2px);
+}
+.card-img-wrap {
+  aspect-ratio: 3/2;
+  overflow: hidden;
+  background: var(--sand-dk);
+  position: relative;
+}
+.card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .35s;
+}
+.agent-card:hover .card-img-wrap img { transform: scale(1.04); }
+.card-body { padding: 16px 18px 18px; flex: 1; }
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 4px;
+}
+.card-loc {
+  font-size: .78rem; color: var(--muted);
+  margin-bottom: 10px; font-weight: 400;
+}
+.card-tagline {
+  font-size: .83rem; color: #5a4a38;
+  line-height: 1.5; font-style: italic;
+}
+.card-footer {
+  padding: 10px 18px;
+  border-top: 1px solid var(--sand-dk);
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.card-specs {
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.card-spec {
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--clay);
+  background: var(--sand);
+  border-radius: 99px; padding: 3px 9px;
+}
+.card-arrow {
+  color: var(--clay); font-size: 1rem;
+  transition: transform .2s;
+}
+.agent-card:hover .card-arrow { transform: translateX(3px); }
+
+/* loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--sand-dk) 25%, var(--sand) 50%, var(--sand-dk) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 3px;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.skel-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.skel-img { height: 160px; }
+.skel-body { padding: 16px 18px; }
+.skel-line { height: 14px; margin-bottom: 10px; }
+.skel-line.w60 { width: 60%; }
+.skel-line.w80 { width: 80%; }
+.skel-line.w40 { width: 40%; }
+
+/* ── HOW IT WORKS ─────────────────────────────────────────── */
+.how-section { background: var(--sand); }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.step {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 24px;
+}
+.step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 700;
+  color: var(--sand-dk); line-height: 1;
+  margin-bottom: 14px;
+}
+.step-title {
+  font-weight: 700; font-size: .95rem;
+  color: var(--ink); margin-bottom: 8px;
+}
+.step-desc {
+  font-size: .87rem; color: var(--muted);
+  line-height: 1.65; font-weight: 300;
+}
+
+/* ── CTA BANNER ───────────────────────────────────────────── */
+.cta-banner {
+  background: var(--ink);
+  padding: 52px 20px;
+  text-align: center;
+}
+.cta-banner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: #fff; margin-bottom: 10px;
+}
+.cta-banner p {
+  color: rgba(255,255,255,.5);
+  font-size: .92rem; margin-bottom: 28px;
+  font-weight: 300;
+}
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--clay);
+  color: #fff; text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: .85rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 14px 32px; border-radius: var(--r);
+  transition: background .2s, transform .15s;
+}
+.btn-cta:hover { background: #a06b44; transform: translateY(-1px); }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  background: #110e0b;
+  padding: 36px 20px;
+  text-align: center;
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+}
+.footer-logo {
+  font-family: 'Jost', sans-serif;
+  font-size: .85rem; color: rgba(255,255,255,.4);
+  margin-bottom: 12px;
+}
+.footer-links {
+  display: flex; flex-wrap: wrap;
+  gap: 6px 20px; justify-content: center;
+  margin-bottom: 20px;
+}
+.footer-links a {
+  font-size: .75rem; color: rgba(255,255,255,.35);
+  text-decoration: none; letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,.7); }
+.footer-copy {
+  font-size: .72rem; color: rgba(255,255,255,.2);
+  letter-spacing: .04em;
+}
+
+/* responsive */
+@media (min-width: 640px) {
+  .hero { padding: 80px 40px 88px; }
+  .state-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .section-wrap { padding: 64px 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<script src="/nav.js"></script>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Arizona's Premier Horse Publication Since 1978</p>
+  <h1>Find Your <em>Horse Property</em><br>Specialist</h1>
+  <p class="hero-sub">Connect with agents who know the difference between a run-in shed and a reining pen — and why it matters.</p>
+  <div class="search-box">
+    <div class="search-row">
+      <input type="text" id="search-input" placeholder="Search by name, city, or state…" autocomplete="off">
+      <button onclick="runSearch()">Search</button>
+    </div>
+    <p class="search-hint">or browse by state below</p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num" id="stat-agents">—</div><div class="stat-label">Specialists</div></div>
+    <div class="stat"><div class="stat-num" id="stat-states">—</div><div class="stat-label">States</div></div>
+    <div class="stat"><div class="stat-num">Since 1978</div><div class="stat-label">Bridle &amp; Bit Magazine</div></div>
+  </div>
+</div>
+
+<!-- FEATURED AGENTS -->
+<div class="featured-section">
+  <div class="section-wrap">
+    <h2 class="section-heading">Featured Specialists</h2>
+    <p class="section-sub">Hand-selected horse property experts</p>
+    <div class="agent-grid" id="agent-grid">
+      <!-- skeletons -->
+      ${[1,2,3,4].map(() => `
+      <div class="skel-card">
+        <div class="skeleton skel-img"></div>
+        <div class="skel-body">
+          <div class="skeleton skel-line w80"></div>
+          <div class="skeleton skel-line w40"></div>
+          <div class="skeleton skel-line w60"></div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="/agents/" class="btn-cta" style="display:inline-flex">
+        View All Agents
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- STATE BROWSE -->
+<div class="section-wrap">
+  <h2 class="section-heading">Browse by State</h2>
+  <p class="section-sub">Find specialists where your next property is</p>
+  <div class="state-grid" id="state-grid">
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+    <div class="skeleton" style="height:44px;border-radius:5px"></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="section-wrap">
+    <h2 class="section-heading">How It Works</h2>
+    <p class="section-sub">Connecting buyers and sellers with the right specialist</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Search Your Area</div>
+        <div class="step-desc">Browse agents by state or search by city. Every specialist is vetted for horse property experience.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Review Their Profile</div>
+        <div class="step-desc">Read bios, specialties, and claims to fame. See their gallery and contact details in one place.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Connect Directly</div>
+        <div class="step-desc">Call, email, or send a message from the agent's profile page. No gatekeeping, no lead forms.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Find Your Property</div>
+        <div class="step-desc">Work with someone who understands water rights, zoning, barn appraisals, and pasture acreage.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Are You a Horse Property Specialist?</h2>
+  <p>Get listed in Arizona's most trusted equestrian directory.</p>
+  <a href="mailto:info@bridleandbit.com" class="btn-cta">
+    Request a Listing
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">HorsePropertyAgents.com — A Bridle &amp; Bit Magazine Property</div>
+    <div class="footer-links">
+      <a href="/agents/">Find an Agent</a>
+      <a href="https://horsepropertyguide.com" target="_blank">Horse Property Guide</a>
+      <a href="https://horsepropertyguide.com/qa/usda-loan-horse-property.html" target="_blank">Financing</a>
+      <a href="https://horsepropertyguide.com/glossary/water-rights.html" target="_blank">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Bridle &amp; Bit Magazine. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const SUPABASE_URL      = typeof window.SUPABASE_URL      !== 'undefined' ? window.SUPABASE_URL      : 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON_KEY = typeof window.SUPABASE_ANON_KEY !== 'undefined' ? window.SUPABASE_ANON_KEY : 'YOUR_ANON_KEY';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function loadStats() {
+  const { count } = await db.from('agents').select('*', { count: 'exact', head: true });
+  document.getElementById('stat-agents').textContent = count || '—';
+  const { data } = await db.from('agents').select('state');
+  if (data) {
+    const states = new Set(data.map(a => a.state).filter(Boolean));
+    document.getElementById('stat-states').textContent = states.size || '—';
+  }
+}
+
+async function loadFeatured() {
+  const { data } = await db.from('agents').select('name,slug,city,state,profile_image,tagline,specialties').limit(8);
+  const grid = document.getElementById('agent-grid');
+  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
+  grid.innerHTML = data.map(a => {
+    const loc = [a.city, a.state].filter(Boolean).join(', ');
+    const specs = parseSpecs(a.specialties).slice(0, 2);
+    const img = a.profile_image
+      ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
+      : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}">`;
+    return `
+    <a href="/agent/${a.slug}/" class="agent-card">
+      <div class="card-img-wrap">${img}</div>
+      <div class="card-body">
+        <div class="card-name">${a.name}</div>
+        <div class="card-loc">${loc}</div>
+        ${a.tagline ? `<div class="card-tagline">${a.tagline}</div>` : ''}
+      </div>
+      <div class="card-footer">
+        <div class="card-specs">${specs.map(s => `<span class="card-spec">${s}</span>`).join('')}</div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+async function loadStates() {
+  const { data } = await db.from('agents').select('state');
+  if (!data) return;
+  const counts = {};
+  data.forEach(a => { if (a.state) counts[a.state] = (counts[a.state] || 0) + 1; });
+  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+  const grid = document.getElementById('state-grid');
+  grid.innerHTML = sorted.map(([state, count]) =>
+    `<a href="/agents/?state=${encodeURIComponent(state)}" class="state-btn">
+      <span>${state}</span>
+      <span class="count">${count}</span>
+    </a>`
+  ).join('');
+}
+
+function parseSpecs(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.filter(Boolean);
+  return val.split(',').map(s => s.trim()).filter(Boolean);
+}
+
+function runSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (q) window.location.href = `/agents/?q=${encodeURIComponent(q)}`;
+}
+document.getElementById('search-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') runSearch();
+});
+
+loadStats();
+loadFeatured();
+loadStates();
+</script>
+</body>
+</html>
