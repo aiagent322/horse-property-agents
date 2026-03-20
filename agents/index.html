@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find a Horse Property Agent | HorsePropertyAgents.com</title>
+<meta name="description" content="Browse all horse property specialists. Search by name, city, or state.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #1a1410;
+  --clay:    #8b5e3c;
+  --clay-lt: #c49a6c;
+  --sand:    #f5ede0;
+  --sand-dk: #e8d9c4;
+  --cream:   #faf7f2;
+  --white:   #ffffff;
+  --muted:   #7a6a58;
+  --border:  #d9c9b4;
+  --green:   #2c5f2e;
+  --max:     1200px;
+  --r:       5px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* PAGE HEADER */
+.page-header{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:24px 16px 20px;
+}
+.page-header-inner{max-width:var(--max);margin:0 auto;}
+.page-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.4rem,4vw,2rem);font-weight:700;
+  color:var(--ink);margin-bottom:6px;
+}
+.page-sub{font-size:.88rem;color:var(--muted);margin-bottom:16px;}
+
+/* SEARCH + FILTER BAR */
+.filter-bar{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+}
+.search-wrap{
+  flex:1;min-width:200px;position:relative;
+}
+.search-wrap input{
+  width:100%;font-family:'Jost',sans-serif;font-size:.95rem;
+  color:var(--ink);background:var(--cream);
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 14px 10px 38px;outline:none;
+  transition:border-color .2s;
+}
+.search-wrap input:focus{border-color:var(--clay);}
+.search-wrap svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--muted);pointer-events:none;
+}
+.state-select{
+  font-family:'Jost',sans-serif;font-size:.88rem;
+  color:var(--ink);background:var(--white);
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 14px;outline:none;cursor:pointer;
+  transition:border-color .2s;min-width:140px;
+}
+.state-select:focus{border-color:var(--clay);}
+.clear-btn{
+  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);background:none;border:1px solid var(--border);
+  border-radius:var(--r);padding:10px 14px;cursor:pointer;
+  transition:color .2s,border-color .2s;white-space:nowrap;
+}
+.clear-btn:hover{color:var(--ink);border-color:var(--ink);}
+
+/* RESULTS BAR */
+.results-bar{
+  max-width:var(--max);margin:0 auto;
+  padding:12px 16px 0;
+  font-size:.8rem;color:var(--muted);font-weight:400;
+}
+
+/* GRID */
+.agents-wrap{max-width:var(--max);margin:0 auto;padding:16px 16px 60px;}
+.agent-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+.agent-card{
+  border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;text-decoration:none;color:inherit;
+  background:var(--white);display:flex;flex-direction:column;
+  transition:border-color .2s,box-shadow .2s,transform .15s;
+}
+.agent-card:hover{
+  border-color:var(--clay);
+  box-shadow:0 4px 20px rgba(139,94,60,.12);
+  transform:translateY(-2px);
+}
+.card-img-wrap{
+  aspect-ratio:3/2;overflow:hidden;
+  background:var(--sand-dk);flex-shrink:0;
+}
+.card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .35s;
+}
+.agent-card:hover .card-img-wrap img{transform:scale(1.04);}
+.card-body{padding:14px 16px;flex:1;}
+.card-name{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;
+}
+.card-loc{font-size:.78rem;color:var(--muted);margin-bottom:8px;}
+.card-tagline{font-size:.82rem;color:#5a4a38;line-height:1.5;font-style:italic;}
+.card-footer{
+  padding:9px 16px;border-top:1px solid var(--sand-dk);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-specs{display:flex;flex-wrap:wrap;gap:5px;}
+.card-spec{
+  font-size:.68rem;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--clay);
+  background:var(--sand);border-radius:99px;padding:3px 9px;
+}
+.card-arrow{color:var(--clay);font-size:1rem;transition:transform .2s;}
+.agent-card:hover .card-arrow{transform:translateX(3px);}
+
+/* EMPTY STATE */
+.empty-state{
+  text-align:center;padding:60px 20px;
+  font-size:.95rem;color:var(--muted);
+}
+.empty-state strong{display:block;font-size:1.1rem;color:var(--ink);margin-bottom:8px;}
+
+/* SKELETON */
+.skeleton{
+  background:linear-gradient(90deg,var(--sand-dk) 25%,var(--sand) 50%,var(--sand-dk) 75%);
+  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:3px;
+}
+@keyframes shimmer{to{background-position:-200% 0;}}
+.skel-card{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.skel-img{height:180px;}
+.skel-body{padding:14px 16px;}
+.skel-line{height:13px;margin-bottom:9px;}
+.skel-line.w80{width:80%;}
+.skel-line.w50{width:50%;}
+.skel-line.w65{width:65%;}
+
+/* FOOTER */
+footer{background:#162017;padding:20px 16px;text-align:center;}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.04em;}
+.footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
+
+/* RESPONSIVE */
+@media(min-width:480px){
+  .agent-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(min-width:640px){
+  .page-header{padding:28px 24px 22px;}
+  .agents-wrap{padding:20px 24px 64px;}
+  .results-bar{padding:14px 24px 0;}
+}
+@media(min-width:900px){
+  .agent-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(min-width:1100px){
+  .agent-grid{grid-template-columns:repeat(4,1fr);}
+  .page-header{padding:32px 40px 24px;}
+  .agents-wrap{padding:20px 40px 72px;}
+  .results-bar{padding:16px 40px 0;}
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1 class="page-title">Find a Horse Property Specialist</h1>
+    <p class="page-sub">Browse <span id="total-count">197</span> agents across the United States</p>
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-input" placeholder="Search name, city…" autocomplete="off">
+      </div>
+      <select class="state-select" id="state-filter">
+        <option value="">All States</option>
+      </select>
+      <button class="clear-btn" onclick="clearFilters()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="results-bar" id="results-bar"></div>
+
+<div class="agents-wrap">
+  <div class="agent-grid" id="agent-grid">
+        <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+    <div class="skel-card"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">
+    &copy; 2026 <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit Magazine</a> &nbsp;&middot;&nbsp;
+    <a href="/">HorsePropertyAgents.com</a>
+  </div>
+</footer>
+
+<script src="/nav.js" defer></script>
+<script>
+const SUPABASE_URL      = 'https://odpdwkzxxfqzzxlnynew.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kcGR3a3p4eGZxenp4bG55bmV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NjM1ODksImV4cCI6MjA4OTUzOTU4OX0.OLY9_7uByUs2VFR2FARncLykppkmzWa4vciuFATImF0';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allAgents = [];
+
+function parseSpecs(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val.filter(Boolean);
+  return val.split(',').map(s => s.trim()).filter(Boolean);
+}
+
+function cardHTML(a) {
+  const loc = [a.city, a.state].filter(Boolean).join(', ');
+  const specs = parseSpecs(a.specialties).slice(0, 2);
+  const img = a.profile_image
+    ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
+    : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}" loading="lazy">`;
+  return `
+  <a href="/agent/${a.slug}/" class="agent-card">
+    <div class="card-img-wrap">${img}</div>
+    <div class="card-body">
+      <div class="card-name">${a.name}</div>
+      <div class="card-loc">${loc}</div>
+      ${a.tagline ? `<div class="card-tagline">${a.tagline}</div>` : ''}
+    </div>
+    <div class="card-footer">
+      <div class="card-specs">${specs.map(s => `<span class="card-spec">${s}</span>`).join('')}</div>
+      <span class="card-arrow">&#8594;</span>
+    </div>
+  </a>`;
+}
+
+function renderGrid(agents) {
+  const grid = document.getElementById('agent-grid');
+  const bar  = document.getElementById('results-bar');
+  if (!agents.length) {
+    grid.innerHTML = '<div class="empty-state"><strong>No agents found</strong>Try a different name or state.</div>';
+    bar.textContent = '';
+    return;
+  }
+  grid.innerHTML = agents.map(cardHTML).join('');
+  bar.textContent = `Showing ${agents.length} agent${agents.length !== 1 ? 's' : ''}`;
+}
+
+function applyFilters() {
+  const q     = document.getElementById('search-input').value.trim().toLowerCase();
+  const state = document.getElementById('state-filter').value;
+  let filtered = allAgents;
+  if (state) filtered = filtered.filter(a => a.state === state);
+  if (q)     filtered = filtered.filter(a =>
+    (a.name  || '').toLowerCase().includes(q) ||
+    (a.city  || '').toLowerCase().includes(q) ||
+    (a.state || '').toLowerCase().includes(q)
+  );
+  renderGrid(filtered);
+}
+
+function clearFilters() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('state-filter').value = '';
+  renderGrid(allAgents);
+  document.getElementById('results-bar').textContent = '';
+}
+
+async function init() {
+  const { data } = await db
+    .from('agents')
+    .select('name,slug,city,state,profile_image,tagline,specialties')
+    .order('name', { ascending: true });
+
+  if (!data || !data.length) {
+    document.getElementById('agent-grid').innerHTML =
+      '<div class="empty-state"><strong>No agents found</strong>Check back soon.</div>';
+    return;
+  }
+
+  allAgents = data;
+  document.getElementById('total-count').textContent = data.length;
+
+  // Populate state dropdown
+  const states = [...new Set(data.map(a => a.state).filter(Boolean))].sort();
+  const sel = document.getElementById('state-filter');
+  states.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s; opt.textContent = s;
+    sel.appendChild(opt);
+  });
+
+  // Read URL params
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('state')) {
+    sel.value = params.get('state');
+  }
+  if (params.get('q')) {
+    document.getElementById('search-input').value = params.get('q');
+  }
+
+  applyFilters();
+
+  // Live filter
+  document.getElementById('search-input').addEventListener('input', applyFilters);
+  document.getElementById('state-filter').addEventListener('change', applyFilters);
+}
+
+init();
+</script>
+</body>
+</html>
