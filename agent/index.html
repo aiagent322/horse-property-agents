@@ -313,6 +313,26 @@ footer {
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
   .avatar { width: 165px; height: 165px; }
 }
+
+@media (max-width: 639px) {
+  .hero { padding: 20px 16px 18px; }
+  .hero-name { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+  .contact-bar { padding: 8px 12px; top: 48px; }
+  .contact-bar-inner { gap: 6px; flex-wrap: wrap; }
+  .contact-link { font-size: .78rem; padding: 8px 10px; }
+  .btn-contact { font-size: .78rem; padding: 8px 14px; }
+  .content-body { padding: 16px 16px 48px; }
+  .section-title { font-size: 1rem; }
+  .bio-text { font-size: .9rem; line-height: 1.7; }
+  .spec-tag { font-size: .68rem; padding: 4px 10px; }
+  #contact-modal .modal-inner { border-radius: 12px 12px 0 0; padding: 20px 16px; }
+  .modal-field label { font-size: .8rem; }
+  .modal-field input, .modal-field textarea { font-size: .9rem; padding: 9px 12px; }
+}
+@media (max-width: 374px) {
+  .contact-bar-inner { gap: 4px; }
+  .contact-link span { display: none; }
+}
 </style>
 </head>
 <body>

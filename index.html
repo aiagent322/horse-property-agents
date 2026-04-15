@@ -376,6 +376,22 @@ footer {
   .steps-grid { grid-template-columns: repeat(4, 1fr); }
   .hero { padding: 80px 40px 88px; }
 }
+
+@media (max-width: 479px) {
+  .hero { padding: 28px 16px 36px; }
+  .hero-title { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+  .hero-sub { font-size: .88rem; }
+  .search-row { flex-direction: column; gap: 10px; }
+  .search-row input { font-size: 1rem; padding: 13px 16px 13px 44px; }
+  .search-row button { width: 100%; padding: 13px; font-size: .9rem; }
+  .stats-row { gap: 16px 24px; }
+  .stat-num { font-size: 1.6rem; }
+  .section-wrap { padding: 32px 16px; }
+  .section-title { font-size: 1.3rem; }
+  .agent-grid { grid-template-columns: 1fr; }
+  .state-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .btn-cta { font-size: .85rem; padding: 12px 20px; }
+}
 </style>
 </head>
 <body>
