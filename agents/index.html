@@ -241,14 +241,14 @@ function cardHTML(a) {
   const specs = parseSpecs(a.specialties).slice(0, 2);
   const img = a.profile_image
     ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
-    : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}" loading="lazy">`;
+    : '';
   const contact = [
     a.phone ? `<a href="tel:${a.phone.replace(/\D/g,'')}" onclick="event.stopPropagation()">📞 ${a.phone}</a>` : '',
     a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()">✉ ${a.email}</a>` : ''
   ].filter(Boolean).join('');
   return `
   <a href="/agent/${a.slug}/" class="agent-card">
-    <div class="card-img-wrap">${img}</div>
+      ${img ? `<div class="card-img-wrap">${img}</div>` : ''}
     <div class="card-body">
       <div class="card-name">${a.name}</div>
       ${a.company ? `<div class="card-company">${a.company}</div>` : ''}
