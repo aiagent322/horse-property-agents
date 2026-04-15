@@ -1,16 +1,16 @@
 (function(){
   const path = window.location.pathname;
   const links = [
-    { href: '/',    label: 'Find an Agent' },
+    { href: '/',         label: 'Find an Agent' },
+    { href: '/agents/',  label: 'All Agents' },
+    { href: '/learn/',   label: 'Buyer Guides' },
     { href: 'https://horsepropertyguide.com/guides/', label: 'Horse Property Guide', external: true },
-    { href: 'https://horsepropertyguide.com/qa/usda-loan-horse-property.html', label: 'Financing', external: true },
-    { href: 'https://horsepropertyguide.com/glossary/water-rights.html', label: 'Glossary', external: true },
     { href: 'https://bridleandbit.com', label: 'Bridle & Bit', external: true },
   ];
 
   // Build nav HTML
   const liItems = links.map(l => {
-    const active = !l.external && (path === l.href || path.startsWith(l.href + 'agent')) ? ' class="active"' : '';
+    const active = !l.external && (path === l.href || (l.href !== '/' && path.startsWith(l.href))) ? ' class="active"' : '';
     const ext = l.external ? ' target="_blank" rel="noopener"' : '';
     return '<li><a href="' + l.href + '"' + ext + active + '>' + l.label + '</a></li>';
   }).join('');
