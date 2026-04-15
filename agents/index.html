@@ -270,7 +270,12 @@ function applyFilters() {
   if (state) f = f.filter(function(a){ return a.state === state; });
   if (q) {
     var stateAbbr = STATE_NAMES[q] || null;
+    var isAbbrOnly = /^[a-z]{2}$/.test(q) && !stateAbbr;
     f = f.filter(function(a){
+      if (isAbbrOnly) {
+        // exact state abbreviation match (e.g. typed "ca", "az", "tx")
+        return (a.state || '').toLowerCase() === q;
+      }
       return (a.name    ||'').toLowerCase().includes(q) ||
              (a.city    ||'').toLowerCase().includes(q) ||
              (a.company ||'').toLowerCase().includes(q) ||
