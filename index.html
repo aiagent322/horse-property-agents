@@ -402,6 +402,20 @@ footer {
   .stat-label { font-size: .78rem; }
   .footer-copy { font-size: .78rem; }
 }
+
+/* LEARN SECTION */
+.learn-section{background:var(--sand);padding:48px 20px;}
+.learn-section .section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:700;color:var(--ink);margin-bottom:8px;text-align:center;}
+.learn-section .section-sub{font-size:.9rem;color:var(--muted);text-align:center;margin-bottom:28px;}
+.learn-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.learn-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .2s,transform .15s;}
+.learn-card:hover{border-color:var(--clay);transform:translateY(-2px);}
+.learn-card-icon{font-size:1.5rem;margin-bottom:10px;}
+.learn-card-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3;}
+.learn-card-desc{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1;}
+.learn-card-link{font-size:.78rem;font-weight:700;color:var(--clay);margin-top:10px;}
+@media(max-width:699px){.learn-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:449px){.learn-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -501,6 +515,51 @@ footer {
   </div>
 </div>
 
+
+<!-- LEARN SECTION -->
+<div class="learn-section">
+  <h2 class="section-heading">Buyer &amp; Seller Guides</h2>
+  <p class="section-sub">Everything you need to know before buying or selling a horse property</p>
+  <div class="learn-grid">
+    <a href="/learn/types-of-listings.html" class="learn-card">
+      <div class="learn-card-icon">🏡</div>
+      <div class="learn-card-title">Types of Listings</div>
+      <div class="learn-card-desc">MLS, pocket listings, auction, FSBO — how each affects price and competition.</div>
+      <div class="learn-card-link">Read guide &rarr;</div>
+    </a>
+    <a href="/learn/agents-vs-brokers.html" class="learn-card">
+      <div class="learn-card-icon">🤝</div>
+      <div class="learn-card-title">Agents vs. Brokers</div>
+      <div class="learn-card-desc">Who represents you, fiduciary duty, and the one question to ask before signing.</div>
+      <div class="learn-card-link">Read guide &rarr;</div>
+    </a>
+    <a href="/learn/appraisals.html" class="learn-card">
+      <div class="learn-card-icon">📋</div>
+      <div class="learn-card-title">Appraisals</div>
+      <div class="learn-card-desc">Which equestrian improvements get undervalued and why sellers should appraise before listing.</div>
+      <div class="learn-card-link">Read guide &rarr;</div>
+    </a>
+    <a href="/learn/disclosures.html" class="learn-card">
+      <div class="learn-card-icon">📄</div>
+      <div class="learn-card-title">Disclosures</div>
+      <div class="learn-card-desc">Water rights, unpermitted barns, easements — what must be disclosed and what happens if it isn't.</div>
+      <div class="learn-card-link">Read guide &rarr;</div>
+    </a>
+    <a href="/learn/escrow.html" class="learn-card">
+      <div class="learn-card-icon">🔐</div>
+      <div class="learn-card-title">Escrow</div>
+      <div class="learn-card-desc">Step-by-step from offer to closing — what's different about horse property escrows.</div>
+      <div class="learn-card-link">Read guide &rarr;</div>
+    </a>
+    <a href="/learn/" class="learn-card" style="border-style:dashed;background:transparent;justify-content:center;align-items:center;text-align:center;">
+      <div class="learn-card-icon">📚</div>
+      <div class="learn-card-title">View All Guides</div>
+      <div class="learn-card-desc">Browse the full buyer and seller resource library.</div>
+      <div class="learn-card-link">Browse &rarr;</div>
+    </a>
+  </div>
+</div>
+
 <!-- CTA BANNER -->
 <div class="cta-banner">
   <h2>Are You a Horse Property Specialist?</h2>
@@ -520,7 +579,7 @@ footer {
       <a href="https://horsepropertyguide.com" target="_blank">Horse Property Guide</a>
       <a href="https://horsepropertyguide.com/qa/usda-loan-horse-property.html" target="_blank">Financing</a>
       <a href="https://horsepropertyguide.com/glossary/water-rights.html" target="_blank">Glossary</a>
-      <a href="/about/">About</a>
+      <a href="/learn/">Buyer's Guide</a>
       <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit</a>
     </div>
     <div class="footer-copy">&copy; 2026 Bridle &amp; Bit Magazine. All rights reserved.</div>
