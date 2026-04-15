@@ -50,7 +50,7 @@ body {
   pointer-events: none;
 }
 .hero-eyebrow {
-  font-size: .72rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   letter-spacing: .2em; text-transform: uppercase;
   color: var(--clay-lt);
   margin-bottom: 12px;
@@ -59,7 +59,7 @@ body {
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 6vw, 3.6rem);
-  font-weight: 700; line-height: 1.1;
+  font-weight: 700; line-height: 1.45;
   color: #fff;
   margin-bottom: 18px;
   animation: fadeUp .5s .2s both;
@@ -90,7 +90,7 @@ body {
 .search-row input {
   flex: 1; border: none; outline: none;
   font-family: 'Jost', sans-serif;
-  font-size: .97rem; color: var(--ink);
+  font-size: 1rem; color: var(--ink);
   padding: 15px 18px;
   background: transparent;
 }
@@ -130,10 +130,10 @@ body {
 .stat-num {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem; font-weight: 700;
-  color: #fff; line-height: 1;
+  color: #fff; line-height: 1.45;
 }
 .stat-label {
-  font-size: .7rem; font-weight: 500;
+  font-size: .78rem; font-weight: 500;
   letter-spacing: .1em; text-transform: uppercase;
   color: rgba(255,255,255,.65);
   margin-top: 3px;
@@ -156,7 +156,7 @@ body {
 }
 .state-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
   gap: 8px;
 }
 .state-btn {
@@ -179,7 +179,7 @@ body {
 }
 .state-btn .count {
   margin-left: auto;
-  font-size: .72rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   color: var(--clay);
   background: var(--sand);
   border-radius: 99px;
@@ -215,7 +215,7 @@ body {
 }
 .card-company { font-size:.75rem; font-weight:600; color:var(--clay); margin-bottom:2px; }
 .card-sep { border:none; border-top:1px solid var(--sand-dk); margin:10px 0; }
-.card-phone, .card-email { font-size:.8rem; color:var(--ink); text-decoration:none; display:block; margin-bottom:5px; }
+.card-phone, .card-email { overflow-wrap: anywhere; word-break: break-all; font-size:.8rem; color:var(--ink); text-decoration:none; display:block; margin-bottom:5px; }
 .card-phone:hover, .card-email:hover { color:var(--clay); }
 .card-body { padding: 0; flex: 1; }
 .card-name {
@@ -241,7 +241,7 @@ body {
   display: flex; flex-wrap: wrap; gap: 5px;
 }
 .card-spec {
-  font-size: .68rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   letter-spacing: .06em; text-transform: uppercase;
   color: var(--clay);
   background: var(--sand);
@@ -289,7 +289,7 @@ body {
 .step-num {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem; font-weight: 700;
-  color: var(--sand-dk); line-height: 1;
+  color: var(--sand-dk); line-height: 1.45;
   margin-bottom: 14px;
 }
 .step-title {
@@ -356,7 +356,7 @@ footer {
 }
 .footer-links a:hover { color: rgba(255,255,255,.7); }
 .footer-copy {
-  font-size: .72rem; color: rgba(255,255,255,.2);
+  font-size: .78rem; color: rgba(255,255,255,.2);
   letter-spacing: .04em;
 }
 
@@ -391,6 +391,16 @@ footer {
   .agent-grid { grid-template-columns: 1fr; }
   .state-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
   .btn-cta { font-size: .85rem; padding: 12px 20px; }
+}
+
+@media (max-width: 479px) {
+  .card-name { font-size: .95rem; }
+  .card-company { font-size: .78rem; }
+  .card-loc { font-size: .78rem; }
+  .card-phone, .card-email { font-size: .85rem; min-height: 40px; align-items: center; }
+  .card-footer { padding-top: 8px; }
+  .stat-label { font-size: .78rem; }
+  .footer-copy { font-size: .78rem; }
 }
 </style>
 </head>

@@ -100,14 +100,14 @@ body {
   opacity: .5; pointer-events: none;
 }
 .hero-label {
-  font-size: .7rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--clay); margin-bottom: 8px;
 }
 .hero-name {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 5vw, 2.6rem);
-  font-weight: 700; line-height: 1.1;
+  font-weight: 700; line-height: 1.45;
   color: var(--ink); margin-bottom: 8px;
 }
 .hero-company { font-size:.85rem; font-weight:600; color:var(--clay); margin-bottom:4px; }
@@ -137,12 +137,12 @@ body {
   display: flex; align-items: center;
   gap: 6px; flex-wrap: wrap; justify-content: center;
 }
-.contact-link {
+.contact-link { overflow-wrap: anywhere;
   display: inline-flex; align-items: center; gap: 7px;
-  font-size: .72rem; font-weight: 500;
+  font-size: .78rem; font-weight: 500;
   letter-spacing: .05em; text-transform: uppercase;
   color: rgba(255,255,255,.65); text-decoration: none;
-  padding: 9px 12px;
+  padding: 11px 12px;
   border-radius: var(--r);
   border: 1px solid rgba(255,255,255,.12);
   transition: color .2s, border-color .2s, background .2s;
@@ -155,7 +155,7 @@ body {
   font-family: 'Jost', sans-serif;
   font-size: .78rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase;
-  padding: 9px 18px; border-radius: var(--r);
+  padding: 11px 18px; border-radius: var(--r);
   border: none; cursor: pointer;
   transition: background .2s;
   white-space: nowrap;
@@ -200,7 +200,7 @@ body {
 .claims-bullet { flex-shrink: 0; margin-top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--clay); }
 .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
-  font-size: .74rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   letter-spacing: .07em; text-transform: uppercase;
   color: var(--clay); background: var(--sand);
   border: 1px solid var(--border);
@@ -260,11 +260,11 @@ body {
 }
 .modal-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
 .modal-field label {
-  font-size: .7rem; font-weight: 600;
+  font-size: .78rem; font-weight: 600;
   letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
 }
 .modal-field input, .modal-field textarea {
-  font-family: 'Jost', sans-serif; font-size: .93rem;
+  font-family: 'Jost', sans-serif; font-size: 1rem;
   color: var(--ink); background: var(--cream);
   border: 1px solid var(--border); border-radius: var(--r);
   padding: 9px 13px; outline: none; resize: vertical;
@@ -293,7 +293,7 @@ body {
 footer {
   background: #162017; padding: 20px 16px; text-align: center;
 }
-.footer-copy { font-size: .72rem; color: rgba(255,255,255,.2); letter-spacing: .04em; }
+.footer-copy { font-size: .78rem; color: rgba(255,255,255,.2); letter-spacing: .04em; }
 .footer-copy a { color: rgba(255,255,255,.35); text-decoration: none; }
 .footer-copy a:hover { color: rgba(255,255,255,.6); }
 
@@ -319,19 +319,31 @@ footer {
   .hero-name { font-size: clamp(1.4rem, 5vw, 1.9rem); }
   .contact-bar { padding: 8px 12px; top: 48px; }
   .contact-bar-inner { gap: 6px; flex-wrap: wrap; }
-  .contact-link { font-size: .78rem; padding: 8px 10px; }
-  .btn-contact { font-size: .78rem; padding: 8px 14px; }
+  .contact-link { overflow-wrap: anywhere; font-size: .78rem; padding: 11px 10px; }
+  .btn-contact { font-size: .78rem; padding: 11px 14px; }
   .content-body { padding: 16px 16px 48px; }
   .section-title { font-size: 1rem; }
   .bio-text { font-size: .9rem; line-height: 1.7; }
-  .spec-tag { font-size: .68rem; padding: 4px 10px; }
+  .spec-tag { font-size: .78rem; padding: 4px 10px; }
   #contact-modal .modal-inner { border-radius: 12px 12px 0 0; padding: 20px 16px; }
   .modal-field label { font-size: .8rem; }
-  .modal-field input, .modal-field textarea { font-size: .9rem; padding: 9px 12px; }
+  .modal-field input, .modal-field textarea { font-size: 1rem; padding: 11px 14px; }
 }
 @media (max-width: 374px) {
   .contact-bar-inner { gap: 4px; }
   .contact-link span { display: none; }
+}
+
+@media (max-width: 639px) {
+  .modal-field input, .modal-field textarea { font-size: 1rem !important; }
+  .btn-send, .btn-cancel { min-height: 44px; font-size: .9rem; }
+  .spec-tag { font-size: .72rem; padding: 5px 11px; }
+  .breadcrumb { font-size: .78rem; }
+  .section-body { font-size: .92rem; line-height: 1.7; }
+  .hero-label { font-size: .78rem; }
+  .hero-location { font-size: .82rem; }
+  .bar-phone-text, .bar-email-text { font-size: .8rem; }
+  .contact-link { min-height: 44px; }
 }
 </style>
 </head>
@@ -527,7 +539,7 @@ function render(a) {
 
   // bio
   if (a.bio?.trim()) {
-    document.getElementById('bio-text').textContent = a.bio;
+    document.getElementById('bio-text').textContent = a.bio; document.getElementById('bio-text').style.wordBreak = 'break-word';
     document.getElementById('bio-section').style.display = '';
   }
 
