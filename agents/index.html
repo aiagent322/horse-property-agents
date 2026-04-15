@@ -85,15 +85,13 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
 
 /* GRID */
 .agents-wrap{max-width:var(--max);margin:0 auto;padding:16px 16px 60px;}
-.agent-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
-}
+.agent-grid{display:grid;gap:12px;}
+@media(min-width:640px){.agent-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.agent-grid{grid-template-columns:1fr 1fr 1fr;}}
 .agent-card{
   border:1px solid var(--border);border-radius:var(--r);
-  overflow:hidden;text-decoration:none;color:inherit;
-  background:var(--white);display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;background:var(--white);
+  display:flex;flex-direction:column;padding:18px 20px 14px;
   transition:border-color .2s,box-shadow .2s,transform .15s;
 }
 .agent-card:hover{
@@ -101,38 +99,27 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
   box-shadow:0 4px 20px rgba(139,94,60,.12);
   transform:translateY(-2px);
 }
-.card-img-wrap{
-  aspect-ratio:3/2;overflow:hidden;
-  background:var(--sand-dk);flex-shrink:0;
-}
-.card-img-wrap img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .35s;
-}
-.agent-card:hover .card-img-wrap img{transform:scale(1.04);}
-.card-body{padding:14px 16px;flex:1;}
 .card-name{
   font-family:'Playfair Display',serif;
-  font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;
+  font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:2px;
 }
-.card-loc{font-size:.78rem;color:var(--muted);margin-bottom:8px;}
-.card-tagline{font-size:.82rem;color:#5a4a38;line-height:1.5;font-style:italic;}
+.card-company{font-size:.78rem;color:var(--clay);font-weight:600;margin-bottom:2px;}
+.card-loc{font-size:.78rem;color:var(--muted);margin-bottom:10px;}
+.card-contact{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.card-contact a{font-size:.82rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.card-contact a:hover{color:var(--clay);}
 .card-footer{
-  padding:9px 16px;border-top:1px solid var(--sand-dk);
+  margin-top:auto;padding-top:10px;border-top:1px solid var(--sand-dk);
   display:flex;align-items:center;justify-content:space-between;
 }
 .card-specs{display:flex;flex-wrap:wrap;gap:5px;}
 .card-spec{
-  font-size:.68rem;font-weight:600;letter-spacing:.06em;
+  font-size:.65rem;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--clay);
   background:var(--sand);border-radius:99px;padding:3px 9px;
 }
 .card-arrow{color:var(--clay);font-size:1rem;transition:transform .2s;}
 .agent-card:hover .card-arrow{transform:translateX(3px);}
-.card-company{font-size:.75rem;color:var(--muted);margin-bottom:6px;font-weight:500;}
-.card-contact{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;}
-.card-contact a{font-size:.78rem;color:var(--clay);text-decoration:none;}
-.card-contact a:hover{text-decoration:underline;}
 
 /* EMPTY STATE */
 .empty-state{
@@ -239,22 +226,14 @@ function parseSpecs(val) {
 function cardHTML(a) {
   const loc = [a.city, a.state].filter(Boolean).join(', ');
   const specs = parseSpecs(a.specialties).slice(0, 2);
-  const img = a.profile_image
-    ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
-    : '';
-  const contact = [
-    a.phone ? `<a href="tel:${a.phone.replace(/\D/g,'')}" onclick="event.stopPropagation()">📞 ${a.phone}</a>` : '',
-    a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()">✉ ${a.email}</a>` : ''
-  ].filter(Boolean).join('');
   return `
   <a href="/agent/${a.slug}/" class="agent-card">
-      ${img ? `<div class="card-img-wrap">${img}</div>` : ''}
-    <div class="card-body">
-      <div class="card-name">${a.name}</div>
-      ${a.company ? `<div class="card-company">${a.company}</div>` : ''}
-      <div class="card-loc">${loc}</div>
-      ${a.tagline ? `<div class="card-tagline">${a.tagline}</div>` : ''}
-      ${contact ? `<div class="card-contact">${contact}</div>` : ''}
+    <div class="card-name">${a.name}</div>
+    ${a.company ? `<div class="card-company">${a.company}</div>` : ''}
+    <div class="card-loc">${loc}</div>
+    <div class="card-contact">
+      ${a.phone ? `<a href="tel:${a.phone.replace(/\D/g,'')}" onclick="event.stopPropagation()">📞 ${a.phone}</a>` : ''}
+      ${a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()">✉ ${a.email}</a>` : ''}
     </div>
     <div class="card-footer">
       <div class="card-specs">${specs.map(s => `<span class="card-spec">${s}</span>`).join('')}</div>
