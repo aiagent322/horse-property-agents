@@ -129,6 +129,10 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
 }
 .card-arrow{color:var(--clay);font-size:1rem;transition:transform .2s;}
 .agent-card:hover .card-arrow{transform:translateX(3px);}
+.card-company{font-size:.75rem;color:var(--muted);margin-bottom:6px;font-weight:500;}
+.card-contact{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;}
+.card-contact a{font-size:.78rem;color:var(--clay);text-decoration:none;}
+.card-contact a:hover{text-decoration:underline;}
 
 /* EMPTY STATE */
 .empty-state{
@@ -238,13 +242,19 @@ function cardHTML(a) {
   const img = a.profile_image
     ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
     : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}" loading="lazy">`;
+  const contact = [
+    a.phone ? `<a href="tel:${a.phone.replace(/\D/g,'')}" onclick="event.stopPropagation()">📞 ${a.phone}</a>` : '',
+    a.email ? `<a href="mailto:${a.email}" onclick="event.stopPropagation()">✉ ${a.email}</a>` : ''
+  ].filter(Boolean).join('');
   return `
   <a href="/agent/${a.slug}/" class="agent-card">
     <div class="card-img-wrap">${img}</div>
     <div class="card-body">
       <div class="card-name">${a.name}</div>
+      ${a.company ? `<div class="card-company">${a.company}</div>` : ''}
       <div class="card-loc">${loc}</div>
       ${a.tagline ? `<div class="card-tagline">${a.tagline}</div>` : ''}
+      ${contact ? `<div class="card-contact">${contact}</div>` : ''}
     </div>
     <div class="card-footer">
       <div class="card-specs">${specs.map(s => `<span class="card-spec">${s}</span>`).join('')}</div>
@@ -336,7 +346,7 @@ function removePagination() {
 async function init() {
   const { data } = await db
     .from('agents')
-    .select('name,slug,city,state,profile_image,tagline,specialties')
+    .select('name,slug,city,state,profile_image,tagline,specialties,phone,email,company')
     .order('name', { ascending: true })
     .limit(1000);
 
