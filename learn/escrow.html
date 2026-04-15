@@ -3,173 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How Escrow Works for Horse Property | HorsePropertyAgents.com</title>
-<meta name="description" content="A step-by-step guide to the escrow process for horse property transactions — from opening escrow to closing day, including what's different about rural and agricultural closings.">
+<title>How Escrow Works on a Horse Property | HorsePropertyAgents.com</title>
+<meta name="description" content="Horse property escrows run 45–60 days and involve water rights transfers, agricultural appraisals, well and septic tests, barn inspections, and rural title searches that most escrow officers have never handled. Here's every step.">
 <link rel="canonical" href="https://horsepropertyagents.com/learn/escrow.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1a1410;--clay:#8b5e3c;--sand:#f5ede0;--sand-dk:#e8d9c4;--cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;--max:860px;--r:6px;}
+:root{
+  --ink:#1a1410;--clay:#8b5e3c;--sand:#f5ede0;--sand-dk:#e8d9c4;
+  --cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;
+  --green:#2c5f2e;--warn-bg:#fff8e8;--warn-border:#c49a2c;
+  --danger-bg:#fde8e8;--danger-border:#c42c2c;
+  --max:840px;--r:6px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.7;}
-.hero{background:var(--white);border-bottom:1px solid var(--border);padding:40px 20px 36px;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.75;}
+
+/* HERO */
+.hero{background:var(--green);padding:44px 20px 40px;}
 .hero-inner{max-width:var(--max);margin:0 auto;}
-.breadcrumb{font-size:.78rem;color:var(--muted);margin-bottom:14px;}
-.breadcrumb a{color:var(--clay);text-decoration:none;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.25;}
-.hero-sub{font-size:1rem;color:var(--muted);max-width:640px;line-height:1.6;}
-.content{max-width:var(--max);margin:0 auto;padding:40px 20px 72px;}
-h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--sand-dk);}
-h2:first-of-type{margin-top:0;}
-h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--clay);margin:24px 0 8px;}
-p{margin-bottom:16px;font-size:.97rem;color:#2a2018;}
-ul,ol{margin:0 0 16px 20px;font-size:.97rem;color:#2a2018;}
-li{margin-bottom:8px;line-height:1.65;}
-.timeline{position:relative;padding-left:28px;margin:24px 0;}
-.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--sand-dk);}
-.tl-step{position:relative;margin-bottom:28px;}
-.tl-step::before{content:'';position:absolute;left:-24px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--clay);border:2px solid var(--white);box-shadow:0 0 0 2px var(--clay);}
-.tl-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--clay);margin-bottom:3px;}
-.tl-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
-.tl-body{font-size:.9rem;color:#2a2018;line-height:1.6;}
-.tip{background:var(--sand);border-left:3px solid var(--clay);border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:24px 0;font-size:.92rem;}
-.tip strong{color:var(--clay);}
-.warn{background:#fff8e8;border-left:3px solid #c49a2c;border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:24px 0;font-size:.92rem;}
-.cost-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem;}
-.cost-table th{background:var(--sand-dk);padding:10px 14px;text-align:left;font-family:'Playfair Display',serif;font-weight:700;font-size:.85rem;}
-.cost-table td{padding:10px 14px;border-bottom:1px solid var(--sand-dk);vertical-align:top;}
+.breadcrumb{font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:14px;}
+.breadcrumb a{color:rgba(255,255,255,.75);text-decoration:none;}
+.breadcrumb a:hover{color:#fff;}
+.hero-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px;}
+.hero-sub{font-size:.97rem;color:rgba(255,255,255,.78);max-width:620px;line-height:1.65;}
+
+/* STAT STRIP */
+.stat-strip{background:var(--white);border-bottom:1px solid var(--border);}
+.stat-strip-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.stat-cell{background:var(--white);padding:18px 20px;text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--clay);display:block;margin-bottom:3px;}
+.stat-label{font-size:.78rem;color:var(--muted);line-height:1.4;}
+
+/* CONTENT */
+.content{max-width:var(--max);margin:0 auto;padding:44px 20px 72px;}
+.section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--sand-dk);}
+.section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+
+h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--ink);margin-bottom:16px;line-height:1.25;}
+h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--clay);margin:22px 0 8px;}
+h3:first-of-type{margin-top:0;}
+p{margin-bottom:14px;font-size:.95rem;color:#2a2018;line-height:1.7;}
+ul{margin:0 0 14px 18px;}
+li{margin-bottom:8px;font-size:.95rem;color:#2a2018;line-height:1.6;}
+strong{color:var(--ink);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px;margin:24px 0;}
+.timeline::before{content:'';position:absolute;left:13px;top:8px;bottom:8px;width:2px;background:var(--sand-dk);}
+.tl-step{position:relative;margin-bottom:32px;}
+.tl-step:last-child{margin-bottom:0;}
+.tl-dot{position:absolute;left:-32px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--clay);border:3px solid var(--white);box-shadow:0 0 0 2px var(--clay);}
+.tl-step.closing .tl-dot{background:var(--green);box-shadow:0 0 0 2px var(--green);}
+.tl-day{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--clay);margin-bottom:3px;}
+.tl-step.closing .tl-day{color:var(--green);}
+.tl-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:7px;}
+.tl-body{font-size:.9rem;color:#2a2018;line-height:1.65;}
+.tl-horse{background:var(--sand);border-radius:var(--r);padding:10px 13px;margin-top:10px;font-size:.85rem;color:var(--ink);line-height:1.55;}
+.tl-horse::before{content:"🐎 Horse property note: ";font-weight:700;color:var(--clay);}
+
+/* UNIQUE ITEMS GRID */
+.unique-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.unique-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;}
+.unique-card.warn{border-color:var(--warn-border);background:var(--warn-bg);}
+.unique-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:7px;}
+.unique-body{font-size:.86rem;color:#2a2018;line-height:1.6;}
+
+/* COST TABLE */
+.table-wrap{overflow-x:auto;margin:20px 0;}
+.cost-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+.cost-table th{background:var(--sand-dk);padding:10px 12px;text-align:left;font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);}
+.cost-table td{padding:10px 12px;border-bottom:1px solid var(--sand-dk);vertical-align:top;line-height:1.5;}
 .cost-table tr:last-child td{border-bottom:none;}
-.cost-table tr:nth-child(even) td{background:rgba(245,237,224,.4);}
-.cta-block{background:#2c5f2e;border-radius:var(--r);padding:28px 24px;margin-top:48px;text-align:center;}
-.cta-block h3{color:#fff;font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:8px;}
-.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:18px;}
-.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:12px 28px;border-radius:var(--r);}
+.cost-table tr:nth-child(even) td{background:rgba(245,237,224,.35);}
+.paid-buyer{color:var(--clay);font-size:.75rem;font-weight:700;}
+.paid-seller{color:var(--green);font-size:.75rem;font-weight:700;}
+.paid-split{color:var(--muted);font-size:.75rem;font-weight:700;}
+
+/* DEAL KILLERS */
+.killer-list{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0;}
+.killer{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--danger-border);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;}
+.killer-title{font-weight:700;font-size:.92rem;color:var(--ink);margin-bottom:4px;}
+.killer-body{font-size:.85rem;color:#2a2018;line-height:1.55;}
+.killer-fix{font-size:.82rem;color:var(--green);margin-top:5px;font-weight:600;}
+.killer-fix::before{content:"Fix: ";}
+
+/* CALLOUTS */
+.callout{background:var(--sand);border-left:3px solid var(--clay);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.callout strong{color:var(--clay);}
+.warn-box{background:var(--warn-bg);border-left:3px solid var(--warn-border);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.warn-box strong{color:#7a5c1a;}
+
+/* CTA */
+.cta-block{background:var(--green);border-radius:var(--r);padding:32px 24px;margin-top:48px;text-align:center;}
+.cta-block h2{color:#fff;font-size:1.3rem;margin-bottom:8px;}
+.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:20px;}
+.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:13px 30px;border-radius:var(--r);}
 .cta-btn:hover{background:#a06b44;}
+
 footer{background:#162017;padding:20px 16px;text-align:center;}
 .footer-copy{font-size:.78rem;color:rgba(255,255,255,.25);}
 .footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
-@media(max-width:479px){.hero{padding:24px 16px 20px;}.content{padding:28px 16px 48px;}h2{font-size:1.2rem;}p,li{font-size:.93rem;}.timeline{padding-left:22px;}}
+
+@media(max-width:599px){
+  .stat-strip-inner{grid-template-columns:1fr;gap:0;}
+  .stat-cell{border-bottom:1px solid var(--border);padding:14px 16px;}
+  .stat-cell:last-child{border-bottom:none;}
+  .unique-grid{grid-template-columns:1fr;}
+}
+@media(max-width:479px){
+  .hero{padding:28px 16px 24px;}
+  .content{padding:28px 16px 48px;}
+  .timeline{padding-left:24px;}
+  .tl-dot{left:-24px;}
+  .timeline::before{left:8px;}
+}
 </style>
 </head>
 <body>
 <script src="/nav.js"></script>
+
 <div class="hero">
   <div class="hero-inner">
-    <div class="breadcrumb"><a href="/">Home</a> › <a href="/learn/">Learn</a> › Escrow</div>
-    <h1 class="hero-title">How the Escrow Process Works for Horse Property</h1>
-    <p class="hero-sub">Escrow is the protected period between an accepted offer and closing day — when due diligence happens, financing is finalized, and ownership legally transfers. Horse property escrows are longer and more complex than residential closings. Here's what to expect.</p>
+    <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/learn/">Buyer's Guide</a> &rsaquo; Escrow</div>
+    <div class="hero-eyebrow">Buyer &amp; Seller Guide</div>
+    <h1 class="hero-title">How Escrow Works on a Horse Property — Step by Step</h1>
+    <p class="hero-sub">Horse property escrows are longer, more complex, and involve more moving parts than any residential closing. Water rights transfers, agricultural appraisals, well and septic inspections, barn surveys, rural title searches — here's exactly what happens between accepted offer and closing day.</p>
+  </div>
+</div>
+
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="stat-cell"><span class="stat-num">45–60</span><span class="stat-label">days typical escrow length for a financed horse property purchase</span></div>
+    <div class="stat-cell"><span class="stat-num">8+</span><span class="stat-label">separate inspections a thorough horse property buyer should order</span></div>
+    <div class="stat-cell"><span class="stat-num">30 days</span><span class="stat-label">extra time to budget vs. a residential closing for the same price point</span></div>
   </div>
 </div>
 
 <div class="content">
 
-  <h2>What Is Escrow?</h2>
-  <p>Escrow is a neutral third-party arrangement where an escrow officer — employed by a title company or escrow company — holds all funds, documents, and instructions from both buyer and seller until all contract conditions are met. Neither party can access funds or transfer title until every condition is satisfied.</p>
-  <p>The escrow officer doesn't represent buyer or seller. They follow the written instructions in the purchase contract exactly. Their job is to protect both parties by ensuring nothing transfers until everyone has met their obligations.</p>
+  <!-- SECTION 1: WHAT IS ESCROW -->
+  <div class="section">
+    <h2>What Escrow Is and Who Controls It</h2>
+    <p>Escrow is a neutral holding arrangement. A licensed escrow officer — employed by a title company or independent escrow firm — receives all funds, documents, and written instructions from buyer and seller, then holds everything until every condition in the purchase contract has been satisfied. Nobody gets anything until all conditions are met.</p>
+    <p>The escrow officer works for neither buyer nor seller. They follow the purchase contract to the letter. Their job is mechanical and protective — not advisory. They don't tell you whether to remove a contingency, whether the appraisal is fair, or whether the inspection results are acceptable. That's your agent's job.</p>
 
-  <div class="tip"><strong>Note:</strong> In some eastern and midwestern states, attorneys handle what escrow companies do in the West. The process and protections are similar — the title company or attorney acts as the neutral closing agent.</div>
+    <div class="callout"><strong>Important regional note:</strong> In most western states, a title or escrow company manages closing. In many eastern and midwestern states, a real estate attorney handles the same functions. The protections are equivalent — the institution running it differs. Know which applies in your state before opening escrow.</div>
 
-  <h2>The Escrow Timeline: Step by Step</h2>
+    <p>The escrow file contains: the purchase agreement and all addenda, earnest money funds, title commitment and title search results, loan documents, inspection reports (once provided), disclosure packages, and all closing instructions. Nothing transfers — deed, funds, title — until the escrow officer confirms every condition has been met and every document signed.</p>
+  </div>
 
-  <div class="timeline">
-    <div class="tl-step">
-      <div class="tl-label">Day 1</div>
-      <div class="tl-title">Offer Accepted — Escrow Opens</div>
-      <div class="tl-body">Once buyer and seller sign the purchase agreement, the listing agent sends it to the escrow/title company. Escrow is officially opened. The buyer typically has 1–3 days to deliver an earnest money deposit — usually 1–3% of purchase price — into the escrow account. This deposit is at risk if the buyer backs out without a contractual reason.</div>
-    </div>
+  <!-- SECTION 2: TIMELINE -->
+  <div class="section">
+    <h2>The Complete Escrow Timeline</h2>
+    <p>Every horse property escrow is different, but the sequence below covers the full lifecycle of a standard financed purchase. Cash purchases compress significantly — eliminate the appraisal and loan processing steps and most cash escrows close in 21–30 days.</p>
 
-    <div class="tl-step">
-      <div class="tl-label">Days 1–5</div>
-      <div class="tl-title">Title Search Begins</div>
-      <div class="tl-body">The title company searches public records to verify the seller's legal ownership and identify any liens, judgments, encumbrances, or title defects. For horse properties, this includes water rights, easements, mineral rights severances, agricultural deed restrictions, and any unpaid property taxes. Title searches on rural properties can uncover decades of complicated history.</div>
-    </div>
+    <div class="timeline">
 
-    <div class="tl-step">
-      <div class="tl-label">Days 1–10</div>
-      <div class="tl-title">Inspections and Due Diligence</div>
-      <div class="tl-body">The buyer's inspection period. For horse properties this typically includes: home inspection, well flow test and water quality, septic inspection, barn and outbuilding structural inspection, pest/termite inspection of all wood structures, arena drainage assessment, and survey review. Horse property inspection periods are typically 10–21 days — longer than residential. Don't let anyone rush this.</div>
-    </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Day 1 — Offer Accepted</div>
+        <div class="tl-title">Escrow Opens, Earnest Money Due</div>
+        <div class="tl-body">The executed purchase agreement goes to the escrow company. Escrow is officially opened and assigned to an officer. The buyer has 1–3 days (per contract) to wire their earnest money deposit — typically 1–3% of purchase price — into the escrow account. This money is immediately at risk: if the buyer backs out without a contractual justification, the seller may be entitled to keep it.</div>
+        <div class="tl-horse">Earnest money on horse properties often runs higher than residential — 2–3% is common. On a $700,000 horse property that's $14,000–$21,000. Confirm the wire instructions directly with the escrow officer by phone before sending — wire fraud is real.</div>
+      </div>
 
-    <div class="tl-step">
-      <div class="tl-label">Days 5–21</div>
-      <div class="tl-title">Appraisal</div>
-      <div class="tl-body">If the buyer is financing the purchase, the lender orders an appraisal. The appraiser visits the property, researches comparable sales, and delivers a report. For horse properties this takes longer than residential — expect 2–4 weeks. If the appraisal comes in below the purchase price, the buyer and seller must negotiate how to handle the gap.</div>
-    </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 1–5</div>
+        <div class="tl-title">Title Search Begins</div>
+        <div class="tl-body">The title company pulls public records to verify the seller's legal ownership and identify anything that could cloud or encumber the title — liens, judgments, unpaid taxes, prior mortgages, recorded easements, deed restrictions, and any pending legal actions against the property or owner. The preliminary title report is delivered to buyer and seller, usually within 5–10 days.</div>
+        <div class="tl-horse">Rural title searches are more complex than residential. Appraisers may find decades of complicated history — easements never recorded properly, water rights recorded under a deceased owner's name, mineral rights severed generations ago, or boundary disputes with neighboring parcels. Request the full title report and review it with your agent before removing the title contingency.</div>
+      </div>
 
-    <div class="tl-step">
-      <div class="tl-label">Days 7–30</div>
-      <div class="tl-title">Loan Processing and Underwriting</div>
-      <div class="tl-body">The lender processes the buyer's loan application — verifying income, assets, employment, and the property itself. Agricultural and rural properties often require additional underwriting scrutiny. USDA loans, Farm Credit loans, and portfolio lenders familiar with equestrian properties have different timelines than conventional lenders. Expect the full escrow period to be 30–60 days for a financed horse property purchase.</div>
-    </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 1–14</div>
+        <div class="tl-title">Inspections and Due Diligence</div>
+        <div class="tl-body">The buyer's inspection period runs concurrently with the title search. This is the most important phase of any horse property escrow — and the one where buyers most commonly make mistakes by moving too fast or ordering too few inspections.</div>
+        <div class="tl-horse">Standard horse property inspection package: (1) General home inspection, (2) Well flow test and water quality analysis, (3) Septic full load inspection, (4) Barn and outbuilding structural inspection, (5) Pest/termite inspection of all wood structures, (6) Arena drainage assessment — ideally after rain, (7) Electrical in all outbuildings, (8) Irrigation system function test. Budget $2,500–$5,000+ for the full inspection package. This is not where to cut costs.</div>
+      </div>
 
-    <div class="tl-step">
-      <div class="tl-label">Days 10–30</div>
-      <div class="tl-title">Repairs, Negotiations, Contingency Removal</div>
-      <div class="tl-body">After inspections, the buyer may request repairs or credits. This is a negotiation — sellers can agree, counter, or refuse. Once all contingencies (inspection, appraisal, financing, title) are removed in writing, the buyer's earnest money becomes non-refundable. This is a critical milestone. Don't remove contingencies until you're satisfied with due diligence.</div>
-    </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 3–10</div>
+        <div class="tl-title">Appraisal Ordered by Lender</div>
+        <div class="tl-body">If the buyer is financing, the lender orders an appraisal immediately after the loan application is submitted. The lender selects the appraiser — the buyer does not. This is where horse property transactions frequently hit problems: lenders using online platforms or national appraisal management companies often dispatch residential appraisers to complex equestrian properties, producing reports that significantly undervalue equestrian improvements.</div>
+        <div class="tl-horse">Ask your lender — before you apply — whether they can specifically request an agricultural or equestrian appraiser. Some lenders accommodate this; others cannot. Farm Credit lenders, local community banks, and portfolio lenders are more likely to use qualified agricultural appraisers than large national online lenders. If you've commissioned a pre-listing appraisal (recommended — see our appraisals guide), share it with the buyer's appraiser. It's legal and often makes the difference between an accurate report and a low one.</div>
+      </div>
 
-    <div class="tl-step">
-      <div class="tl-label">Days 28–58</div>
-      <div class="tl-title">Final Walk-Through</div>
-      <div class="tl-body">Typically 1–5 days before closing, the buyer does a final walk-through to verify the property is in the agreed condition — agreed repairs completed, no new damage, all included personal property present. For horse properties, confirm: stall fixtures are present if included, arena lighting works, automatic waterers function, irrigation systems are operational.</div>
-    </div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 5–30</div>
+        <div class="tl-title">Loan Processing and Underwriting</div>
+        <div class="tl-body">The lender processes the loan application — income verification, asset documentation, employment verification, debt-to-income analysis, and property analysis. Rural and agricultural properties face additional underwriting scrutiny that residential properties don't. Lenders must verify zoning compliance, confirm the property is insurable, and satisfy themselves that the property meets loan program guidelines.</div>
+        <div class="tl-horse">USDA Rural Development loans, Farm Credit loans, and conventional loans with agricultural features all have different underwriting timelines and requirements. Online lenders optimized for urban residential closings frequently struggle with horse properties — they may not know how to handle an agricultural exemption, a property with well and septic, or a barn that's larger than the house. A lender with rural experience is worth a slightly higher rate if it means the loan actually closes on time.</div>
+      </div>
 
-    <div class="tl-step">
-      <div class="tl-label">Closing Day</div>
-      <div class="tl-title">Funding, Recording, and Keys</div>
-      <div class="tl-body">The buyer wires closing funds (down payment plus closing costs) to escrow. The lender wires loan funds. The escrow officer disburses funds to the seller, pays off any existing liens, deducts commissions and fees, and sends the deed to the county recorder for recording. Once recorded, ownership has officially transferred. The buyer receives keys and the seller receives proceeds.</div>
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 10–25</div>
+        <div class="tl-title">Inspection Response and Negotiation</div>
+        <div class="tl-body">After inspections are complete, the buyer has the right to request repairs, price reductions, or credits — or to walk away if findings are severe enough. The seller can agree to repairs, offer credits in lieu of repairs, counter with partial remedies, or refuse and let the buyer decide whether to proceed or exit. Once the parties reach agreement, they sign an inspection resolution addendum. Items not resolved remain buyer's responsibility post-closing.</div>
+        <div class="tl-horse">On horse properties, inspection findings are frequently more significant than on residential property. A barn with structural issues, a well with inadequate flow, a failed septic, or an arena with serious drainage problems are not cosmetic repairs — they are major defects. Negotiate firmly. If the seller won't remedy or credit a material defect, the inspection contingency exists to protect you. Use it.</div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 15–35</div>
+        <div class="tl-title">Contingency Removal</div>
+        <div class="tl-body">As each condition is satisfied — inspections resolved, appraisal at value, loan approved, title cleared — the corresponding contingency is removed in writing. The order matters. Most buyers remove inspection first, then appraisal, then financing. Once a contingency is removed, the earnest money backing that contingency becomes non-refundable. Never remove a contingency under pressure if due diligence isn't complete.</div>
+        <div class="tl-horse">The financing contingency is the last to go and the most important. Do not remove it until you have a written loan commitment — not just a verbal approval, not a pre-approval letter, but a formal written commitment from underwriting. Lenders can and do pull commitments after verbal approval when they find issues during final underwriting on complex properties.</div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Days 38–55</div>
+        <div class="tl-title">Closing Disclosure and Final Loan Documents</div>
+        <div class="tl-body">Three business days before closing, federal law requires the lender to deliver the Closing Disclosure — a detailed accounting of every dollar in the transaction: loan amount, interest rate, all fees, prepaid items, and the exact cash-to-close amount. Review this document carefully. Compare it to the Loan Estimate you received when you applied. Any significant changes require explanation from the lender.</div>
+        <div class="tl-horse">Horse property closing disclosures often contain line items that residential buyers have never seen — water rights assignment fees, ditch company transfer fees, agricultural exemption proration, survey costs, and in some states, documentary transfer taxes calculated on acreage rather than purchase price. Understand every line before you sign.</div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-dot"></div>
+        <div class="tl-day">1–3 Days Before Closing</div>
+        <div class="tl-title">Final Walk-Through</div>
+        <div class="tl-body">The buyer walks the property one final time to confirm it's in the agreed condition — all agreed repairs completed, no new damage, all personal property included in the sale is present, and all personal property excluded from the sale has been removed. If the seller has already moved horses out, confirm the barn and paddocks are in acceptable condition.</div>
+        <div class="tl-horse">Walk-through checklist for horse properties: All agreed repairs completed and documented. Stall fixtures, automatic waterers, arena lighting all functioning. Irrigation systems operational. Hay and feed not included in sale has been removed. No damage to fencing or gates from the seller's move-out. All keys, gate codes, and access credentials ready for transfer.</div>
+      </div>
+
+      <div class="tl-step closing">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Closing Day</div>
+        <div class="tl-title">Funding, Recording, Transfer</div>
+        <div class="tl-body">The buyer wires closing funds to the escrow account — down payment plus closing costs minus earnest money already held. The lender wires loan proceeds. The escrow officer confirms all funds received, verifies all documents are executed, then authorizes the county recorder to record the deed. The moment the deed is recorded, ownership transfers. The escrow officer then disburses funds: seller receives proceeds, existing liens are paid off, agents receive commissions, and escrow/title fees are paid.</div>
+        <div class="tl-horse">Confirm wire instructions directly with your escrow officer by phone the morning of closing — not by email, where instructions can be intercepted and altered. Wire fraud targeting real estate transactions is sophisticated and active. One call to verify the account number before sending six figures is not excessive caution. It's mandatory.</div>
+      </div>
+
     </div>
   </div>
 
-  <h2>What's Unique About Horse Property Escrows</h2>
+  <!-- SECTION 3: HORSE PROPERTY SPECIFIC -->
+  <div class="section">
+    <h2>What Makes Horse Property Escrows Different</h2>
+    <p>Beyond the standard escrow steps, horse properties require additional processes that most escrow officers and general agents have never handled. These are the items that create delays, complications, and post-closing disputes when not managed correctly.</p>
 
-  <h3>Water Rights Transfer</h3>
-  <p>Water rights don't automatically transfer with the land in many western states — they must be explicitly assigned. Your escrow officer must ensure all water rights, ditch shares, and irrigation district memberships are properly transferred and that any required state agency notifications are filed. A missing water rights transfer discovered after closing is a serious legal problem.</p>
+    <div class="unique-grid">
 
-  <h3>Agricultural Tax Exemptions</h3>
-  <p>If the property carries an agricultural property tax exemption, the buyer must qualify to continue it. If they don't, the county may retroactively assess taxes at the higher residential rate — sometimes for multiple years. Verify exemption eligibility during due diligence, not after closing.</p>
+      <div class="unique-card warn">
+        <div class="unique-title">Water Rights Transfer</div>
+        <div class="unique-body">In western states, water rights are real property that must be explicitly transferred — they don't automatically follow the deed. The escrow officer must prepare and record separate assignments for each water right, ditch share, and irrigation district membership. In some states, the state engineer's office must be notified. A water rights transfer that falls through the cracks post-closing is a serious legal problem with expensive consequences.</div>
+      </div>
 
-  <h3>Livestock and Personal Property</h3>
-  <p>Sometimes sellers offer to include horses, equipment, or livestock in the sale. These are personal property — not real property — and must be addressed in a separate Bill of Sale, not the purchase agreement. Mixing real and personal property in a single contract creates legal and lender complications.</p>
+      <div class="unique-card warn">
+        <div class="unique-title">Agricultural Tax Exemption Transition</div>
+        <div class="unique-body">If the property carries an ag exemption, the buyer must apply to continue it with the county assessor after closing. This is not automatic. If the buyer doesn't qualify — or doesn't apply in time — the exemption lapses and property taxes increase substantially, sometimes retroactively. Understand the eligibility requirements in your county before you close, not after.</div>
+      </div>
 
-  <h3>Longer Timelines</h3>
-  <p>Horse property escrows routinely run 45–60 days. Rural lenders take longer. Agricultural appraisers take longer. Well and septic inspections add time. Surveys in rural areas take longer. Build this into your timeline and don't commit to a move date before escrow closes.</p>
+      <div class="unique-card">
+        <div class="unique-title">Livestock and Equipment — Bill of Sale</div>
+        <div class="unique-body">Any horses, livestock, farm equipment, or personal property included in the sale must be handled via a separate Bill of Sale — not in the real estate purchase agreement. Mixing personal property into a real estate contract creates legal complications and lender issues. The Bill of Sale executes simultaneously with the deed transfer but remains a separate document.</div>
+      </div>
 
-  <h2>Typical Closing Costs for Horse Property</h2>
-  <table class="cost-table">
-    <thead><tr><th>Item</th><th>Typically Paid By</th><th>Approximate Cost</th></tr></thead>
-    <tbody>
-      <tr><td>Title insurance (owner's policy)</td><td>Seller (varies by state)</td><td>0.5–1% of purchase price</td></tr>
-      <tr><td>Title insurance (lender's policy)</td><td>Buyer</td><td>$500–$1,500</td></tr>
-      <tr><td>Escrow/closing fee</td><td>Split buyer/seller</td><td>$1,500–$4,000+</td></tr>
-      <tr><td>Recording fees</td><td>Buyer</td><td>$50–$250</td></tr>
-      <tr><td>Loan origination fee</td><td>Buyer</td><td>0.5–2% of loan</td></tr>
-      <tr><td>Appraisal</td><td>Buyer</td><td>$600–$1,500+</td></tr>
-      <tr><td>Home + property inspections</td><td>Buyer</td><td>$1,500–$4,000+</td></tr>
-      <tr><td>Well flow + water quality test</td><td>Buyer</td><td>$400–$800</td></tr>
-      <tr><td>Septic inspection</td><td>Buyer</td><td>$300–$600</td></tr>
-      <tr><td>Survey (if required)</td><td>Buyer or negotiated</td><td>$1,500–$5,000+</td></tr>
-      <tr><td>Prorated property taxes</td><td>Split buyer/seller</td><td>Varies</td></tr>
-      <tr><td>Real estate commission</td><td>Seller</td><td>Negotiated</td></tr>
-    </tbody>
-  </table>
+      <div class="unique-card">
+        <div class="unique-title">Survey and Boundary Confirmation</div>
+        <div class="unique-body">Rural properties frequently have fence lines that don't match legal boundaries — sometimes by inches, sometimes by many feet. A formal survey is often required by lenders and always recommended on horse properties. Encroachments discovered during a survey must be resolved before closing — either legally addressed, insured over by title, or acknowledged in writing by both parties.</div>
+      </div>
 
-  <div class="warn"><strong>Cash to close:</strong> First-time horse property buyers are often surprised by closing costs. On a $600,000 horse property with 20% down, total cash needed at closing can easily reach $140,000–$160,000 after factoring in down payment, inspections, and closing costs. Plan accordingly.</div>
+      <div class="unique-card">
+        <div class="unique-title">Unpermitted Structure Resolution</div>
+        <div class="unique-body">If the property has unpermitted barns, arenas, or outbuildings discovered during escrow, they must be addressed. Options include retroactive permitting (requires county cooperation and code compliance), lender acceptance with title insurance coverage, price adjustment to reflect the liability, or buyer acceptance in writing. Lenders may refuse to finance a property with significant unpermitted structures.</div>
+      </div>
 
-  <h2>What Can Delay or Kill an Escrow</h2>
-  <ul>
-    <li>Low appraisal — resolved through renegotiation, second appraisal, or cash to cover gap</li>
-    <li>Title defects — prior liens, boundary disputes, unprobated estates on the title chain</li>
-    <li>Failed inspection items — structural issues in barn, well below flow requirements, failed septic</li>
-    <li>Lender issues — buyer financing falls through, underwriting requires additional documentation</li>
-    <li>Water rights complications — rights not properly assigned or in dispute</li>
-    <li>Survey discrepancies — actual fence lines don't match legal boundaries</li>
-    <li>Unpermitted structures — barn built without permits may require retroactive permitting or removal</li>
-  </ul>
+      <div class="unique-card">
+        <div class="unique-title">Longer Everything</div>
+        <div class="unique-body">Rural appraisals take 2–4 weeks, not 7–10 days. Well and septic inspections require scheduling and sometimes waiting for the right weather. Agricultural title searches uncover more history. Rural lenders underwrite more thoroughly. Surveys on multi-acre properties take longer. Budget 45–60 days for a financed horse property purchase. Don't book movers, arrange horse transport, or commit to a departure date until the loan funds.</div>
+      </div>
 
+    </div>
+  </div>
+
+  <!-- SECTION 4: CLOSING COSTS -->
+  <div class="section">
+    <h2>Closing Costs on a Horse Property</h2>
+    <p>Horse property closing costs run higher than residential — more inspections, higher appraisal fees, survey costs, and in some cases water rights transfer fees. Here's what to budget:</p>
+
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead>
+          <tr><th>Item</th><th>Who Pays</th><th>Typical Range</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Title insurance — owner's policy</td><td><span class="paid-seller">Seller</span> (varies by state)</td><td>0.5–1% of purchase price</td></tr>
+          <tr><td>Title insurance — lender's policy</td><td><span class="paid-buyer">Buyer</span></td><td>$500–$1,500</td></tr>
+          <tr><td>Escrow / closing fee</td><td><span class="paid-split">Split</span></td><td>$1,500–$4,000+</td></tr>
+          <tr><td>Recording fees</td><td><span class="paid-buyer">Buyer</span></td><td>$50–$300</td></tr>
+          <tr><td>Loan origination fee</td><td><span class="paid-buyer">Buyer</span></td><td>0.5–2% of loan amount</td></tr>
+          <tr><td>Agricultural appraisal</td><td><span class="paid-buyer">Buyer</span></td><td>$800–$1,800+</td></tr>
+          <tr><td>Home inspection</td><td><span class="paid-buyer">Buyer</span></td><td>$400–$700</td></tr>
+          <tr><td>Barn / outbuilding structural</td><td><span class="paid-buyer">Buyer</span></td><td>$300–$600</td></tr>
+          <tr><td>Well flow test + water quality</td><td><span class="paid-buyer">Buyer</span></td><td>$400–$900</td></tr>
+          <tr><td>Septic inspection</td><td><span class="paid-buyer">Buyer</span></td><td>$300–$700</td></tr>
+          <tr><td>Pest / termite (all structures)</td><td><span class="paid-buyer">Buyer</span></td><td>$300–$500</td></tr>
+          <tr><td>Survey (if required)</td><td><span class="paid-buyer">Buyer</span> or negotiated</td><td>$2,000–$6,000+</td></tr>
+          <tr><td>Water rights assignment fees</td><td><span class="paid-split">Varies</span></td><td>$200–$1,500+</td></tr>
+          <tr><td>Prorated property taxes</td><td><span class="paid-split">Split</span></td><td>Varies by close date</td></tr>
+          <tr><td>Real estate commissions</td><td><span class="paid-seller">Seller</span></td><td>Negotiated</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warn-box"><strong>Total cash to close example:</strong> On a $750,000 horse property with 20% down, budget approximately $150,000 down payment + $12,000–$18,000 in closing costs and inspections = $162,000–$168,000 total cash needed at closing. First-time rural buyers are consistently surprised by how much higher this runs than residential closings at the same price point.</div>
+  </div>
+
+  <!-- SECTION 5: DEAL KILLERS -->
+  <div class="section">
+    <h2>What Kills Horse Property Escrows</h2>
+    <p>Most failed horse property escrows fail for predictable, preventable reasons. Here are the most common — with how a prepared buyer or seller can address each one before it becomes fatal.</p>
+
+    <div class="killer-list">
+
+      <div class="killer">
+        <div class="killer-title">Low Appraisal</div>
+        <div class="killer-body">The buyer's lender appraisal comes in below the purchase price. Buyer can't cover the gap and seller won't reduce. Deal falls apart. Most common cause: lender dispatched a residential appraiser who had no framework to value the barn, arena, and water infrastructure.</div>
+        <div class="killer-fix">Sellers: commission a pre-listing appraisal from an agricultural appraiser and share it with the buyer's appraiser during escrow. Buyers: use a lender who can request an equestrian-qualified appraiser. Both: negotiate the appraisal gap remedy in advance as part of the contract.</div>
+      </div>
+
+      <div class="killer">
+        <div class="killer-title">Title Defects — Water Rights, Easements, Boundary Disputes</div>
+        <div class="killer-body">The title search uncovers water rights recorded under a deceased owner's name, an easement that prevents a planned improvement, or a recorded boundary dispute with an adjacent landowner. Escrow can't close until title is clear or both parties accept title insurance coverage over the defect.</div>
+        <div class="killer-fix">Request the preliminary title report within the first week of escrow and review it immediately. Any flags need immediate attention — some title defects take weeks to resolve through legal process. Don't wait until day 40 to look at the title report.</div>
+      </div>
+
+      <div class="killer">
+        <div class="killer-title">Failed Well — Insufficient Flow or Contamination</div>
+        <div class="killer-body">Well flow test shows 1.2 gallons per minute — barely adequate for a house, completely insufficient for horses, irrigation, and a wash rack. Or water quality test reveals elevated nitrates, bacteria, or minerals that make the water unusable without treatment. Seller says they weren't aware. Deal stalls on who pays for remediation.</div>
+        <div class="killer-fix">Sellers: get a well flow test before listing. Know your numbers. Buyers: make well inspection a condition of removal of the inspection contingency, not an afterthought. Minimum 5 GPM for a horse property is a reasonable threshold — negotiate that specifically.</div>
+      </div>
+
+      <div class="killer">
+        <div class="killer-title">Financing Failure on Rural Property</div>
+        <div class="killer-body">The buyer applied with an online lender optimized for suburban homes. The lender can't figure out how to underwrite a property with 20 acres, a well, a septic, a barn larger than the house, and an agricultural exemption. They keep asking for more documentation. Closing date passes. Seller cancels contract.</div>
+        <div class="killer-fix">Buyers: choose a lender with demonstrated rural experience before you make an offer — not after. Ask specifically: "Have you closed loans on horse properties with agricultural exemptions in this county?" If they pause, find a different lender.</div>
+      </div>
+
+      <div class="killer">
+        <div class="killer-title">Unpermitted Structures the Lender Won't Accept</div>
+        <div class="killer-body">Inspection reveals the main barn was built without permits in 1987. The lender's underwriting guidelines prohibit financing a property with unpermitted structures over a certain size. Seller can't retroactively permit a 40-year-old non-conforming structure. Buyer loses financing. Deal dies.</div>
+        <div class="killer-fix">Sellers: audit your permits before listing. Know what's permitted and what isn't. Buyers: ask about permits on every structure during the offer period — before escrow opens. Include a permit verification step in your inspection contingency.</div>
+      </div>
+
+      <div class="killer">
+        <div class="killer-title">Water Rights Don't Transfer as Expected</div>
+        <div class="killer-body">Buyer purchases property believing all water rights convey with the land. Post-closing they discover the irrigation rights were held by a separate entity, or the ditch shares were never assigned, or the seller retained senior rights. The property's agricultural use is now severely limited.</div>
+        <div class="killer-fix">Every water right associated with the property must be specifically identified in the purchase contract and explicitly assigned at closing. Work with an attorney familiar with your state's water rights law to confirm the assignment is complete before escrow closes.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
   <div class="cta-block">
-    <h3>Navigate Escrow With a Specialist</h3>
-    <p>An experienced equestrian agent has closed dozens of complex horse property escrows and knows exactly what to watch for — before it becomes a problem.</p>
+    <h2>Work With an Agent Who Has Closed Horse Property Escrows</h2>
+    <p>Every item on this page is something a specialist has dealt with before — and knows how to prevent from becoming your problem.</p>
     <a href="/agents/" class="cta-btn">Find a Specialist &rarr;</a>
   </div>
 
