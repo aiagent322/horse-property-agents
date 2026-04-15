@@ -4,137 +4,221 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Horse Property Agents vs. Brokers — What's the Difference? | HorsePropertyAgents.com</title>
-<meta name="description" content="Understand the difference between a real estate agent and a broker when buying or selling horse property — licensing, liability, representation, and who you should hire.">
+<meta name="description" content="Agent or broker — licensing, fiduciary duty, dual agency, and the one question every horse property buyer should ask before signing anything.">
 <link rel="canonical" href="https://horsepropertyagents.com/learn/agents-vs-brokers.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1a1410;--clay:#8b5e3c;--clay-lt:#c49a6c;--sand:#f5ede0;--sand-dk:#e8d9c4;--cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;--max:860px;--r:6px;}
+:root{
+  --ink:#1a1410;--clay:#8b5e3c;--sand:#f5ede0;--sand-dk:#e8d9c4;
+  --cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;
+  --green:#2c5f2e;--max:840px;--r:6px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.7;}
-.hero{background:var(--white);border-bottom:1px solid var(--border);padding:40px 20px 36px;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.75;}
+
+.hero{background:var(--green);padding:44px 20px 40px;}
 .hero-inner{max-width:var(--max);margin:0 auto;}
-.breadcrumb{font-size:.78rem;color:var(--muted);margin-bottom:14px;}
-.breadcrumb a{color:var(--clay);text-decoration:none;}
-.breadcrumb a:hover{text-decoration:underline;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.25;}
-.hero-sub{font-size:1rem;color:var(--muted);max-width:640px;line-height:1.6;}
-.content{max-width:var(--max);margin:0 auto;padding:40px 20px 72px;}
-h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--sand-dk);}
-h2:first-of-type{margin-top:0;}
-h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--clay);margin:24px 0 8px;}
-p{margin-bottom:16px;font-size:.97rem;color:#2a2018;}
-ul,ol{margin:0 0 16px 20px;font-size:.97rem;color:#2a2018;}
-li{margin-bottom:8px;line-height:1.65;}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
-.compare-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;}
-.compare-card.highlight{border-color:var(--clay);border-width:2px;}
-.compare-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.compare-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:12px;}
-.tip{background:var(--sand);border-left:3px solid var(--clay);border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:24px 0;font-size:.92rem;color:var(--ink);}
-.tip strong{color:var(--clay);}
-.table-wrap{overflow-x:auto;margin:24px 0;}
-table{width:100%;border-collapse:collapse;font-size:.9rem;}
-th{background:var(--sand-dk);color:var(--ink);font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;padding:11px 14px;text-align:left;border-bottom:2px solid var(--border);}
-td{padding:11px 14px;border-bottom:1px solid var(--sand-dk);vertical-align:top;line-height:1.55;}
-tr:last-child td{border-bottom:none;}
-tr:nth-child(even) td{background:rgba(245,237,224,.4);}
-.cta-block{background:#2c5f2e;border-radius:var(--r);padding:28px 24px;margin-top:48px;text-align:center;}
-.cta-block h3{color:#fff;font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:8px;}
-.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:18px;}
-.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:12px 28px;border-radius:var(--r);transition:background .2s;}
+.breadcrumb{font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:14px;}
+.breadcrumb a{color:rgba(255,255,255,.75);text-decoration:none;}
+.breadcrumb a:hover{color:#fff;}
+.hero-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px;}
+.hero-sub{font-size:.97rem;color:rgba(255,255,255,.78);max-width:600px;line-height:1.65;}
+
+/* QUICK REF */
+.qr-wrap{background:var(--white);border-bottom:1px solid var(--border);}
+.qr-inner{max-width:var(--max);margin:0 auto;padding:28px 20px;}
+.qr-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.qr-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+.qr-table th{background:var(--sand-dk);padding:9px 12px;text-align:left;font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);}
+.qr-table td{padding:10px 12px;border-bottom:1px solid var(--sand-dk);vertical-align:top;line-height:1.5;}
+.qr-table tr:last-child td{border-bottom:none;}
+.qr-table tr:nth-child(even) td{background:rgba(245,237,224,.35);}
+.yes{color:#2c5f2e;font-weight:700;}
+.limited{color:#8b6e2c;font-weight:700;}
+.no{color:#8b3c3c;font-weight:700;}
+
+/* CONTENT */
+.content{max-width:var(--max);margin:0 auto;padding:44px 20px 72px;}
+
+.section{margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid var(--sand-dk);}
+.section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+
+h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--ink);margin-bottom:16px;line-height:1.25;}
+h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--clay);margin:20px 0 8px;}
+p{margin-bottom:14px;font-size:.95rem;color:#2a2018;line-height:1.7;}
+ul{margin:0 0 14px 18px;}
+li{margin-bottom:7px;font-size:.95rem;color:#2a2018;line-height:1.6;}
+strong{color:var(--ink);}
+
+.license-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.lic-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;}
+.lic-card.featured{border-color:var(--clay);border-width:2px;}
+.lic-level{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.lic-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.lic-body{font-size:.88rem;color:#2a2018;line-height:1.6;}
+
+.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.rep-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+.rep-card.warn{border-color:#c49a2c;background:#fffdf0;}
+.rep-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.rep-body{font-size:.85rem;color:#2a2018;line-height:1.6;}
+.rep-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-bottom:8px;}
+.badge-for-you{background:#e3f0e3;color:#2c5f2e;}
+.badge-for-seller{background:#e3e8f0;color:#2c3e7a;}
+.badge-avoid{background:#fde8e8;color:#8b2c2c;}
+.badge-neutral{background:var(--sand);color:var(--clay);}
+
+.callout{background:var(--sand);border-left:3px solid var(--clay);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.callout strong{color:var(--clay);}
+
+.question-box{background:var(--white);border:2px solid var(--clay);border-radius:var(--r);padding:22px 24px;margin:24px 0;}
+.question-box .q-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);margin-bottom:10px;}
+.question-box .q-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.question-box .q-why{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+.cta-block{background:var(--green);border-radius:var(--r);padding:32px 24px;margin-top:48px;text-align:center;}
+.cta-block h2{color:#fff;font-size:1.3rem;margin-bottom:8px;border:none;padding:0;}
+.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:20px;}
+.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:13px 30px;border-radius:var(--r);}
 .cta-btn:hover{background:#a06b44;}
+
 footer{background:#162017;padding:20px 16px;text-align:center;}
 .footer-copy{font-size:.78rem;color:rgba(255,255,255,.25);}
 .footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
-@media(max-width:599px){.compare{grid-template-columns:1fr;}.hero{padding:24px 16px 20px;}.content{padding:28px 16px 48px;}h2{font-size:1.2rem;}p,li{font-size:.93rem;}}
+
+@media(max-width:599px){
+  .license-grid,.rep-grid{grid-template-columns:1fr;}
+  .qr-table{font-size:.8rem;}
+  .qr-table th,.qr-table td{padding:8px 10px;}
+}
+@media(max-width:479px){
+  .hero{padding:28px 16px 24px;}
+  .content{padding:28px 16px 48px;}
+  .qr-inner{padding:20px 16px;}
+}
 </style>
 </head>
 <body>
 <script src="/nav.js"></script>
+
 <div class="hero">
   <div class="hero-inner">
-    <div class="breadcrumb"><a href="/">Home</a> › <a href="/learn/">Learn</a> › Agents vs. Brokers</div>
-    <h1 class="hero-title">Agents vs. Brokers: What's the Difference for Horse Property?</h1>
-    <p class="hero-sub">Both terms get used interchangeably, but they mean different things legally. Knowing the distinction helps you understand who you're working with, who's liable, and how to choose the right representation for a horse property transaction.</p>
+    <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/learn/">Buyer's Guide</a> &rsaquo; Agents vs. Brokers</div>
+    <div class="hero-eyebrow">Buyer &amp; Seller Guide</div>
+    <h1 class="hero-title">Agents vs. Brokers: Who's Actually Working for You?</h1>
+    <p class="hero-sub">The terms get used interchangeably — they shouldn't be. License level, fiduciary duty, and who they legally represent are three different things. Here's what actually matters when you're buying or selling a horse property.</p>
+  </div>
+</div>
+
+<div class="qr-wrap">
+  <div class="qr-inner">
+    <div class="qr-label">Representation at a Glance</div>
+    <div style="overflow-x:auto;">
+      <table class="qr-table">
+        <thead>
+          <tr><th>Role</th><th>Represents</th><th>Fiduciary Duty</th><th>Can Work Independently</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Salesperson (Agent)</strong></td><td>Buyer or Seller</td><td class="yes">Yes — to their client</td><td class="no">No — must work under broker</td></tr>
+          <tr><td><strong>Broker</strong></td><td>Buyer or Seller</td><td class="yes">Yes — to their client</td><td class="yes">Yes — can own brokerage</td></tr>
+          <tr><td><strong>Dual Agent</strong></td><td>Both parties</td><td class="limited">Limited — to both</td><td>Depends on license</td></tr>
+          <tr><td><strong>Transaction Broker</strong></td><td>Neither party</td><td class="no">No fiduciary duty</td><td>Depends on state</td></tr>
+          <tr><td><strong>Broker-Owner</strong></td><td>Buyer or Seller</td><td class="yes">Yes — to their client</td><td class="yes">Yes — runs the firm</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <div class="content">
 
-  <h2>Licensing: The Core Difference</h2>
-  <p>In every U.S. state, anyone who represents buyers or sellers in a real estate transaction must hold a state-issued license. But there are two distinct license levels:</p>
+  <div class="section">
+    <h2>The License Difference — And Why It's Less Important Than You Think</h2>
+    <p>Every person representing a buyer or seller in a U.S. real estate transaction must hold a state license. There are two levels:</p>
 
-  <div class="compare">
-    <div class="compare-card">
-      <div class="compare-label">Entry Level</div>
-      <div class="compare-title">Real Estate Agent (Salesperson)</div>
-      <p style="font-size:.9rem;margin-bottom:0;">Has passed the state salesperson exam and completed required hours. Must work under a licensed broker — cannot operate independently. The agent you meet and work with day-to-day is almost always a salesperson.</p>
+    <div class="license-grid">
+      <div class="lic-card">
+        <div class="lic-level">Entry Level</div>
+        <div class="lic-title">Salesperson (Agent)</div>
+        <div class="lic-body">Passed the state salesperson exam. Must work under a supervising broker — cannot open their own firm or sign contracts independently. The person you deal with day-to-day is almost always a salesperson.</div>
+      </div>
+      <div class="lic-card featured">
+        <div class="lic-level">Advanced License</div>
+        <div class="lic-title">Broker</div>
+        <div class="lic-body">Completed additional coursework, logged more transaction hours, and passed a harder exam. Can operate independently, open their own brokerage, and supervise other agents. Carries more legal accountability.</div>
+      </div>
     </div>
-    <div class="compare-card highlight">
-      <div class="compare-label">Advanced License</div>
-      <div class="compare-title">Real Estate Broker</div>
-      <p style="font-size:.9rem;margin-bottom:0;">Has completed additional education, more transaction experience, and passed a harder broker exam. Can operate independently, open their own brokerage, and supervise agents. Higher legal accountability.</p>
+
+    <p>Here's what actually matters: <strong>license level has almost nothing to do with horse property expertise.</strong> A salesperson with 60 equestrian closings who knows water rights, ag exemptions, barn appraisal methodology, and well/septic inspection requirements will outperform a broker who has never sold an acre with a stall.</p>
+    <p>When you hire an agent, you're technically contracting with their broker — the broker is legally responsible for the agent's conduct. That's useful to know if something goes wrong, but it's not the factor that determines whether your transaction succeeds.</p>
+
+    <div class="question-box">
+      <div class="q-label">The Question That Matters More Than License Level</div>
+      <div class="q-text">"How many horse properties have you closed in the past two years, and what was the average acreage?"</div>
+      <div class="q-why">If they pause, hedge, or pivot to general rural sales — you have your answer. A horse property specialist answers this immediately and specifically.</div>
     </div>
   </div>
 
-  <p>When you hire an agent, you're actually entering a contract with their <em>broker</em> — the agent acts on the broker's behalf. The broker is ultimately responsible for the agent's conduct and compliance with real estate law.</p>
+  <div class="section">
+    <h2>The Four Types of Representation</h2>
+    <p>Who an agent legally represents — and what duties they owe you — matters far more than their license level. Know which relationship you're in before you share anything.</p>
 
-  <h2>What This Means for Horse Property Buyers</h2>
-  <p>For most buyers, the day-to-day difference between working with an agent vs. a broker is invisible. What matters far more is whether the person representing you has specific horse property experience — regardless of their license level.</p>
-  <p>A salesperson who has completed 50 equestrian transactions and understands water rights, zoning variances, agricultural exemptions, barn appraisal methodology, and well/septic inspection requirements will serve you far better than a broker who has never sold a property with a horse stall.</p>
-
-  <div class="tip"><strong>Key question to ask:</strong> "How many horse properties have you represented buyers on in the past two years, and what was the average acreage?" The answer tells you everything.</div>
-
-  <h2>Types of Representation Explained</h2>
-
-  <h3>Buyer's Agent</h3>
-  <p>Represents you — the buyer — exclusively. Their legal duty (fiduciary duty) is to you: find properties matching your needs, negotiate the best price, identify red flags, and guide you through due diligence. A buyer's agent is typically compensated by the seller's side through a commission split, though this is now negotiated separately since the 2024 NAR settlement.</p>
-
-  <h3>Listing Agent (Seller's Agent)</h3>
-  <p>Represents the seller. Their job is to market the property, attract qualified buyers, and negotiate the highest possible price for their client. When you call the number on a for-sale sign, you're calling the listing agent — they work for the seller, not you.</p>
-
-  <h3>Dual Agent</h3>
-  <p>Represents both buyer and seller in the same transaction. Legal in most states with written disclosure and consent, but inherently limited — the agent cannot fully advocate for either party. Avoid dual agency in complex horse property transactions where negotiation of improvements, water rights, and easements requires independent representation.</p>
-
-  <h3>Transaction Broker (Facilitator)</h3>
-  <p>In some states, an agent can act as a neutral facilitator without representing either party. They help process the transaction without advocating for anyone. Understand your state's rules before agreeing to this arrangement.</p>
-
-  <h2>Comparing Agent Types at a Glance</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Type</th><th>Who They Represent</th><th>Fiduciary Duty</th><th>Paid By</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Buyer's Agent</td><td>Buyer</td><td>Yes — to buyer</td><td>Typically from seller's proceeds (negotiated)</td></tr>
-        <tr><td>Listing Agent</td><td>Seller</td><td>Yes — to seller</td><td>Seller pays commission</td></tr>
-        <tr><td>Dual Agent</td><td>Both</td><td>Limited — to both</td><td>Split from transaction</td></tr>
-        <tr><td>Transaction Broker</td><td>Neither</td><td>No</td><td>Flat fee or commission</td></tr>
-        <tr><td>Broker-Owner</td><td>Whoever they represent</td><td>Yes</td><td>As negotiated</td></tr>
-      </tbody>
-    </table>
+    <div class="rep-grid">
+      <div class="rep-card">
+        <div class="rep-badge badge-for-you">Buyer's Agent</div>
+        <div class="rep-title">Works for You</div>
+        <div class="rep-body">Full fiduciary duty to the buyer. Must find properties matching your criteria, disclose known defects, negotiate your best price, and protect your interests throughout. Compensated from the seller's proceeds — you typically pay nothing directly.</div>
+      </div>
+      <div class="rep-card">
+        <div class="rep-badge badge-for-seller">Listing Agent</div>
+        <div class="rep-title">Works for the Seller</div>
+        <div class="rep-body">Full fiduciary duty to the seller. Their goal is the highest price, fastest close, best terms — for the seller. When you call the number on a for-sale sign, you're calling someone who does not represent you.</div>
+      </div>
+      <div class="rep-card warn">
+        <div class="rep-badge badge-avoid">Dual Agent</div>
+        <div class="rep-title">Works for Both — Avoid on Horse Property</div>
+        <div class="rep-body">Legal in most states with disclosure and consent, but the agent cannot fully advocate for either party. On a horse property transaction involving water rights, easement negotiations, and barn valuations — you need someone in your corner completely.</div>
+      </div>
+      <div class="rep-card">
+        <div class="rep-badge badge-neutral">Transaction Broker</div>
+        <div class="rep-title">Works for Neither</div>
+        <div class="rep-body">A neutral facilitator who processes the transaction without representing anyone. Available in some states. Know what you're agreeing to — you have no advocate in this arrangement.</div>
+      </div>
+    </div>
   </div>
 
-  <h2>Broker-Owners and Boutique Equestrian Brokerages</h2>
-  <p>In the equestrian real estate world, you'll often encounter broker-owners — licensed brokers who run their own small boutique firm specializing entirely in horse properties, ranches, and agricultural land. These specialists often have the deepest market knowledge and the most direct access to off-market inventory.</p>
-  <p>Working with a boutique equestrian brokerage means your agent typically has more autonomy, deeper community ties, and is personally accountable — there's no corporate layer between you and decision-making.</p>
+  <div class="section">
+    <h2>Boutique Equestrian Brokerages vs. Large National Firms</h2>
+    <p>In the horse property world you'll encounter two types of representation: specialists at boutique equestrian brokerages and agents at large national firms (Compass, Coldwell Banker, Sotheby's, Keller Williams) who focus on equestrian properties.</p>
+    <p>Both can be excellent. What to look for at a boutique equestrian firm: deep community ties, off-market access, direct accountability (you deal with the owner), and specialized knowledge that general real estate education doesn't cover. What a large firm offers: broader reach, more marketing resources, and name recognition that sometimes helps with high-end luxury horse properties.</p>
+    <p>The agent matters more than the brokerage. A connected equestrian specialist at any firm will outperform a generic agent at the most prestigious brand.</p>
 
-  <h2>The 2024 NAR Commission Changes</h2>
-  <p>Following a landmark antitrust settlement, buyer's agent compensation is now negotiated separately rather than automatically offered through the MLS. As a buyer of horse property, you'll sign a Buyer Representation Agreement before touring properties that specifies how your agent is compensated.</p>
-  <p>This doesn't necessarily mean you pay more — sellers may still offer buyer agent compensation as part of the deal — but it must now be explicitly negotiated. An experienced equestrian agent can walk you through exactly how this works in your state and market.</p>
+    <div class="callout"><strong>Ask this at any brokerage:</strong> "Do you have a list of horse property buyers actively looking right now?" A true equestrian specialist maintains one. If they don't, your listing hits the MLS cold with no head start.</div>
+  </div>
 
-  <h2>Which Should You Choose?</h2>
-  <p>Focus less on the license level and more on these three things:</p>
-  <ul>
-    <li><strong>Track record with horse properties specifically</strong> — not just rural or agricultural land</li>
-    <li><strong>Local knowledge of your target market</strong> — water rights laws, zoning, ag exemptions vary dramatically by county</li>
-    <li><strong>Access to off-market inventory</strong> — the best horse properties rarely appear on Zillow</li>
-  </ul>
+  <div class="section">
+    <h2>How Commission Works After the 2024 NAR Settlement</h2>
+    <p>A landmark antitrust settlement changed how buyer's agent compensation works. Before the settlement, sellers routinely offered a commission split to the buyer's agent through the MLS automatically. That's no longer the case.</p>
+    <p>As a buyer today, you'll sign a <strong>Buyer Representation Agreement</strong> before touring properties. This document specifies how your agent is compensated — either by the seller as part of the negotiation, or directly by you if the seller won't cover it.</p>
+    <p>In practice, many sellers still offer buyer agent compensation to attract more offers. But it must now be negotiated explicitly rather than assumed. An experienced equestrian agent navigates this routinely and will walk you through exactly what to expect in your specific market.</p>
+  </div>
+
+  <div class="section">
+    <h2>What to Look for — Regardless of License Level</h2>
+    <ul>
+      <li><strong>Equestrian transaction volume:</strong> Ask for specific numbers. How many horse property closings in the past 24 months? What markets?</li>
+      <li><strong>Local land knowledge:</strong> Water rights law, zoning codes, and ag exemption rules vary by county. Your agent should know yours cold.</li>
+      <li><strong>Off-market relationships:</strong> The best horse properties never hit Zillow. Your agent should have relationships that give you access before listings go public.</li>
+      <li><strong>Inspection team:</strong> Do they have a trusted well inspector, septic company, and barn structural inspector they can call? Or are they Googling it?</li>
+      <li><strong>Appraisal experience:</strong> Have they worked with agricultural appraisers? Can they provide the appraiser with proper equestrian comps if the appraisal comes in low?</li>
+    </ul>
+  </div>
 
   <div class="cta-block">
-    <h3>Find Qualified Horse Property Representation</h3>
-    <p>Browse 269 specialists who know the difference between a run-in shed and a regulation arena — and why it matters at closing.</p>
+    <h2>Find Someone Who Knows This World</h2>
+    <p>269 horse property specialists across the US — search by state, city, or specialty.</p>
     <a href="/agents/" class="cta-btn">Browse Specialists &rarr;</a>
   </div>
 
