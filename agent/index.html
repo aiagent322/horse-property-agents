@@ -110,6 +110,7 @@ body {
   font-weight: 700; line-height: 1.1;
   color: var(--ink); margin-bottom: 8px;
 }
+.hero-company { font-size:.85rem; font-weight:600; color:var(--clay); margin-bottom:4px; }
 .hero-location {
   font-size: .85rem; color: var(--muted);
   letter-spacing: .06em; margin-bottom: 12px;
@@ -343,6 +344,7 @@ footer {
       <div class="hero-text">
         <p class="hero-label">Horse Property Specialist</p>
         <h1 class="hero-name" id="hero-name"></h1>
+        <p class="hero-company" id="hero-company" style="display:none"></p>
         <p class="hero-location" id="hero-location"></p>
         <p class="hero-tagline" id="hero-tagline" style="display:none"></p>
       </div>
@@ -476,10 +478,10 @@ function render(a) {
 
   // avatar
   const av = document.getElementById('hero-avatar');
-  av.src = a.profile_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=300&background=8b5e3c&color=fff&font-size=0.4`;
-  av.alt = a.name;
+  if (a.profile_image) { av.src = a.profile_image; av.alt = a.name; } else { av.style.display = 'none'; }
 
   document.getElementById('hero-name').textContent = a.name;
+  if (a.company) { const co = document.getElementById('hero-company'); co.textContent = a.company; co.style.display = ''; }
   const loc = [a.city, a.state].filter(Boolean).join(', ');
   document.getElementById('hero-location').textContent = loc;
 
