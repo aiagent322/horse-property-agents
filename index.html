@@ -213,19 +213,11 @@ body {
   box-shadow: 0 4px 20px rgba(139,94,60,.12);
   transform: translateY(-2px);
 }
-.card-img-wrap {
-  aspect-ratio: 3/2;
-  overflow: hidden;
-  background: var(--sand-dk);
-  position: relative;
-}
-.card-img-wrap img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform .35s;
-}
-.agent-card:hover .card-img-wrap img { transform: scale(1.04); }
-.card-body { padding: 16px 18px 18px; flex: 1; }
+.card-company { font-size:.75rem; font-weight:600; color:var(--clay); margin-bottom:2px; }
+.card-sep { border:none; border-top:1px solid var(--sand-dk); margin:10px 0; }
+.card-phone, .card-email { font-size:.8rem; color:var(--ink); text-decoration:none; display:block; margin-bottom:5px; }
+.card-phone:hover, .card-email:hover { color:var(--clay); }
+.card-body { padding: 0; flex: 1; }
 .card-name {
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem; font-weight: 700;
@@ -526,31 +518,80 @@ async function loadStats() {
 }
 
 async function loadFeatured() {
-  const { data } = await db.from('agents')
-    .select('name,slug,city,state,profile_image,tagline,specialties')
+  var result = await db.from('agents')
+    .select('name,slug,city,state,phone,email,company,specialties')
+    .order('name', { ascending: true })
     .limit(8);
-  const grid = document.getElementById('agent-grid');
+  var data = result.data;
+  var grid = document.getElementById('agent-grid');
   if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
-  grid.innerHTML = data.map(a => {
-    const loc = [a.city, a.state].filter(Boolean).join(', ');
-    const specs = parseSpecs(a.specialties).slice(0, 2);
-    const img = a.profile_image
-      ? `<img src="${a.profile_image}" alt="${a.name}" loading="lazy">`
-      : `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&size=400&background=8b5e3c&color=fff&font-size=0.35" alt="${a.name}" loading="lazy">`;
-    return `
-    <a href="/agent/${a.slug}/" class="agent-card">
-      <div class="card-img-wrap">${img}</div>
-      <div class="card-body">
-        <div class="card-name">${a.name}</div>
-        <div class="card-loc">${loc}</div>
-        ${a.tagline ? `<div class="card-tagline">${a.tagline}</div>` : ''}
-      </div>
-      <div class="card-footer">
-        <div class="card-specs">${specs.map(s => `<span class="card-spec">${s}</span>`).join('')}</div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>`;
-  }).join('');
+  grid.innerHTML = '';
+  data.forEach(function(a) {
+    var card = document.createElement('a');
+    card.href = '/agent/' + a.slug + '/';
+    card.className = 'agent-card';
+
+    var name = document.createElement('div');
+    name.className = 'card-name';
+    name.textContent = a.name;
+    card.appendChild(name);
+
+    if (a.company) {
+      var co = document.createElement('div');
+      co.className = 'card-company';
+      co.textContent = a.company;
+      card.appendChild(co);
+    }
+
+    var loc = document.createElement('div');
+    loc.className = 'card-loc';
+    loc.textContent = [a.city, a.state].filter(Boolean).join(', ');
+    card.appendChild(loc);
+
+    if (a.phone || a.email) {
+      var sep = document.createElement('hr');
+      sep.className = 'card-sep';
+      card.appendChild(sep);
+      if (a.phone) {
+        var ph = document.createElement('a');
+        ph.className = 'card-phone';
+        ph.href = 'tel:' + a.phone.replace(/\D/g, '');
+        ph.textContent = a.phone;
+        ph.addEventListener('click', function(e){ e.stopPropagation(); });
+        card.appendChild(ph);
+      }
+      if (a.email) {
+        var em = document.createElement('a');
+        em.className = 'card-email';
+        em.href = 'mailto:' + a.email;
+        em.textContent = a.email;
+        em.addEventListener('click', function(e){ e.stopPropagation(); });
+        card.appendChild(em);
+      }
+    }
+
+    var specs = parseSpecs(a.specialties).slice(0, 2);
+    if (specs.length) {
+      var footer = document.createElement('div');
+      footer.className = 'card-footer';
+      var tags = document.createElement('div');
+      tags.className = 'card-specs';
+      specs.forEach(function(s) {
+        var t = document.createElement('span');
+        t.className = 'card-spec';
+        t.textContent = s;
+        tags.appendChild(t);
+      });
+      footer.appendChild(tags);
+      var arrow = document.createElement('span');
+      arrow.className = 'card-arrow';
+      arrow.textContent = '\u2192';
+      footer.appendChild(arrow);
+      card.appendChild(footer);
+    }
+
+    grid.appendChild(card);
+  });
 }
 
 async function loadStates() {
