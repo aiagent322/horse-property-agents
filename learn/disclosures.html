@@ -3,146 +3,346 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horse Property Disclosures Explained | HorsePropertyAgents.com</title>
-<meta name="description" content="What sellers must disclose when selling a horse property — zoning, water rights, easements, environmental issues, structural defects, and agricultural restrictions.">
+<title>Horse Property Disclosures: What Sellers Must Reveal | HorsePropertyAgents.com</title>
+<meta name="description" content="Disclosures on a horse property go far beyond a standard residential checklist. Water rights, zoning, unpermitted barns, easements, well and septic, ag exemptions — here's what must be disclosed and what happens if it isn't.">
 <link rel="canonical" href="https://horsepropertyagents.com/learn/disclosures.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1a1410;--clay:#8b5e3c;--sand:#f5ede0;--sand-dk:#e8d9c4;--cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;--max:860px;--r:6px;}
+:root{
+  --ink:#1a1410;--clay:#8b5e3c;--sand:#f5ede0;--sand-dk:#e8d9c4;
+  --cream:#faf7f2;--white:#fff;--muted:#7a6a58;--border:#d9c9b4;
+  --green:#2c5f2e;--warn-bg:#fff8e8;--warn-border:#c49a2c;
+  --danger-bg:#fde8e8;--danger-border:#c42c2c;
+  --max:840px;--r:6px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.7;}
-.hero{background:var(--white);border-bottom:1px solid var(--border);padding:40px 20px 36px;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.75;}
+
+/* HERO */
+.hero{background:var(--green);padding:44px 20px 40px;}
 .hero-inner{max-width:var(--max);margin:0 auto;}
-.breadcrumb{font-size:.78rem;color:var(--muted);margin-bottom:14px;}
-.breadcrumb a{color:var(--clay);text-decoration:none;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.25;}
-.hero-sub{font-size:1rem;color:var(--muted);max-width:640px;line-height:1.6;}
-.content{max-width:var(--max);margin:0 auto;padding:40px 20px 72px;}
-h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--sand-dk);}
-h2:first-of-type{margin-top:0;}
-h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--clay);margin:24px 0 8px;}
-p{margin-bottom:16px;font-size:.97rem;color:#2a2018;}
-ul,ol{margin:0 0 16px 20px;font-size:.97rem;color:#2a2018;}
-li{margin-bottom:8px;line-height:1.65;}
-.disc-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--clay);border-radius:0 var(--r) var(--r) 0;padding:18px 20px;margin-bottom:14px;}
-.disc-card h3{margin-top:0;margin-bottom:6px;font-size:1rem;}
-.disc-card p{margin-bottom:0;font-size:.9rem;}
-.tip{background:var(--sand);border-left:3px solid var(--clay);border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:24px 0;font-size:.92rem;}
-.tip strong{color:var(--clay);}
-.warn{background:#fff8e8;border-left:3px solid #c49a2c;border-radius:0 var(--r) var(--r) 0;padding:14px 18px;margin:24px 0;font-size:.92rem;}
-.warn strong{color:#8b6e2c;}
-.cta-block{background:#2c5f2e;border-radius:var(--r);padding:28px 24px;margin-top:48px;text-align:center;}
-.cta-block h3{color:#fff;font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:8px;}
-.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:18px;}
-.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:12px 28px;border-radius:var(--r);}
+.breadcrumb{font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:14px;}
+.breadcrumb a{color:rgba(255,255,255,.75);text-decoration:none;}
+.breadcrumb a:hover{color:#fff;}
+.hero-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px;}
+.hero-sub{font-size:.97rem;color:rgba(255,255,255,.78);max-width:620px;line-height:1.65;}
+
+/* TWO-TRACK BANNER */
+.track-banner{background:var(--white);border-bottom:1px solid var(--border);}
+.track-inner{max-width:var(--max);margin:0 auto;padding:24px 20px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.track-cell{background:var(--white);padding:18px 22px;}
+.track-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px;}
+.track-label.seller{color:var(--clay);}
+.track-label.buyer{color:var(--green);}
+.track-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.track-body{font-size:.85rem;color:var(--muted);line-height:1.55;}
+
+/* CONTENT */
+.content{max-width:var(--max);margin:0 auto;padding:44px 20px 72px;}
+.section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--sand-dk);}
+.section:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+
+h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--ink);margin-bottom:16px;line-height:1.25;}
+h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--clay);margin:22px 0 8px;}
+h3:first-of-type{margin-top:0;}
+p{margin-bottom:14px;font-size:.95rem;color:#2a2018;line-height:1.7;}
+ul{margin:0 0 14px 18px;}
+li{margin-bottom:8px;font-size:.95rem;color:#2a2018;line-height:1.6;}
+strong{color:var(--ink);}
+
+/* DISCLOSURE ITEMS */
+.disc-list{display:grid;grid-template-columns:1fr;gap:12px;margin:20px 0;}
+.disc-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:0;overflow:hidden;display:grid;grid-template-columns:4px 1fr;gap:0;}
+.disc-item.critical{border-color:var(--danger-border);}
+.disc-item.important{border-color:var(--warn-border);}
+.disc-item.standard{border-color:var(--border);}
+.disc-accent{background:var(--clay);}
+.disc-item.critical .disc-accent{background:var(--danger-border);}
+.disc-item.important .disc-accent{background:var(--warn-border);}
+.disc-body{padding:16px 18px;}
+.disc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px;}
+.disc-title{font-family:'Playfair Display',serif;font-size:.97rem;font-weight:700;color:var(--ink);}
+.disc-badge{flex-shrink:0;font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:99px;white-space:nowrap;}
+.badge-critical{background:var(--danger-bg);color:#8b2c2c;}
+.badge-important{background:var(--warn-bg);color:#7a5c1a;}
+.badge-standard{background:var(--sand);color:var(--clay);}
+.disc-text{font-size:.88rem;color:#2a2018;line-height:1.6;margin-bottom:8px;}
+.disc-consequence{font-size:.82rem;color:var(--muted);font-style:italic;line-height:1.5;}
+.disc-consequence::before{content:"⚠ If missed: ";font-weight:600;color:var(--warn-border);font-style:normal;}
+.disc-item.critical .disc-consequence::before{color:var(--danger-border);}
+
+/* CALLOUT BOXES */
+.callout{background:var(--sand);border-left:3px solid var(--clay);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.callout strong{color:var(--clay);}
+.warn-box{background:var(--warn-bg);border-left:3px solid var(--warn-border);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.warn-box strong{color:#7a5c1a;}
+.danger-box{background:var(--danger-bg);border-left:3px solid var(--danger-border);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin:20px 0;font-size:.92rem;line-height:1.6;}
+.danger-box strong{color:#8b2c2c;}
+
+/* INSPECTION GRID */
+.insp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+.insp-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;font-size:.85rem;color:#2a2018;line-height:1.5;}
+.insp-item strong{display:block;color:var(--ink);margin-bottom:3px;font-size:.88rem;}
+
+/* CTA */
+.cta-block{background:var(--green);border-radius:var(--r);padding:32px 24px;margin-top:48px;text-align:center;}
+.cta-block h2{color:#fff;font-size:1.3rem;margin-bottom:8px;}
+.cta-block p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:20px;}
+.cta-btn{display:inline-block;background:var(--clay);color:#fff;text-decoration:none;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:600;padding:13px 30px;border-radius:var(--r);}
 .cta-btn:hover{background:#a06b44;}
+
 footer{background:#162017;padding:20px 16px;text-align:center;}
 .footer-copy{font-size:.78rem;color:rgba(255,255,255,.25);}
 .footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
-@media(max-width:479px){.hero{padding:24px 16px 20px;}.content{padding:28px 16px 48px;}h2{font-size:1.2rem;}p,li{font-size:.93rem;}}
+
+@media(max-width:599px){
+  .track-inner{grid-template-columns:1fr;}
+  .insp-grid{grid-template-columns:1fr;}
+}
+@media(max-width:479px){
+  .hero{padding:28px 16px 24px;}
+  .content{padding:28px 16px 48px;}
+  .track-inner{padding:16px;}
+  .disc-header{flex-direction:column;gap:5px;}
+}
 </style>
 </head>
 <body>
 <script src="/nav.js"></script>
+
 <div class="hero">
   <div class="hero-inner">
-    <div class="breadcrumb"><a href="/">Home</a> › <a href="/learn/">Learn</a> › Disclosures</div>
-    <h1 class="hero-title">What Are Disclosures in a Horse Property Sale?</h1>
-    <p class="hero-sub">Disclosures are legally required statements a seller must make about known conditions of a property. For horse properties, the disclosure landscape is far more complex than a standard residential sale — and the consequences of missing one can be severe.</p>
+    <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/learn/">Buyer's Guide</a> &rsaquo; Disclosures</div>
+    <div class="hero-eyebrow">Buyer &amp; Seller Guide</div>
+    <h1 class="hero-title">Horse Property Disclosures: What Must Be Revealed and What Gets Missed</h1>
+    <p class="hero-sub">A standard residential disclosure checklist barely scratches the surface on a horse property. Water rights, unpermitted barns, zoning restrictions, easements, ag exemptions — every one of these is a material fact that must be disclosed. Miss one and you're in litigation territory.</p>
+  </div>
+</div>
+
+<div class="track-banner">
+  <div class="track-inner">
+    <div class="track-cell">
+      <div class="track-label seller">For Sellers</div>
+      <div class="track-title">Disclose everything you know. Then disclose more.</div>
+      <div class="track-body">Disclosure protects you as much as the buyer. A known defect that surfaces after closing is far more expensive — legally and financially — than disclosing it upfront and adjusting price accordingly.</div>
+    </div>
+    <div class="track-cell">
+      <div class="track-label buyer">For Buyers</div>
+      <div class="track-title">Read every disclosure. Ask about every blank.</div>
+      <div class="track-body">Disclosures tell you what the seller knows. Inspections tell you what a professional finds. You need both — and you need to act on them during due diligence, not after closing.</div>
+    </div>
   </div>
 </div>
 
 <div class="content">
 
-  <h2>What Disclosures Are and Why They Matter</h2>
-  <p>In every U.S. state, sellers are required to disclose material facts — conditions that a reasonable buyer would consider important in deciding whether to purchase and at what price. Failing to disclose a known material fact can expose a seller to lawsuits, rescission of the sale, and damages long after closing.</p>
-  <p>For horse properties, the disclosure obligation extends well beyond the standard residential checklist. Buyers need information about land, water, zoning, agricultural restrictions, structures, and environmental conditions that have no equivalent in a typical home sale.</p>
+  <!-- SECTION 1: WHAT DISCLOSURES ARE -->
+  <div class="section">
+    <h2>What Disclosures Are — and What They Aren't</h2>
+    <p>A disclosure is a seller's written statement of known material facts about a property. "Material" means anything a reasonable buyer would want to know when deciding whether to buy and at what price. The legal standard in most states is actual knowledge — sellers disclose what they know, not what they should have investigated.</p>
+    <p>This distinction matters. A seller who genuinely doesn't know their well produces 1.5 gallons per minute is not liable for failing to disclose it — but a seller who received a well test showing that flow rate and didn't mention it is exposed to serious legal risk. "I didn't know" and "I knew but didn't say" are legally very different.</p>
 
-  <div class="warn"><strong>State law governs disclosures.</strong> Disclosure requirements vary significantly by state. Arizona, California, Texas, and Colorado each have different forms, timelines, and requirements. Always work with a licensed equestrian real estate agent in your state who knows the specific forms required.</div>
+    <div class="warn-box"><strong>State law governs everything here.</strong> Disclosure forms, timelines, and required content vary significantly by state. Arizona's Seller Property Disclosure Statement covers different ground than California's TDS, which differs from Texas's Seller's Disclosure Notice. Work with a licensed agent in your state who knows exactly which forms apply and when they're due.</div>
 
-  <h2>Standard Disclosures (Required in Most States)</h2>
-
-  <div class="disc-card">
-    <h3>Seller's Property Disclosure Statement</h3>
-    <p>A comprehensive questionnaire covering known defects and conditions of the property — roof, foundation, plumbing, electrical, HVAC, pests, mold, flooding, and prior repairs. Sellers must answer truthfully to the best of their knowledge. "I don't know" is a legally acceptable answer; lying is not.</p>
+    <p>For horse properties specifically, the standard residential disclosure checklist — designed for suburban homes — is almost always insufficient. The items below are where horse property disclosures diverge from the residential norm, and where problems most commonly arise.</p>
   </div>
 
-  <div class="disc-card">
-    <h3>Lead-Based Paint Disclosure</h3>
-    <p>Federally required for homes built before 1978. Many older ranch properties, farmhouses, and barns fall into this category. Sellers must disclose any known lead paint hazards and provide buyers with an EPA pamphlet. Buyers have 10 days to conduct a lead inspection.</p>
+  <!-- SECTION 2: CRITICAL DISCLOSURES -->
+  <div class="section">
+    <h2>Critical Disclosures — These Can Unwind a Sale</h2>
+    <p>These items have derailed more horse property transactions than any other disclosure failures. Miss one and you're looking at potential rescission, damages, or both.</p>
+
+    <div class="disc-list">
+
+      <div class="disc-item critical">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Water Rights — Source, Status, and Transferability</div>
+            <div class="disc-badge badge-critical">Critical</div>
+          </div>
+          <div class="disc-text">In western states, water rights are real property — they can be worth more than the land itself and they don't automatically transfer with the deed. Sellers must disclose the source of water (well, irrigation district, surface water, municipal), the legal status of all water rights held, any restrictions on use, and any known issues with quantity or quality. If the property has irrigation ditch shares, those shares must be specifically identified and transferred. If the property uses surface water from a creek or river, the priority date and legal basis for that use must be disclosed.</div>
+          <div class="disc-consequence">Buyer discovers post-closing that water rights don't transfer or don't cover their intended use. Litigation is virtually certain. In some cases the transaction is unwound entirely.</div>
+        </div>
+      </div>
+
+      <div class="disc-item critical">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Unpermitted Structures — Barns, Arenas, Outbuildings</div>
+            <div class="disc-badge badge-critical">Critical</div>
+          </div>
+          <div class="disc-text">A barn, arena, or outbuilding built without required permits is a material defect that must be disclosed. This is far more common than most buyers realize — many equestrian improvements were built decades ago without permits, or in rural areas where owners assumed permits weren't required. Unpermitted structures may need to be retroactively permitted (expensive, time-consuming, and sometimes impossible depending on current code), removed at the owner's expense, or accepted as-is with full knowledge by the buyer. The cost and complexity of addressing unpermitted structures can easily run $20,000 to $100,000+.</div>
+          <div class="disc-consequence">Buyer discovers unpermitted barn after closing during a refinance or sale attempt. County requires permits or removal. Seller faces lawsuit for concealment of known defect.</div>
+        </div>
+      </div>
+
+      <div class="disc-item critical">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Zoning Restrictions on Horse Use</div>
+            <div class="disc-badge badge-critical">Critical</div>
+          </div>
+          <div class="disc-text">Sellers must disclose the current zoning designation and any known restrictions on equestrian use. This includes: the maximum number of horses permitted per acre, whether commercial activities (boarding, training, lessons, events) are allowed or require a conditional use permit, any prior zoning violations or complaints on record, and any pending zoning changes that could affect equestrian use. A buyer who purchases a "horse property" planning to run a boarding operation — only to discover commercial boarding requires a CUP they can't obtain — has a serious problem.</div>
+          <div class="disc-consequence">Buyer cannot use property for intended purpose. Seller knew of restrictions and failed to disclose. Buyer seeks damages and/or rescission.</div>
+        </div>
+      </div>
+
+      <div class="disc-item critical">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Easements That Restrict or Burden the Property</div>
+            <div class="disc-badge badge-critical">Critical</div>
+          </div>
+          <div class="disc-text">Any right a third party holds to use, cross, or restrict the property must be disclosed. Equestrian properties commonly carry: utility easements (which may limit where fencing or structures can be placed), access easements granting neighboring landowners the right to cross your property, irrigation ditch easements with maintenance obligations, trail easements granting public or private trail access, and conservation easements that permanently restrict development, subdivision, or certain agricultural activities. Conservation easements in particular can have profound effects on property value and use — a seller who fails to disclose one is exposing themselves to significant liability.</div>
+          <div class="disc-consequence">Buyer discovers conservation easement limits planned arena expansion or subdivision. Seller concealed known restriction. Transaction may be unwound; damages likely.</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="disc-card">
-    <h3>Natural Hazard Disclosures</h3>
-    <p>In many states, sellers must disclose whether the property is in a flood zone, fire hazard zone, earthquake fault zone, or other designated hazard area. Horse properties in the rural West are frequently in high fire risk zones — critical information for insurance costs and evacuation planning.</p>
+  <!-- SECTION 3: IMPORTANT DISCLOSURES -->
+  <div class="section">
+    <h2>Important Disclosures — These Affect Value and Use</h2>
+    <p>These items may not unwind a sale on their own, but they materially affect what the property is worth and how it can be used. Buyers who discover these after closing have grounds for damages even if not rescission.</p>
+
+    <div class="disc-list">
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Well Condition, Flow Rate, and Water Quality</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Horse properties on private wells must disclose all known information about the well — depth, age, pump condition, flow rate, and any known water quality issues. A well that produces 1.5 gallons per minute may be adequate for a small residence but entirely insufficient for a property with 10 horses, irrigated pasture, and a wash rack. Many states require a flow test and water quality report as part of the transaction. Sellers who have had problems with the well — pump failures, seasonal flow reduction, contamination — must disclose them.</div>
+          <div class="disc-consequence">Buyer discovers insufficient flow for intended horse use post-closing. Well replacement or supplemental water system costs $15,000–$50,000. Seller liable for known flow issues not disclosed.</div>
+        </div>
+      </div>
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Septic System Capacity and Condition</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Horse properties on septic must disclose the system's size (bedroom equivalents), age, last service date, and any known failures or required repairs. A septic system sized for a 3-bedroom home that has been serving a 5-bedroom house is a material defect. Properties with multiple structures — main house, guest quarters, caretaker's cottage — may have more septic load than the system was designed to handle. Many states require a septic inspection as part of the transaction; sellers should know whether theirs does.</div>
+          <div class="disc-consequence">Failed septic inspection during escrow kills deal. Or buyer discovers failing system post-closing — replacement runs $15,000–$40,000 minimum.</div>
+        </div>
+      </div>
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Agricultural Tax Exemption Status</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Many horse properties carry agricultural property tax exemptions that reduce annual taxes dramatically — sometimes by 60–80%. These exemptions are not automatic on transfer. Buyers must qualify to continue them based on their intended use of the property. A buyer who intends to keep horses as a hobby — not a commercial operation — may not qualify for an ag exemption in states that require genuine agricultural production. If the exemption is lost, property taxes can increase by several thousand dollars per year. Sellers must disclose the existence of any ag exemptions and what will be required for the buyer to maintain them.</div>
+          <div class="disc-consequence">Buyer loses ag exemption post-closing because seller didn't explain qualification requirements. Annual taxes increase $3,000–$8,000 or more on large equestrian properties.</div>
+        </div>
+      </div>
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Environmental Conditions and Prior Land Use</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Horse properties often have histories of agricultural chemical use — pesticides, herbicides, fertilizers — that may affect soil and groundwater. Underground storage tanks (diesel tanks for farm equipment are common) must be disclosed; removal of a leaking underground tank can cost $50,000 to $200,000. Prior use of the property for activities that may have caused contamination — industrial agriculture, fuel storage, chemical storage — must be disclosed. Properties adjacent to feedlots, dairies, or heavy agricultural operations may have air and water quality issues that affect habitability.</div>
+          <div class="disc-consequence">Environmental remediation cost falls on buyer who purchased without disclosure. Seller liable for cleanup costs if they knew of contamination.</div>
+        </div>
+      </div>
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">HOA Rules and Deed Restrictions on Horses</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Some equestrian communities have HOAs with specific rules governing horse keeping — maximum stall count, arena lighting hours, manure management requirements, noise restrictions, and prohibition on commercial equestrian activities. Deed restrictions — which run with the land permanently — may limit the number of horses, restrict fencing types, or prohibit boarding and training. These restrictions must be fully disclosed and the governing documents provided to the buyer during due diligence.</div>
+          <div class="disc-consequence">Buyer discovers they can't keep intended number of horses or run planned operation due to HOA rules or deed restrictions seller didn't disclose.</div>
+        </div>
+      </div>
+
+      <div class="disc-item important">
+        <div class="disc-accent"></div>
+        <div class="disc-body">
+          <div class="disc-header">
+            <div class="disc-title">Natural Hazards — Fire, Flood, and Drainage</div>
+            <div class="disc-badge badge-important">Important</div>
+          </div>
+          <div class="disc-text">Horse properties in the rural West are frequently in high fire hazard severity zones — a designation that affects insurance availability, insurance cost, and evacuation planning for animals. Sellers must disclose fire zone designation, any history of fire damage, and proximity to past fire perimeters. Flood zone status affects insurance requirements and financing. Properties with known drainage problems — arena flooding, pasture saturation, barn flooding — must disclose those issues, as drainage corrections can be expensive and complicated.</div>
+          <div class="disc-consequence">Buyer discovers property in high fire zone post-closing. Insurance costs 3x projected. Evacuation plan for horses wasn't factored into purchase decision.</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <h2>Horse Property-Specific Disclosures</h2>
-  <p>Beyond the standard forms, these are the disclosures that make equestrian transactions uniquely complex:</p>
-
-  <div class="disc-card">
-    <h3>Water Rights and Water Source</h3>
-    <p>One of the most critical disclosures in any rural or equestrian sale. Sellers must disclose the source of water (well, municipal, irrigation district, surface water), the legal status of water rights, any restrictions on use, and known issues with water quantity or quality. In western states, water rights are property — they transfer separately from the land and must be explicitly included in the contract.</p>
+  <!-- SECTION 4: STANDARD DISCLOSURES -->
+  <div class="section">
+    <h2>Standard Disclosures That Still Apply</h2>
+    <p>All of the standard residential disclosures apply to horse properties as well — they just don't cover the equestrian-specific items above. The standard forms required in most states include:</p>
+    <ul>
+      <li><strong>Seller's Property Disclosure Statement:</strong> Known defects in the home — roof, foundation, plumbing, electrical, HVAC, pests, mold, flooding history. Required in most states.</li>
+      <li><strong>Lead-based paint disclosure:</strong> Federally required for homes built before 1978. Older ranch homes, farmhouses, and barns frequently have lead paint. Buyers have 10 days to conduct lead inspection.</li>
+      <li><strong>Agency disclosure:</strong> Who the agent represents — buyer, seller, or both — must be disclosed in writing before any substantive discussion.</li>
+      <li><strong>Death on property:</strong> Most states require disclosure of a death that occurred on the property within a specified period (typically 3 years).</li>
+      <li><strong>Sex offender registry:</strong> Some states require agents to advise buyers to check the sex offender registry; sellers may be required to disclose known proximity.</li>
+    </ul>
   </div>
 
-  <div class="disc-card">
-    <h3>Well and Septic Condition</h3>
-    <p>Horse properties on private well and septic must disclose known issues with both systems. Many states require a well flow test and water quality report as part of the transaction. Septic systems must meet current capacity requirements — a 3-bedroom-equivalent septic serving a 6-bedroom home is a material defect.</p>
+  <!-- SECTION 5: DISCLOSURE VS INSPECTION -->
+  <div class="section">
+    <h2>Disclosure Is Not a Substitute for Inspection</h2>
+    <p>Disclosures tell you what the seller knows. Inspections tell you what a professional actually finds on the property. These are not interchangeable, and a thorough disclosure does not eliminate the need for thorough inspections.</p>
+    <p>A seller may genuinely not know that their arena has a drainage problem that shows up only after a significant rain event. They may not know their barn has early-stage structural issues in the header beams. They may not know their well flow rate has dropped since the last test. These aren't disclosure failures — they're exactly what inspections exist to uncover.</p>
+
+    <div class="callout"><strong>Never waive inspection contingencies on a horse property.</strong> Competitive markets create pressure to waive. Resist it. The inspection period on a horse property isn't just about the house — it's about the well, the septic, the barns, the arena drainage, and the fencing. These can cost more to fix than the house itself.</div>
+
+    <p>Critical inspections beyond the standard home inspection:</p>
+    <div class="insp-grid">
+      <div class="insp-item"><strong>Well Flow Test</strong>Confirm GPM is adequate for horses, irrigation, and residence combined. Water quality testing for bacteria, nitrates, and minerals.</div>
+      <div class="insp-item"><strong>Septic Inspection</strong>Full load test. Confirm capacity matches actual use. Check leach field condition.</div>
+      <div class="insp-item"><strong>Barn Structural</strong>Header beams, posts, roof load capacity, foundation if applicable. Roof condition and drainage.</div>
+      <div class="insp-item"><strong>Arena Drainage</strong>Grade, drainage outlets, footing condition. Check after rain if possible — problems hide in dry conditions.</div>
+      <div class="insp-item"><strong>Fence Line Survey</strong>Confirm legal boundaries match actual fence lines. Encroachments are common and expensive.</div>
+      <div class="insp-item"><strong>Pest / Termite</strong>All wood structures — barn, fencing, outbuildings — not just the residence. Wood-boring insects destroy barn structures.</div>
+      <div class="insp-item"><strong>Irrigation Systems</strong>Confirm all valves, lines, and delivery points function. Irrigation system repair can be significant.</div>
+      <div class="insp-item"><strong>Electrical in Outbuildings</strong>Barn electrical is often older, poorly grounded, or inadequate for current needs. Fire risk if not inspected.</div>
+    </div>
   </div>
 
-  <div class="disc-card">
-    <h3>Zoning and Land Use Restrictions</h3>
-    <p>Sellers must disclose the current zoning designation and any known restrictions on use. Can the buyer keep the number of horses they intend? Are commercial activities (boarding, training, lessons) permitted? Are there conditional use permits in place? Has the property ever been cited for zoning violations?</p>
+  <!-- SECTION 6: IF SELLER FAILS -->
+  <div class="section">
+    <h2>What Happens When a Seller Fails to Disclose</h2>
+    <p>If a seller knowingly conceals a material fact — or discloses something inaccurately — the buyer may have legal recourse after closing. Depending on the severity and state law, remedies can include:</p>
+    <ul>
+      <li><strong>Rescission:</strong> The sale is unwound. Buyer gets their money back, seller gets the property back. Rarely granted but possible in cases of serious fraud.</li>
+      <li><strong>Damages:</strong> Seller pays the buyer the cost to remedy the undisclosed defect — or the difference in value between what was disclosed and what actually existed.</li>
+      <li><strong>Punitive damages:</strong> In cases of willful concealment or fraud, courts may award damages beyond actual harm.</li>
+      <li><strong>License complaints:</strong> If an agent knowingly participated in or enabled the concealment, their license is at risk.</li>
+    </ul>
+
+    <div class="danger-box"><strong>The statute of limitations clock starts at discovery, not closing.</strong> In most states, buyers have 3–6 years from the date they discover a concealed defect to bring a claim — not from the date of closing. A seller who conceals a water rights problem may face a lawsuit years after they thought the transaction was closed and done.</div>
+
+    <p>This cuts both ways. Thorough disclosures protect sellers as much as buyers. An agent who pushes a seller to disclose fully — even when it's uncomfortable — is doing their job. An agent who suggests disclosure can be minimized to protect the deal is creating liability, not avoiding it.</p>
   </div>
 
-  <div class="disc-card">
-    <h3>Easements and Encumbrances</h3>
-    <p>Any rights others have to use or cross your property must be disclosed. Common equestrian property easements include utility easements, access easements for neighboring properties, trail easements, ditch/irrigation easements, and conservation easements that restrict development. Some easements significantly affect the property's value and use.</p>
-  </div>
-
-  <div class="disc-card">
-    <h3>Agricultural Exemptions and Tax Status</h3>
-    <p>Many horse properties carry agricultural tax exemptions that dramatically reduce property taxes. Sellers must disclose if these exemptions exist and whether the buyer will qualify to continue them. Loss of an ag exemption can increase annual property taxes by thousands of dollars.</p>
-  </div>
-
-  <div class="disc-card">
-    <h3>Condition of Equestrian Improvements</h3>
-    <p>Known defects in barns, arenas, fencing, and outbuildings must be disclosed. This includes known structural issues in barns, arena drainage problems, fence line encroachments, and permitted vs. unpermitted structures. A barn built without permits may need to be permitted or removed — a significant expense.</p>
-  </div>
-
-  <div class="disc-card">
-    <h3>Environmental Conditions</h3>
-    <p>Prior use of pesticides, herbicides, or fertilizers on pastures; underground storage tanks (old fuel tanks are common on ranch properties); any known soil contamination; proximity to feedlots or agricultural operations that affect air and water quality. Horse properties are occasionally adjacent to industrial agriculture — this must be disclosed.</p>
-  </div>
-
-  <div class="disc-card">
-    <h3>HOA and Deed Restrictions</h3>
-    <p>Some horse properties are in planned equestrian communities with HOAs that govern stall count, arena lighting hours, manure management, and noise. Deed restrictions may limit the number of horses, prohibit commercial activity, or restrict fencing types. All known restrictions must be disclosed.</p>
-  </div>
-
-  <h2>The Difference Between Disclosure and Inspection</h2>
-  <p>Disclosures cover what the <em>seller knows</em>. A professional inspection covers what a qualified inspector <em>discovers</em>. These are complementary — not interchangeable. Buyers should never waive inspection contingencies on horse properties, regardless of what the seller has disclosed.</p>
-  <p>Critical inspections for horse properties beyond the standard home inspection:</p>
-  <ul>
-    <li>Well flow test and water quality analysis</li>
-    <li>Septic inspection and load test</li>
-    <li>Agricultural soil report (if farming or irrigation is planned)</li>
-    <li>Structural inspection of all barns and outbuildings</li>
-    <li>Arena footing and drainage assessment</li>
-    <li>Fence line survey to confirm boundaries match legal description</li>
-    <li>Pest/termite inspection of all wood structures including barn</li>
-  </ul>
-
-  <div class="tip"><strong>Buyer protection:</strong> Request a copy of all disclosures before submitting an offer. Review them carefully with your agent. Any item marked "unknown" or left blank is a question — get the answer during due diligence, not after closing.</div>
-
-  <h2>What Happens If a Seller Fails to Disclose?</h2>
-  <p>If a seller knowingly conceals a material defect, buyers may have legal recourse even after closing — including rescission (unwinding the sale), damages for repair costs, and in cases of fraud, punitive damages. Real estate attorneys handle these cases regularly. The statute of limitations varies by state but is typically 3–6 years from discovery of the defect.</p>
-  <p>This is why experienced equestrian agents insist on thorough disclosures — they protect sellers from post-closing liability as much as they protect buyers from surprises.</p>
-
+  <!-- CTA -->
   <div class="cta-block">
-    <h3>Work With an Agent Who Knows What to Ask</h3>
-    <p>An experienced horse property specialist knows which disclosures matter in your state, what questions to ask, and how to protect you on both sides of the transaction.</p>
+    <h2>Work With an Agent Who Knows What Must Be Disclosed</h2>
+    <p>A horse property specialist ensures sellers disclose correctly and buyers understand what they're reading — on both sides of the transaction.</p>
     <a href="/agents/" class="cta-btn">Find a Specialist &rarr;</a>
   </div>
 
