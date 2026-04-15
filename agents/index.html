@@ -4,253 +4,257 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Find a Horse Property Agent | HorsePropertyAgents.com</title>
-<meta name="description" content="Browse horse property specialists across the United States. Search by name, city, or state.">
+<meta name="description" content="Browse horse property specialists across the United States. Search by state, city, or name.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#1a1410;--clay:#8b5e3c;--clay-lt:#c49a6c;
-  --sand:#f5ede0;--sand-dk:#e8d9c4;--cream:#faf7f2;
-  --white:#ffffff;--muted:#7a6a58;--border:#d9c9b4;
-  --max:1200px;--r:6px;
+:root {
+  --ink:    #1a1410;
+  --clay:   #8b5e3c;
+  --sand:   #f5ede0;
+  --sand-dk:#e8d9c4;
+  --cream:  #faf7f2;
+  --white:  #ffffff;
+  --muted:  #7a6a58;
+  --border: #d9c9b4;
+  --max:    1180px;
+  --r:      6px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-/* HEADER */
-.page-header{background:var(--white);border-bottom:1px solid var(--border);padding:28px 20px 22px;}
-.page-header-inner{max-width:var(--max);margin:0 auto;}
-.page-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--ink);margin-bottom:4px;}
-.page-sub{font-size:.88rem;color:var(--muted);margin-bottom:18px;}
+/* ─── HEADER ─── */
+.hdr { background: var(--white); border-bottom: 1px solid var(--border); padding: 28px 24px 22px; }
+.hdr-inner { max-width: var(--max); margin: 0 auto; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; margin-bottom: 6px; }
+.sub { font-size: .9rem; color: var(--muted); margin-bottom: 18px; }
+.sub strong { color: var(--ink); }
 
-/* FILTER BAR */
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;}
-.search-wrap{flex:1;min-width:200px;position:relative;}
-.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;}
-.search-wrap input{
-  width:100%;font-family:'Jost',sans-serif;font-size:.92rem;
-  color:var(--ink);background:var(--cream);
-  border:1px solid var(--border);border-radius:var(--r);
-  padding:10px 14px 10px 38px;outline:none;transition:border-color .2s;
+/* ─── FILTERS ─── */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.search-box { flex: 1; min-width: 200px; position: relative; }
+.search-box svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search-box input {
+  width: 100%; padding: 10px 12px 10px 36px;
+  font-family: 'Jost', sans-serif; font-size: .92rem;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: var(--cream); color: var(--ink); outline: none;
 }
-.search-wrap input:focus{border-color:var(--clay);}
-.state-select{
-  font-family:'Jost',sans-serif;font-size:.88rem;color:var(--ink);
-  background:var(--white);border:1px solid var(--border);border-radius:var(--r);
-  padding:10px 14px;outline:none;cursor:pointer;min-width:140px;
+.search-box input:focus { border-color: var(--clay); }
+select.state-dd {
+  padding: 10px 14px; font-family: 'Jost', sans-serif; font-size: .88rem;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: var(--white); color: var(--ink); outline: none; cursor: pointer; min-width: 140px;
 }
-.state-select:focus{border-color:var(--clay);}
-.clear-btn{
-  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:var(--muted);background:none;border:1px solid var(--border);
-  border-radius:var(--r);padding:10px 14px;cursor:pointer;
+select.state-dd:focus { border-color: var(--clay); }
+button.clr {
+  padding: 10px 16px; font-family: 'Jost', sans-serif; font-size: .78rem;
+  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--border); border-radius: var(--r);
+  background: none; color: var(--muted); cursor: pointer;
 }
-.clear-btn:hover{color:var(--ink);border-color:var(--ink);}
+button.clr:hover { color: var(--ink); border-color: var(--ink); }
 
-/* RESULTS BAR */
-.results-bar{max-width:var(--max);margin:0 auto;padding:14px 20px 0;font-size:.8rem;color:var(--muted);}
+/* ─── BODY ─── */
+.body-wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px 72px; }
+.count-bar { font-size: .8rem; color: var(--muted); padding: 14px 0 12px; min-height: 40px; }
 
-/* GRID */
-.agents-wrap{max-width:var(--max);margin:0 auto;padding:16px 20px 64px;}
-.agent-grid{display:grid;grid-template-columns:1fr;gap:12px;}
-@media(min-width:600px){.agent-grid{grid-template-columns:repeat(2,1fr);}}
-@media(min-width:900px){.agent-grid{grid-template-columns:repeat(3,1fr);}}
-@media(min-width:1200px){.agent-grid{grid-template-columns:repeat(4,1fr);}}
-
-/* CARD */
-.agent-card{
-  display:flex;flex-direction:column;
-  background:var(--white);border:1px solid var(--border);border-radius:var(--r);
-  padding:18px 18px 14px;text-decoration:none;color:inherit;
-  transition:border-color .2s,box-shadow .2s,transform .15s;
-}
-.agent-card:hover{border-color:var(--clay);box-shadow:0 4px 18px rgba(139,94,60,.13);transform:translateY(-2px);}
-.card-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.3;}
-.card-company{font-size:.75rem;font-weight:600;color:var(--clay);margin-bottom:2px;}
-.card-loc{font-size:.75rem;color:var(--muted);margin-bottom:12px;}
-.card-divider{border:none;border-top:1px solid var(--sand-dk);margin-bottom:10px;}
-.card-phone,.card-email{
-  font-size:.8rem;color:var(--ink);text-decoration:none;
-  display:flex;align-items:center;gap:6px;margin-bottom:5px;
-}
-.card-phone:hover,.card-email:hover{color:var(--clay);}
-.card-phone svg,.card-email svg{color:var(--clay);flex-shrink:0;}
-.card-spacer{flex:1;}
-.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid var(--sand-dk);}
-.card-tag{
-  font-size:.63rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--clay);background:var(--sand);border-radius:99px;padding:3px 9px;
+/* ─── GRID ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
 }
 
-/* SKELETON */
-.skel-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px;height:180px;}
-.skeleton{background:linear-gradient(90deg,var(--sand-dk) 25%,var(--sand) 50%,var(--sand-dk) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:3px;margin-bottom:10px;}
-@keyframes shimmer{to{background-position:-200% 0;}}
-.skel-line{height:13px;}
-.skel-line.w80{width:80%;}
-.skel-line.w50{width:50%;}
-.skel-line.w65{width:65%;}
-
-/* EMPTY */
-.empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;font-size:.95rem;color:var(--muted);}
-.empty-state strong{display:block;font-size:1.1rem;color:var(--ink);margin-bottom:8px;}
-
-/* PAGINATION */
-.pagination{display:flex;gap:8px;justify-content:center;padding:28px 0 0;flex-wrap:wrap;}
-.page-btn{
-  font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;
-  padding:8px 14px;border-radius:4px;cursor:pointer;border:1px solid var(--border);
-  background:var(--white);color:var(--ink);
+/* ─── CARD ─── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .18s, box-shadow .18s, transform .15s;
 }
-.page-btn.active,.page-btn:hover{border-color:var(--clay);background:var(--clay);color:#fff;}
+.card:hover { border-color: var(--clay); box-shadow: 0 4px 20px rgba(139,94,60,.1); transform: translateY(-2px); }
 
-/* FOOTER */
-footer{background:#162017;padding:20px 16px;text-align:center;}
-.footer-copy{font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.04em;}
-.footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
+.c-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 3px; }
+.c-company { font-size: .77rem; font-weight: 600; color: var(--clay); margin-bottom: 2px; }
+.c-loc { font-size: .77rem; color: var(--muted); margin-bottom: 14px; }
+
+.c-contact { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.c-contact a { display: flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--ink); text-decoration: none; }
+.c-contact a:hover { color: var(--clay); }
+.c-contact a svg { color: var(--clay); flex-shrink: 0; }
+
+.c-rule { border: none; border-top: 1px solid var(--sand-dk); margin-bottom: 12px; }
+.c-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+.c-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.c-tag { font-size: .62rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--clay); background: var(--sand); border-radius: 99px; padding: 3px 9px; }
+.c-view { flex-shrink: 0; font-size: .8rem; font-weight: 600; color: var(--clay); text-decoration: none; white-space: nowrap; }
+.c-view:hover { text-decoration: underline; }
+
+/* ─── SKELETON ─── */
+.skel { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; }
+.sk { background: linear-gradient(90deg, var(--sand-dk) 25%, var(--sand) 50%, var(--sand-dk) 75%); background-size: 200% 100%; animation: shim 1.4s infinite; border-radius: 3px; height: 12px; margin-bottom: 10px; }
+@keyframes shim { to { background-position: -200% 0; } }
+.sk.w70 { width: 70%; } .sk.w50 { width: 50%; } .sk.w85 { width: 85%; } .sk.w60 { width: 60%; }
+
+/* ─── EMPTY ─── */
+.empty { grid-column: 1 / -1; text-align: center; padding: 64px 20px; color: var(--muted); }
+.empty strong { display: block; font-size: 1rem; color: var(--ink); margin-bottom: 8px; }
+
+/* ─── PAGINATION ─── */
+.pager { display: flex; gap: 6px; justify-content: center; padding-top: 28px; flex-wrap: wrap; }
+.pg { font-family: 'Jost', sans-serif; font-size: .82rem; font-weight: 600; padding: 8px 14px; border-radius: 4px; border: 1px solid var(--border); background: var(--white); color: var(--ink); cursor: pointer; transition: all .15s; }
+.pg:hover { border-color: var(--clay); color: var(--clay); }
+.pg.on { background: var(--clay); border-color: var(--clay); color: #fff; }
+
+/* ─── FOOTER ─── */
+footer { background: #162017; padding: 22px 24px; text-align: center; }
+.fcopy { font-size: .72rem; color: rgba(255,255,255,.25); letter-spacing: .04em; }
+.fcopy a { color: rgba(255,255,255,.4); text-decoration: none; }
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <div class="page-header-inner">
-    <h1 class="page-title">Find a Horse Property Specialist</h1>
-    <p class="page-sub">Browse <span id="total-count">—</span> agents across the United States</p>
-    <div class="filter-bar">
-      <div class="search-wrap">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Search name, city, state…" autocomplete="off">
+<div class="hdr">
+  <div class="hdr-inner">
+    <h1>Find a Horse Property Specialist</h1>
+    <p class="sub">Browse <strong id="total">—</strong> agents across the United States</p>
+    <div class="filters">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="q" type="text" placeholder="Search name, city, company…" autocomplete="off">
       </div>
-      <select class="state-select" id="state-filter">
-        <option value="">All States</option>
-      </select>
-      <button class="clear-btn" onclick="clearFilters()">Clear</button>
+      <select id="st" class="state-dd"><option value="">All States</option></select>
+      <button class="clr" onclick="clearAll()">Clear</button>
     </div>
   </div>
 </div>
 
-<div class="results-bar" id="results-bar"></div>
-
-<div class="agents-wrap">
-  <div class="agent-grid" id="agent-grid">
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
-    <div class="skel-card"><div class="skeleton skel-line w80"></div><div class="skeleton skel-line w50"></div><div class="skeleton skel-line w65"></div></div>
+<div class="body-wrap">
+  <div class="count-bar" id="bar"></div>
+  <div class="grid" id="grid">
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
+    <div class="skel"><div class="sk w70"></div><div class="sk w50"></div><div class="sk w60"></div><div class="sk w85"></div><div class="sk w60"></div></div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-copy">
-    &copy; 2026 <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit Magazine</a> &nbsp;&middot;&nbsp;
-    <a href="/">HorsePropertyAgents.com</a>
+  <div class="fcopy">
+    &copy; 2026 <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit Magazine</a> &nbsp;&middot;&nbsp; <a href="/">HorsePropertyAgents.com</a>
   </div>
 </footer>
 
 <script src="/nav.js" defer></script>
 <script>
-const SUPABASE_URL      = 'https://ykkfziyxipeuugocwswo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlra2Z6aXl4aXBldXVnb2N3c3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzIyMDUsImV4cCI6MjA4OTU0ODIwNX0.BbTuMNHEXm8PUjFgKc0Te6rjoW7ns-2A8dzCtShV8-4';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SB_URL = 'https://ykkfziyxipeuugocwswo.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlra2Z6aXl4aXBldXVnb2N3c3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzIyMDUsImV4cCI6MjA4OTU0ODIwNX0.BbTuMNHEXm8PUjFgKc0Te6rjoW7ns-2A8dzCtShV8-4';
+const db = supabase.createClient(SB_URL, SB_KEY);
 
-let allAgents = [], filteredAgents = [], currentPage = 1;
-const PAGE_SIZE = 24;
+const PG = 24;
+let all = [], filtered = [], page = 1;
 
-const phoneIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.19 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.07 5.52l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
-const emailIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
+function x(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
-function parseSpecs(val) {
+function specs(val) {
   if (!val) return [];
-  if (Array.isArray(val)) return val.filter(Boolean);
-  return val.split(',').map(s => s.trim()).filter(Boolean);
+  if (Array.isArray(val)) return val.filter(Boolean).slice(0,3);
+  return val.split(',').map(s=>s.trim()).filter(Boolean).slice(0,3);
 }
 
-function cardHTML(a) {
-  const loc  = [a.city, a.state].filter(Boolean).join(', ');
-  const specs = parseSpecs(a.specialties).slice(0, 3);
-  const phone = a.phone ? `<a class="card-phone" href="tel:${a.phone.replace(/\D/g,'')}" onclick="event.stopPropagation()">${phoneIcon}${a.phone}</a>` : '';
-  const email = a.email ? `<a class="card-email" href="mailto:${a.email}" onclick="event.stopPropagation()">${emailIcon}${a.email}</a>` : '';
-  const tags  = specs.length ? `<div class="card-tags">${specs.map(s=>`<span class="card-tag">${s}</span>`).join('')}</div>` : '';
-  return `
-<a href="/agent/${a.slug}/" class="agent-card">
-  <div class="card-name">${a.name}</div>
-  ${a.company ? `<div class="card-company">${a.company}</div>` : ''}
-  <div class="card-loc">${loc}</div>
-  ${(phone || email) ? `<hr class="card-divider">${phone}${email}` : ''}
-  <div class="card-spacer"></div>
-  ${tags}
-</a>`;
+function card(a) {
+  const loc = [a.city, a.state].filter(Boolean).join(', ');
+  const ph  = a.phone ? a.phone.replace(/\D/g,'') : '';
+  const tags = specs(a.specialties).map(s=>`<span class="c-tag">${x(s)}</span>`).join('');
+
+  return '<div class="card">'
+    + '<div class="c-name">' + x(a.name) + '</div>'
+    + (a.company ? '<div class="c-company">' + x(a.company) + '</div>' : '')
+    + '<div class="c-loc">' + x(loc) + '</div>'
+    + '<div class="c-contact">'
+    + (a.phone ? '<a href="tel:' + ph + '"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>' + x(a.phone) + '</a>' : '')
+    + (a.email ? '<a href="mailto:' + x(a.email) + '"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>' + x(a.email) + '</a>' : '')
+    + '</div>'
+    + '<hr class="c-rule">'
+    + '<div class="c-foot">'
+    + '<div class="c-tags">' + tags + '</div>'
+    + '<a class="c-view" href="/agent/' + x(a.slug) + '/">View &rarr;</a>'
+    + '</div>'
+    + '</div>';
 }
 
-function renderPage() {
-  const grid  = document.getElementById('agent-grid');
-  const bar   = document.getElementById('results-bar');
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const slice = filteredAgents.slice(start, start + PAGE_SIZE);
+function draw() {
+  const grid = document.getElementById('grid');
+  const bar  = document.getElementById('bar');
+  removePager();
 
-  if (!filteredAgents.length) {
-    grid.innerHTML = '<div class="empty-state"><strong>No agents found</strong>Try a different search.</div>';
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty"><strong>No agents found</strong>Try a different search or clear the filters.</div>';
     bar.textContent = '';
-    removePagination();
     return;
   }
-  grid.innerHTML = slice.map(cardHTML).join('');
-  bar.textContent = `Showing ${start+1}–${Math.min(start+PAGE_SIZE, filteredAgents.length)} of ${filteredAgents.length} agents`;
-  renderPagination();
+
+  const start = (page-1)*PG;
+  const slice = filtered.slice(start, start+PG);
+  grid.innerHTML = slice.map(card).join('');
+  bar.textContent = 'Showing ' + (start+1) + '–' + Math.min(start+PG, filtered.length) + ' of ' + filtered.length + ' agents';
+  drawPager();
 }
 
-function renderPagination() {
-  removePagination();
-  const total = Math.ceil(filteredAgents.length / PAGE_SIZE);
+function filter() {
+  page = 1;
+  const q  = document.getElementById('q').value.trim().toLowerCase();
+  const st = document.getElementById('st').value;
+  filtered = all.filter(a => {
+    if (st && a.state !== st) return false;
+    if (q) {
+      const hay = [(a.name||''),(a.city||''),(a.company||''),(a.state||'')].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  draw();
+}
+
+function clearAll() {
+  document.getElementById('q').value = '';
+  document.getElementById('st').value = '';
+  filtered = all;
+  page = 1;
+  draw();
+  document.getElementById('bar').textContent = '';
+}
+
+function drawPager() {
+  const total = Math.ceil(filtered.length/PG);
   if (total <= 1) return;
   const wrap = document.createElement('div');
-  wrap.id = 'pagination';
-  wrap.className = 'pagination';
-  for (let i = 1; i <= total; i++) {
-    const btn = document.createElement('button');
-    btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
-    btn.textContent = i;
-    btn.onclick = () => { currentPage = i; renderPage(); document.getElementById('agent-grid').scrollIntoView({behavior:'smooth',block:'start'}); };
-    wrap.appendChild(btn);
+  wrap.id = 'pager';
+  wrap.className = 'pager';
+  for (let i=1; i<=total; i++) {
+    const b = document.createElement('button');
+    b.className = 'pg' + (i===page?' on':'');
+    b.textContent = i;
+    b.onclick = () => { page=i; draw(); document.getElementById('grid').scrollIntoView({behavior:'smooth',block:'start'}); };
+    wrap.appendChild(b);
   }
-  document.querySelector('.agents-wrap').appendChild(wrap);
+  document.querySelector('.body-wrap').appendChild(wrap);
 }
 
-function removePagination() {
-  const old = document.getElementById('pagination');
+function removePager() {
+  const old = document.getElementById('pager');
   if (old) old.remove();
-}
-
-function applyFilters() {
-  currentPage = 1;
-  const q     = document.getElementById('search-input').value.trim().toLowerCase();
-  const state = document.getElementById('state-filter').value;
-  let f = allAgents;
-  if (state) f = f.filter(a => a.state === state);
-  if (q)     f = f.filter(a =>
-    (a.name    || '').toLowerCase().includes(q) ||
-    (a.city    || '').toLowerCase().includes(q) ||
-    (a.state   || '').toLowerCase().includes(q) ||
-    (a.company || '').toLowerCase().includes(q)
-  );
-  filteredAgents = f;
-  renderPage();
-}
-
-function clearFilters() {
-  document.getElementById('search-input').value = '';
-  document.getElementById('state-filter').value = '';
-  filteredAgents = allAgents;
-  currentPage = 1;
-  renderPage();
-  document.getElementById('results-bar').textContent = '';
 }
 
 async function init() {
@@ -261,26 +265,25 @@ async function init() {
     .limit(1000);
 
   if (!data || !data.length) {
-    document.getElementById('agent-grid').innerHTML = '<div class="empty-state"><strong>No agents found</strong>Check back soon.</div>';
+    document.getElementById('grid').innerHTML = '<div class="empty"><strong>No agents found</strong>Check back soon.</div>';
     return;
   }
 
-  allAgents = data;
-  filteredAgents = data;
-  document.getElementById('total-count').textContent = data.length;
+  all = data;
+  filtered = data;
+  document.getElementById('total').textContent = data.length;
 
-  const states = [...new Set(data.map(a => a.state).filter(Boolean))].sort();
-  const sel = document.getElementById('state-filter');
-  states.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  const states = [...new Set(data.map(a=>a.state).filter(Boolean))].sort();
+  const sel = document.getElementById('st');
+  states.forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o); });
 
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('state')) sel.value = params.get('state');
-  if (params.get('q')) document.getElementById('search-input').value = params.get('q');
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('state')) sel.value = p.get('state');
+  if (p.get('q')) document.getElementById('q').value = p.get('q');
 
-  applyFilters();
-
-  document.getElementById('search-input').addEventListener('input', applyFilters);
-  document.getElementById('state-filter').addEventListener('change', applyFilters);
+  filter();
+  document.getElementById('q').addEventListener('input', filter);
+  document.getElementById('st').addEventListener('change', filter);
 }
 
 init();
