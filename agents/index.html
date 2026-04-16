@@ -35,14 +35,15 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
 
 /* ── Near Me button ─────────────────────────────── */
 .nearme-btn{
-  font-family:'Jost',sans-serif;font-size:.85rem;font-weight:600;
-  letter-spacing:.04em;color:var(--clay);
-  background:var(--white);border:1px solid var(--clay);
+  font-family:'Jost',sans-serif;font-size:.9rem;font-weight:700;
+  letter-spacing:.04em;color:#fff;
+  background:#c0392b;border:1px solid #c0392b;
   border-radius:var(--r);padding:10px 16px;cursor:pointer;
   display:flex;align-items:center;gap:6px;white-space:nowrap;
-  transition:background .15s,color .15s;
+  transition:background .15s,border-color .15s;
 }
-.nearme-btn:hover,.nearme-btn.active{background:var(--clay);color:#fff;}
+.nearme-btn:hover{background:#a93226;border-color:#a93226;}
+.nearme-btn.active{background:#922b21;border-color:#922b21;}
 .nearme-btn.loading{opacity:.7;cursor:default;}
 
 /* ── Near Me radius row ─────────────────────────── */
