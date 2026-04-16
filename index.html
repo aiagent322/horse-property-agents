@@ -51,34 +51,34 @@ body {
   pointer-events: none;
 }
 .hero-eyebrow {
-  font-size: .78rem; font-weight: 600;
-  letter-spacing: .2em; text-transform: uppercase;
+  font-size: .9rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
   color: var(--clay-lt);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   animation: fadeUp .5s .1s both;
 }
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 6vw, 3.6rem);
-  font-weight: 700; line-height: 1.45;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 700; line-height: 1.2;
   color: #fff;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   animation: fadeUp .5s .2s both;
 }
 .hero h1 em {
   font-style: italic; color: var(--clay-lt);
 }
 .hero-sub {
-  font-size: clamp(.9rem, 2vw, 1.05rem);
-  color: rgba(255,255,255,.55);
-  font-weight: 300; line-height: 1.7;
-  max-width: 520px; margin: 0 auto 28px;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  color: rgba(255,255,255,.75);
+  font-weight: 500; line-height: 1.6;
+  max-width: 520px; margin: 0 auto 32px;
   animation: fadeUp .5s .3s both;
 }
 
 /* Search box */
 .search-box {
-  max-width: 580px; margin: 0 auto;
+  max-width: 600px; margin: 0 auto;
   animation: fadeUp .5s .4s both;
 }
 .search-row {
@@ -86,30 +86,32 @@ body {
   background: #fff;
   border-radius: var(--r);
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,.35);
+  box-shadow: 0 10px 48px rgba(0,0,0,.4);
 }
 .search-row input {
   flex: 1; border: none; outline: none;
   font-family: 'Jost', sans-serif;
-  font-size: 1rem; color: var(--ink);
-  padding: 15px 18px;
+  font-size: 1.1rem; font-weight: 500;
+  color: var(--ink);
+  padding: 18px 20px;
   background: transparent;
 }
-.search-row input::placeholder { color: #b0a090; }
+.search-row input::placeholder { color: #9a8878; font-weight: 400; }
 .search-row button {
   background: var(--clay);
   color: #fff; border: none; cursor: pointer;
   font-family: 'Jost', sans-serif;
-  font-size: .8rem; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase;
-  padding: 15px 24px;
+  font-size: .95rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 18px 28px;
   transition: background .2s;
   white-space: nowrap;
 }
 .search-row button:hover { background: #a06b44; }
 .search-hint {
-  font-size: .75rem; color: rgba(255,255,255,.35);
-  margin-top: 12px; letter-spacing: .04em;
+  font-size: .88rem; font-weight: 500;
+  color: rgba(255,255,255,.5);
+  margin-top: 14px; letter-spacing: .03em;
 }
 
 @keyframes fadeUp {
