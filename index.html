@@ -216,7 +216,7 @@ body {
   box-shadow: 0 6px 24px rgba(139,94,60,.14);
   transform: translateY(-2px);
 }
-.card-inner { padding: 20px 22px 16px; flex: 1; display: flex; flex-direction: column; }
+.card-inner { padding: 20px 22px 16px; flex: 1; display: flex; flex-direction: column; text-align: center; align-items: center; }
 .card-name {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem; font-weight: 700;
@@ -225,23 +225,24 @@ body {
 }
 .card-company { font-size:.88rem; font-weight:700; color:var(--clay); margin-bottom:3px; }
 .card-loc { font-size:.88rem; color:var(--muted); margin-bottom:0; font-weight:500; }
-.card-sep { border:none; border-top:1px solid var(--sand-dk); margin:14px 0 12px; }
+.card-sep { border:none; border-top:1px solid var(--sand-dk); margin:14px 0 12px; width: 100%; }
 .card-phone, .card-email {
   overflow-wrap: anywhere; word-break: break-all;
   font-size:.95rem; font-weight:600;
   color:var(--ink); text-decoration:none;
-  display:block; margin-bottom:8px;
-  min-height:44px; display:flex; align-items:center;
+  display:flex; align-items:center; justify-content: center;
+  margin-bottom:8px;
+  min-height:44px; width: 100%;
 }
 .card-phone:hover, .card-email:hover { color:var(--clay); }
 .card-footer {
   padding: 12px 22px;
   border-top: 1px solid var(--sand-dk);
   display: flex; align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background: var(--sand);
 }
-.card-specs { display: flex; flex-wrap: wrap; gap: 6px; }
+.card-specs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .card-spec {
   font-size: .82rem; font-weight: 700;
   letter-spacing: .05em; text-transform: uppercase;
@@ -686,10 +687,6 @@ async function loadFeatured() {
         tags.appendChild(t);
       });
       footer.appendChild(tags);
-      var arrow = document.createElement('span');
-      arrow.className = 'card-arrow';
-      arrow.textContent = '\u2192';
-      footer.appendChild(arrow);
       card.appendChild(footer);
     }
 
