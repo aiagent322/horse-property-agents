@@ -205,54 +205,54 @@ body {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  background: var(--cream);
+  background: var(--white);
   display: flex; flex-direction: column;
   transition: border-color .2s, box-shadow .2s, transform .15s;
 }
 .agent-card:hover {
   border-color: var(--clay);
-  box-shadow: 0 4px 20px rgba(139,94,60,.12);
+  box-shadow: 0 6px 24px rgba(139,94,60,.14);
   transform: translateY(-2px);
 }
-.card-company { font-size:.75rem; font-weight:600; color:var(--clay); margin-bottom:2px; }
-.card-sep { border:none; border-top:1px solid var(--sand-dk); margin:10px 0; }
-.card-phone, .card-email { overflow-wrap: anywhere; word-break: break-all; font-size:.8rem; color:var(--ink); text-decoration:none; display:block; margin-bottom:5px; }
-.card-phone:hover, .card-email:hover { color:var(--clay); }
-.card-body { padding: 0; flex: 1; }
+.card-inner { padding: 20px 22px 16px; flex: 1; display: flex; flex-direction: column; }
 .card-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.05rem; font-weight: 700;
-  color: var(--ink); margin-bottom: 4px;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 5px;
+  line-height: 1.25;
 }
-.card-loc {
-  font-size: .78rem; color: var(--muted);
-  margin-bottom: 10px; font-weight: 400;
+.card-company { font-size:.88rem; font-weight:700; color:var(--clay); margin-bottom:3px; }
+.card-loc { font-size:.88rem; color:var(--muted); margin-bottom:0; font-weight:500; }
+.card-sep { border:none; border-top:1px solid var(--sand-dk); margin:14px 0 12px; }
+.card-phone, .card-email {
+  overflow-wrap: anywhere; word-break: break-all;
+  font-size:.95rem; font-weight:600;
+  color:var(--ink); text-decoration:none;
+  display:block; margin-bottom:8px;
+  min-height:44px; display:flex; align-items:center;
 }
-.card-tagline {
-  font-size: .83rem; color: #5a4a38;
-  line-height: 1.5; font-style: italic;
-}
+.card-phone:hover, .card-email:hover { color:var(--clay); }
 .card-footer {
-  padding: 10px 18px;
+  padding: 12px 22px;
   border-top: 1px solid var(--sand-dk);
   display: flex; align-items: center;
   justify-content: space-between;
-}
-.card-specs {
-  display: flex; flex-wrap: wrap; gap: 5px;
-}
-.card-spec {
-  font-size: .78rem; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  color: var(--clay);
   background: var(--sand);
-  border-radius: 99px; padding: 3px 9px;
+}
+.card-specs { display: flex; flex-wrap: wrap; gap: 6px; }
+.card-spec {
+  font-size: .82rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--clay);
+  background: var(--white);
+  border-radius: 99px; padding: 4px 12px;
+  border: 1px solid var(--border);
 }
 .card-arrow {
-  color: var(--clay); font-size: 1rem;
-  transition: transform .2s;
+  color: var(--clay); font-size: 1.1rem;
+  transition: transform .2s; flex-shrink: 0; margin-left: 8px;
 }
-.agent-card:hover .card-arrow { transform: translateX(3px); }
+.agent-card:hover .card-arrow { transform: translateX(4px); }
 
 /* loading skeleton */
 .skeleton {
@@ -395,11 +395,9 @@ footer {
 }
 
 @media (max-width: 479px) {
-  .card-name { font-size: .95rem; }
-  .card-company { font-size: .78rem; }
-  .card-loc { font-size: .78rem; }
-  .card-phone, .card-email { font-size: .85rem; min-height: 40px; align-items: center; }
-  .card-footer { padding-top: 8px; }
+  .card-name { font-size: 1.15rem; }
+  .card-inner { padding: 18px 18px 14px; }
+  .card-footer { padding: 12px 18px; }
   .stat-label { font-size: .78rem; }
   .footer-copy { font-size: .78rem; }
 }
@@ -629,34 +627,37 @@ async function loadFeatured() {
     card.href = '/agent/' + a.slug + '/';
     card.className = 'agent-card';
 
+    var inner = document.createElement('div');
+    inner.className = 'card-inner';
+
     var name = document.createElement('div');
     name.className = 'card-name';
     name.textContent = a.name;
-    card.appendChild(name);
+    inner.appendChild(name);
 
     if (a.company) {
       var co = document.createElement('div');
       co.className = 'card-company';
       co.textContent = a.company;
-      card.appendChild(co);
+      inner.appendChild(co);
     }
 
     var loc = document.createElement('div');
     loc.className = 'card-loc';
     loc.textContent = [a.city, a.state].filter(Boolean).join(', ');
-    card.appendChild(loc);
+    inner.appendChild(loc);
 
     if (a.phone || a.email) {
       var sep = document.createElement('hr');
       sep.className = 'card-sep';
-      card.appendChild(sep);
+      inner.appendChild(sep);
       if (a.phone) {
         var ph = document.createElement('a');
         ph.className = 'card-phone';
         ph.href = 'tel:' + a.phone.replace(/\D/g, '');
         ph.textContent = a.phone;
         ph.addEventListener('click', function(e){ e.stopPropagation(); });
-        card.appendChild(ph);
+        inner.appendChild(ph);
       }
       if (a.email) {
         var em = document.createElement('a');
@@ -664,9 +665,11 @@ async function loadFeatured() {
         em.href = 'mailto:' + a.email;
         em.textContent = a.email;
         em.addEventListener('click', function(e){ e.stopPropagation(); });
-        card.appendChild(em);
+        inner.appendChild(em);
       }
     }
+
+    card.appendChild(inner);
 
     var specs = parseSpecs(a.specialties).slice(0, 2);
     if (specs.length) {
@@ -728,3 +731,4 @@ loadStates();
 <script src="/nav.js" defer></script>
 </body>
 </html>
+
