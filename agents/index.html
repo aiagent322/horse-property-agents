@@ -33,6 +33,37 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
 .clear-btn{font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;cursor:pointer;}
 .clear-btn:hover{color:var(--ink);border-color:var(--ink);}
 
+/* ── Near Me button ─────────────────────────────── */
+.nearme-btn{
+  font-family:'Jost',sans-serif;font-size:.85rem;font-weight:600;
+  letter-spacing:.04em;color:var(--clay);
+  background:var(--white);border:1px solid var(--clay);
+  border-radius:var(--r);padding:10px 16px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+.nearme-btn:hover,.nearme-btn.active{background:var(--clay);color:#fff;}
+.nearme-btn.loading{opacity:.7;cursor:default;}
+
+/* ── Near Me radius row ─────────────────────────── */
+.nearme-row{
+  display:none;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:10px;padding:10px 14px;
+  background:var(--sand);border-radius:var(--r);
+  border:1px solid var(--border);
+}
+.nearme-row.visible{display:flex;}
+.radius-label{font-size:.78rem;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
+.radius-chip{
+  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;
+  padding:5px 12px;border-radius:99px;cursor:pointer;
+  border:1px solid var(--border);background:var(--white);color:var(--ink);
+  transition:background .12s,color .12s,border-color .12s;
+}
+.radius-chip.active,.radius-chip:hover{background:var(--clay);color:#fff;border-color:var(--clay);}
+.nearme-status{font-size:.78rem;color:var(--muted);margin-left:4px;}
+/* ─────────────────────────────────────────────────── */
+
 .results-bar{max-width:var(--max);margin:0 auto;padding:14px 20px 0;font-size:.8rem;color:var(--muted);}
 
 .agents-wrap{max-width:var(--max);margin:0 auto;padding:16px 20px 64px;}
@@ -60,6 +91,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);-web
 .c-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.3;}
 .c-company{font-size:.75rem;font-weight:600;color:var(--clay);margin-bottom:2px;}
 .c-loc{font-size:.75rem;color:var(--muted);margin-bottom:12px;}
+.c-dist{font-size:.72rem;font-weight:600;color:var(--clay);margin-bottom:10px;display:flex;align-items:center;gap:4px;}
 .c-sep{border:none;border-top:1px solid var(--sand-dk);margin-bottom:10px;}
 .c-phone,.c-email{font-size:.8rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:6px;margin-bottom:6px;word-break:break-all;overflow-wrap:anywhere;}
 .c-phone svg,.c-email svg{color:var(--clay);flex-shrink:0;}
@@ -92,6 +124,7 @@ footer{background:#162017;padding:20px 16px;text-align:center;}
   .agents-wrap{padding:12px 12px 48px;}
   .agent-grid{gap:10px;}
   .results-bar{padding:10px 12px 0;}
+  .nearme-btn{font-size:.8rem;padding:10px 12px;}
 }
 </style>
 </head>
@@ -107,7 +140,20 @@ footer{background:#162017;padding:20px 16px;text-align:center;}
         <input type="text" id="search-input" placeholder="Search name, city, state…" autocomplete="off">
       </div>
       <select class="state-select" id="state-filter"><option value="">All States</option></select>
+      <button class="nearme-btn" id="nearme-btn" onclick="toggleNearMe()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Near Me
+      </button>
       <button class="clear-btn" onclick="clearFilters()">Clear</button>
+    </div>
+    <!-- Near Me radius row -->
+    <div class="nearme-row" id="nearme-row">
+      <span class="radius-label">Radius:</span>
+      <button class="radius-chip" onclick="setRadius(25,this)">25 mi</button>
+      <button class="radius-chip" onclick="setRadius(50,this)">50 mi</button>
+      <button class="radius-chip active" onclick="setRadius(100,this)">100 mi</button>
+      <button class="radius-chip" onclick="setRadius(250,this)">250 mi</button>
+      <span class="nearme-status" id="nearme-status"></span>
     </div>
   </div>
 </div>
@@ -150,6 +196,85 @@ const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const PAGE_SIZE = 24;
 let allAgents = [], filteredAgents = [], currentPage = 1;
 
+// ── NEAR ME ──────────────────────────────────────────────────────────────────
+let userLat = null, userLng = null;
+let nearMeActive = false;
+let nearMeRadius = 100; // default 100 miles
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 +
+            Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+            Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function toggleNearMe() {
+  var btn = document.getElementById('nearme-btn');
+  var row = document.getElementById('nearme-row');
+  var status = document.getElementById('nearme-status');
+
+  if (nearMeActive) {
+    // Turn off
+    nearMeActive = false;
+    userLat = null; userLng = null;
+    btn.classList.remove('active');
+    row.classList.remove('visible');
+    status.textContent = '';
+    applyFilters();
+    return;
+  }
+
+  // Request location
+  btn.classList.add('loading');
+  btn.disabled = true;
+  status.textContent = 'Locating…';
+  row.classList.add('visible');
+
+  if (!navigator.geolocation) {
+    status.textContent = 'Geolocation not supported';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      userLat = pos.coords.latitude;
+      userLng = pos.coords.longitude;
+      nearMeActive = true;
+      btn.classList.remove('loading');
+      btn.classList.add('active');
+      btn.disabled = false;
+      status.textContent = '';
+      // Clear other filters when Near Me activates
+      document.getElementById('search-input').value = '';
+      document.getElementById('state-filter').value = '';
+      applyFilters();
+    },
+    function() {
+      status.textContent = '⚠️ Location access denied';
+      btn.classList.remove('loading', 'active');
+      btn.disabled = false;
+      row.classList.remove('visible');
+      nearMeActive = false;
+    },
+    { timeout: 8000 }
+  );
+}
+
+function setRadius(miles, chip) {
+  nearMeRadius = miles;
+  document.querySelectorAll('.radius-chip').forEach(function(c) {
+    c.classList.remove('active');
+  });
+  chip.classList.add('active');
+  if (nearMeActive && userLat !== null) applyFilters();
+}
+// ── END NEAR ME ───────────────────────────────────────────────────────────────
+
 function parseSpecs(val) {
   if (!val) return [];
   if (Array.isArray(val)) return val.filter(Boolean);
@@ -178,6 +303,15 @@ function makeCard(a) {
   loc.textContent = [a.city, a.state].filter(Boolean).join(', ');
   card.appendChild(loc);
 
+  // Distance badge — only shown when Near Me is active
+  if (nearMeActive && a._distMi !== undefined) {
+    var dist = document.createElement('div');
+    dist.className = 'c-dist';
+    dist.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+    dist.appendChild(document.createTextNode(a._distMi + ' mi away'));
+    card.appendChild(dist);
+  }
+
   if (a.phone || a.email) {
     var sep = document.createElement('hr');
     sep.className = 'c-sep';
@@ -188,7 +322,7 @@ function makeCard(a) {
       ph.className = 'c-phone';
       ph.href = 'tel:' + a.phone.replace(/\D/g, '');
       ph.addEventListener('click', function(e){ e.stopPropagation(); });
-      ph.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.19 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.07 5.52l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+      ph.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.82-.82a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
       ph.appendChild(document.createTextNode(a.phone));
       card.appendChild(ph);
     }
@@ -232,14 +366,23 @@ function renderPage() {
   if (!filteredAgents.length) {
     var empty = document.createElement('div');
     empty.className = 'empty-state';
-    empty.innerHTML = '<strong>No agents found</strong>Try a different search.';
+    if (nearMeActive) {
+      empty.innerHTML = '<strong>No agents found nearby</strong>Try expanding the radius or <a href="/agents/" style="color:var(--clay)">browse all agents</a>.';
+    } else {
+      empty.innerHTML = '<strong>No agents found</strong>Try a different search.';
+    }
     grid.appendChild(empty);
     bar.textContent = '';
     return;
   }
 
   slice.forEach(function(a) { grid.appendChild(makeCard(a)); });
-  bar.textContent = 'Showing ' + (start+1) + '\u2013' + Math.min(start+PAGE_SIZE, filteredAgents.length) + ' of ' + filteredAgents.length + ' agents';
+
+  if (nearMeActive) {
+    bar.textContent = 'Showing ' + filteredAgents.length + ' agent' + (filteredAgents.length !== 1 ? 's' : '') + ' within ' + nearMeRadius + ' miles \u2014 sorted by distance';
+  } else {
+    bar.textContent = 'Showing ' + (start+1) + '\u2013' + Math.min(start+PAGE_SIZE, filteredAgents.length) + ' of ' + filteredAgents.length + ' agents';
+  }
   renderPagination();
 }
 
@@ -285,6 +428,21 @@ var STATE_NAMES = {
 
 function applyFilters() {
   currentPage = 1;
+
+  // Near Me mode — bypass text/state filters
+  if (nearMeActive && userLat !== null) {
+    filteredAgents = allAgents
+      .filter(function(a) { return a.lat && a.lng; })
+      .map(function(a) {
+        var d = Math.round(haversine(userLat, userLng, a.lat, a.lng));
+        return Object.assign({}, a, { _distMi: d });
+      })
+      .filter(function(a) { return a._distMi <= nearMeRadius; })
+      .sort(function(a, b) { return a._distMi - b._distMi; });
+    renderPage();
+    return;
+  }
+
   var q     = document.getElementById('search-input').value.trim().toLowerCase();
   var state = document.getElementById('state-filter').value;
   var f = allAgents;
@@ -294,7 +452,6 @@ function applyFilters() {
     var isAbbrOnly = /^[a-z]{2}$/.test(q) && !stateAbbr;
     f = f.filter(function(a){
       if (isAbbrOnly) {
-        // exact state abbreviation match (e.g. typed "ca", "az", "tx")
         return (a.state || '').toLowerCase() === q;
       }
       return (a.name    ||'').toLowerCase().includes(q) ||
@@ -309,6 +466,14 @@ function applyFilters() {
 }
 
 function clearFilters() {
+  // Turn off Near Me if active
+  if (nearMeActive) {
+    nearMeActive = false;
+    userLat = null; userLng = null;
+    document.getElementById('nearme-btn').classList.remove('active');
+    document.getElementById('nearme-row').classList.remove('visible');
+    document.getElementById('nearme-status').textContent = '';
+  }
   document.getElementById('search-input').value = '';
   document.getElementById('state-filter').value = '';
   filteredAgents = allAgents;
@@ -318,9 +483,10 @@ function clearFilters() {
 }
 
 async function init() {
+  // Fetch lat/lng too — needed for Near Me
   var result = await db
     .from('agents')
-    .select('name,slug,city,state,specialties,phone,email,company')
+    .select('name,slug,city,state,specialties,phone,email,company,lat,lng')
     .order('name', { ascending: true })
     .limit(1000);
 
@@ -346,8 +512,27 @@ async function init() {
 
   applyFilters();
 
-  document.getElementById('search-input').addEventListener('input', applyFilters);
-  document.getElementById('state-filter').addEventListener('change', applyFilters);
+  document.getElementById('search-input').addEventListener('input', function() {
+    // Disable Near Me if user starts typing
+    if (nearMeActive) {
+      nearMeActive = false;
+      userLat = null; userLng = null;
+      document.getElementById('nearme-btn').classList.remove('active');
+      document.getElementById('nearme-row').classList.remove('visible');
+      document.getElementById('nearme-status').textContent = '';
+    }
+    applyFilters();
+  });
+  document.getElementById('state-filter').addEventListener('change', function() {
+    if (nearMeActive) {
+      nearMeActive = false;
+      userLat = null; userLng = null;
+      document.getElementById('nearme-btn').classList.remove('active');
+      document.getElementById('nearme-row').classList.remove('visible');
+      document.getElementById('nearme-status').textContent = '';
+    }
+    applyFilters();
+  });
 }
 
 init();
