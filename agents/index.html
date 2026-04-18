@@ -513,6 +513,11 @@ async function init() {
 
   applyFilters();
 
+  // Auto-trigger Near Me if linked from homepage
+  if (params.get('nearme') === '1') {
+    toggleNearMe();
+  }
+
   document.getElementById('search-input').addEventListener('input', function() {
     // Disable Near Me if user starts typing
     if (nearMeActive) {

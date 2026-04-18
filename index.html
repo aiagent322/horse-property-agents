@@ -108,6 +108,17 @@ body {
   white-space: nowrap;
 }
 .search-row button:hover { background: #a06b44; }
+.nearme-hero-btn {
+  background: #c0392b;
+  color: #fff; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: .95rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 18px 22px;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.nearme-hero-btn:hover { background: #a93226; }
 .search-hint {
   font-size: .88rem; font-weight: 500;
   color: rgba(255,255,255,.5);
@@ -388,6 +399,7 @@ footer {
   .search-row { flex-direction: column; gap: 10px; }
   .search-row input { font-size: 1rem; padding: 13px 16px 13px 44px; }
   .search-row button { width: 100%; padding: 13px; font-size: .9rem; }
+  .nearme-hero-btn { width: 100%; padding: 13px; font-size: .9rem; }
   .stats-row { gap: 16px 24px; }
   .stat-num { font-size: 1.6rem; }
   .section-wrap { padding: 32px 16px; }
@@ -434,6 +446,7 @@ footer {
     <div class="search-row">
       <input type="text" id="search-input" placeholder="Search by name, city, or state…" autocomplete="off">
       <button onclick="runSearch()">Search</button>
+      <button class="nearme-hero-btn" onclick="window.location.href='/agents/?nearme=1'">📍 Near Me</button>
     </div>
     <p class="search-hint">or browse by state below</p>
   </div>
