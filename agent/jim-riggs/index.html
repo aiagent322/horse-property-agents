@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jim Riggs — Horse Property Specialist | HorsePropertyAgents.com</title>
+<link rel="canonical" id="canonical-link" href="https://horsepropertyagents.com/agent/jim-riggs/">
+<meta name="description" content="Horse property specialist profile.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="HorsePropertyAgents.com">
+<meta property="og:title" id="og-title" content="Jim Riggs — Horse Property Specialist">
+<meta property="og:description" id="og-desc" content="Horse property specialist profile.">
+<meta property="og:url" id="og-url" content="https://horsepropertyagents.com/agent/jim-riggs/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" id="tw-title" content="Jim Riggs — Horse Property Specialist">
+<meta name="twitter:description" id="tw-desc" content="Horse property specialist profile.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:      #1a1410;
+  --clay:     #8b5e3c;
+  --clay-lt:  #c49a6c;
+  --sand:     #f5ede0;
+  --sand-dk:  #e8d9c4;
+  --cream:    #faf7f2;
+  --white:    #ffffff;
+  --muted:    #7a6a58;
+  --border:   #d9c9b4;
+  --max:      1100px;
+  --r:        4px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* STATE SCREEN */
+#state-screen {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 60vh; gap: 18px; padding: 40px 20px;
+}
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--clay);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.state-label {
+  font-size: .85rem; color: var(--muted);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+
+/* PAGE */
+#profile-page { display: none; animation: fadeUp .45s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+}
+.breadcrumb-inner {
+  max-width: var(--max); margin: 0 auto;
+  font-size: .75rem; color: var(--muted);
+  letter-spacing: .04em;
+}
+.breadcrumb-inner a {
+  color: var(--clay); text-decoration: none;
+}
+.breadcrumb-inner a:hover { text-decoration: underline; }
+
+/* HERO */
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 16px 20px;
+}
+.hero-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: 16px; align-items: center; text-align: center;
+}
+.avatar-wrap { position: relative; flex-shrink: 0; }
+.avatar {
+  width: 88px; height: 88px;
+  border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--sand-dk);
+  box-shadow: 0 4px 24px rgba(0,0,0,.10);
+}
+.avatar-ring {
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--clay-lt);
+  opacity: .5; pointer-events: none;
+}
+.hero-label {
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--clay); margin-bottom: 8px;
+}
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 700; line-height: 1.45;
+  color: var(--ink); margin-bottom: 8px;
+}
+.hero-company { font-size:.85rem; font-weight:600; color:var(--clay); margin-bottom:4px; }
+.hero-location {
+  font-size: .85rem; color: var(--muted);
+  letter-spacing: .06em; margin-bottom: 12px;
+}
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(.95rem, 2.5vw, 1.1rem);
+  color: var(--clay); line-height: 1.55;
+  max-width: 480px; margin: 0 auto;
+}
+.hero-tagline::before { content: '\201C'; color: var(--clay-lt); margin-right: 2px; }
+.hero-tagline::after  { content: '\201D'; color: var(--clay-lt); margin-left: 2px; }
+
+/* CONTACT BAR */
+.contact-bar {
+  background: #2c5f2e;
+  padding: 10px 12px;
+  position: sticky; top: 54px; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+.contact-bar-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center;
+  gap: 6px; flex-wrap: wrap; justify-content: center;
+}
+.contact-link { overflow-wrap: anywhere;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: .78rem; font-weight: 500;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: rgba(255,255,255,.65); text-decoration: none;
+  padding: 11px 12px;
+  border-radius: var(--r);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: color .2s, border-color .2s, background .2s;
+  white-space: nowrap;
+}
+.contact-link:hover { color: #fff; border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.06); }
+.btn-contact {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--clay); color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: .78rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 11px 18px; border-radius: var(--r);
+  border: none; cursor: pointer;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.btn-contact:hover { background: #a06b44; }
+
+/* CONTENT */
+.content-body {
+  max-width: var(--max); margin: 0 auto;
+  padding: 20px 16px 48px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+.section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+}
+.section-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sand-dk);
+  background: var(--sand);
+}
+.section-head-icon {
+  width: 26px; height: 26px;
+  background: var(--clay); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: .97rem; font-weight: 600; color: var(--ink);
+}
+.section-body { padding: 16px; }
+.bio-text {
+  font-size: .95rem; line-height: 1.8;
+  color: #3a3028; max-width: 680px;
+}
+.claims-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.claims-list li { display: flex; align-items: flex-start; gap: 12px; font-size: .93rem; line-height: 1.55; color: #3a3028; }
+.claims-bullet { flex-shrink: 0; margin-top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--clay); }
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--clay); background: var(--sand);
+  border: 1px solid var(--border);
+  padding: 5px 12px; border-radius: 99px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.gallery-grid img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  border-radius: var(--r); cursor: pointer;
+  transition: opacity .2s, transform .2s;
+}
+.gallery-grid img:hover { opacity: .88; transform: scale(1.015); }
+
+/* LIGHTBOX */
+#lightbox {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,7,4,.9); z-index: 9999;
+  align-items: center; justify-content: center; padding: 20px;
+}
+#lightbox.open { display: flex; }
+#lightbox img { max-width: 100%; max-height: 92vh; border-radius: 4px; object-fit: contain; }
+#lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none;
+  color: rgba(255,255,255,.65); font-size: 1.8rem;
+  cursor: pointer; padding: 4px 8px;
+  transition: color .15s;
+}
+#lightbox-close:hover { color: #fff; }
+
+/* MODAL */
+#contact-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,7,4,.55); z-index: 9998;
+  align-items: flex-end; justify-content: center;
+}
+#contact-modal.open { display: flex; }
+.modal-card {
+  background: var(--white);
+  border-radius: 10px 10px 0 0;
+  width: 100%; max-width: 540px;
+  padding: 28px 26px 40px;
+  animation: slideUp .26s ease both;
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  margin-bottom: 18px; color: var(--ink);
+}
+.modal-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.modal-field label {
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.modal-field input, .modal-field textarea {
+  font-family: 'Jost', sans-serif; font-size: 1rem;
+  color: var(--ink); background: var(--cream);
+  border: 1px solid var(--border); border-radius: var(--r);
+  padding: 9px 13px; outline: none; resize: vertical;
+  transition: border-color .2s;
+}
+.modal-field input:focus, .modal-field textarea:focus { border-color: var(--clay); }
+.modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+.btn-send {
+  flex: 1; background: var(--clay); color: #fff;
+  font-family: 'Jost', sans-serif; font-size: .83rem;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  border: none; border-radius: var(--r); padding: 12px;
+  cursor: pointer; transition: background .2s;
+}
+.btn-send:hover { background: #a06b44; }
+.btn-cancel {
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); font-family: 'Jost', sans-serif;
+  font-size: .83rem; border-radius: var(--r);
+  padding: 12px 16px; cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.btn-cancel:hover { border-color: var(--ink); color: var(--ink); }
+
+/* FOOTER */
+footer {
+  background: #162017; padding: 20px 16px; text-align: center;
+}
+.footer-copy { font-size: .78rem; color: rgba(255,255,255,.2); letter-spacing: .04em; }
+.footer-copy a { color: rgba(255,255,255,.35); text-decoration: none; }
+.footer-copy a:hover { color: rgba(255,255,255,.6); }
+
+@media (min-width: 640px) {
+  .hero-inner { flex-direction: row; text-align: left; gap: 30px; align-items: flex-start; }
+  .avatar { width: 130px; height: 130px; }
+  .hero-tagline { margin: 0; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .contact-bar-inner { justify-content: flex-start; }
+  #contact-modal { align-items: center; }
+  .modal-card { border-radius: 10px; }
+}
+@media (min-width: 1024px) {
+  .hero { padding: 40px 40px 32px; }
+  .contact-bar { padding: 13px 40px; }
+  .content-body { padding: 40px 40px 64px; }
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  .avatar { width: 165px; height: 165px; }
+}
+
+@media (max-width: 639px) {
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .hero { padding: 20px 16px 18px; }
+  .hero-name { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+  .contact-bar { padding: 8px 12px; top: 48px; }
+  .contact-bar-inner { gap: 6px; flex-wrap: wrap; }
+  .contact-link { overflow-wrap: anywhere; font-size: .78rem; padding: 11px 10px; }
+  .btn-contact { font-size: .78rem; padding: 11px 14px; }
+  .content-body { padding: 16px 16px 48px; }
+  .section-title { font-size: 1rem; }
+  .bio-text { font-size: .9rem; line-height: 1.7; }
+  .spec-tag { font-size: .78rem; padding: 4px 10px; }
+  #contact-modal .modal-inner { border-radius: 12px 12px 0 0; padding: 20px 16px; }
+  .modal-field label { font-size: .8rem; }
+  .modal-field input, .modal-field textarea { font-size: 1rem; padding: 11px 14px; }
+}
+@media (max-width: 374px) {
+  .contact-bar-inner { gap: 4px; }
+  .contact-link span { display: none; }
+}
+
+@media (max-width: 639px) {
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .modal-field input, .modal-field textarea { font-size: 1rem !important; }
+  .btn-send, .btn-cancel { min-height: 44px; font-size: .9rem; }
+  .spec-tag { font-size: .72rem; padding: 5px 11px; }
+  .breadcrumb { font-size: .78rem; }
+  .section-body { font-size: .92rem; line-height: 1.7; }
+  .hero-label { font-size: .78rem; }
+  .hero-location { font-size: .82rem; }
+  .bar-phone-text, .bar-email-text { font-size: .8rem; }
+  .contact-link { min-height: 44px; }
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- STATE SCREEN -->
+<div id="state-screen">
+  <div class="spinner" id="spinner"></div>
+  <span class="state-label" id="state-label">Loading profile…</span>
+</div>
+
+<!-- PROFILE -->
+<div id="profile-page">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="/">Home</a> &rsaquo; <a href="/agents/">Agents</a> &rsaquo; <span id="bc-name">Agent</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="avatar-wrap">
+        <img id="hero-avatar" class="avatar" src="" alt="Agent photo">
+        <div class="avatar-ring"></div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-label">Horse Property Specialist</p>
+        <h1 class="hero-name" id="hero-name">Horse Property Specialist</h1>
+        <p class="hero-company" id="hero-company" style="display:none"></p>
+        <p class="hero-location" id="hero-location"></p>
+        <p class="hero-tagline" id="hero-tagline" style="display:none"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT BAR -->
+  <div class="contact-bar">
+    <div class="contact-bar-inner">
+      <a id="bar-phone" class="contact-link" href="#" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span id="bar-phone-text"></span>
+      </a>
+      <a id="bar-email" class="contact-link" href="#" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span id="bar-email-text"></span>
+      </a>
+      <button class="btn-contact" onclick="openModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Contact Agent
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content-body">
+
+    <div id="bio-section" class="section" style="display:none">
+      <div class="section-head">
+        <div class="section-head-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h2 class="section-title">About</h2>
+      </div>
+      <div class="section-body"><p class="bio-text" id="bio-text"></p></div>
+    </div>
+
+    <div id="claims-section" class="section" style="display:none">
+      <div class="section-head">
+        <div class="section-head-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h2 class="section-title">Claims to Fame</h2>
+      </div>
+      <div class="section-body"><ul class="claims-list" id="claims-list"></ul></div>
+    </div>
+
+    <div id="specialties-section" class="section" style="display:none">
+      <div class="section-head">
+        <div class="section-head-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h2 class="section-title">Specialties</h2>
+      </div>
+      <div class="section-body"><div class="tags-wrap" id="tags-wrap"></div></div>
+    </div>
+
+    <div id="gallery-section" class="section" style="display:none">
+      <div class="section-head">
+        <div class="section-head-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <h2 class="section-title">Gallery</h2>
+      </div>
+      <div class="section-body"><div class="gallery-grid" id="gallery-grid"></div></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div style="max-width:var(--max,1200px);margin:0 auto;padding:16px 20px 0;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;">
+      <a href="/learn/" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Buyer's Guide</a>
+      <a href="/learn/types-of-listings.html" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Types of Listings</a>
+      <a href="/learn/agents-vs-brokers.html" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Agents vs. Brokers</a>
+      <a href="/learn/appraisals.html" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Appraisals</a>
+      <a href="/learn/disclosures.html" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Disclosures</a>
+      <a href="/learn/escrow.html" style="font-size:.78rem;color:rgba(255,255,255,.45);text-decoration:none;">Escrow</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 <a href="https://bridleandbit.com" target="_blank">Bridle &amp; Bit Magazine</a> &nbsp;·&nbsp;
+      <a href="/">HorsePropertyAgents.com</a>
+    </div>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contact-modal">
+  <div class="modal-card">
+    <h2 class="modal-title" id="modal-title">Send a Message</h2>
+    <div class="modal-field"><label>Your Name</label><input type="text" id="m-name" placeholder="Jane Smith"></div>
+    <div class="modal-field"><label>Your Email</label><input type="email" id="m-email" placeholder="jane@example.com"></div>
+    <div class="modal-field"><label>Phone (optional)</label><input type="tel" id="m-phone" placeholder="(602) 555-0100"></div>
+    <div class="modal-field"><label>Message</label><textarea id="m-msg" rows="4" placeholder="I'm looking for horse property in…"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-send" onclick="sendMsg()">Send Message</button>
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL      = 'https://ykkfziyxipeuugocwswo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlra2Z6aXl4aXBldXVnb2N3c3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzIyMDUsImV4cCI6MjA4OTU0ODIwNX0.BbTuMNHEXm8PUjFgKc0Te6rjoW7ns-2A8dzCtShV8-4';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function getSlug() {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const idx = parts.indexOf('agent');
+  if (idx !== -1 && parts[idx+1]) return parts[idx+1];
+  return new URLSearchParams(window.location.search).get('slug');
+}
+
+function parseList(v) {
+  if (!v) return [];
+  if (Array.isArray(v)) return v.filter(Boolean);
+  return v.split(',').map(s=>s.trim()).filter(Boolean);
+}
+
+function showError(msg) {
+  document.getElementById('spinner').style.display = 'none';
+  const l = document.getElementById('state-label');
+  l.textContent = msg; l.style.fontSize = '1rem'; l.style.color = 'var(--ink)';
+}
+
+function render(a) {
+  // meta
+  const loc_meta = [a.city, a.state].filter(Boolean).join(', ');
+  const pageTitle = `${a.name} — Horse Property Specialist${loc_meta ? ' in ' + loc_meta : ''}`;
+  const pageDesc  = `${a.name}${a.company ? ' of ' + a.company : ''} — horse property specialist${loc_meta ? ' in ' + loc_meta : ''}.`;
+  const pageUrl   = `https://horsepropertyagents.com/agent/${a.slug}/`;
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').content = pageDesc;
+  // canonical — critical: point to this specific agent's URL, not /agents/
+  const canon = document.getElementById('canonical-link');
+  if (canon) canon.href = pageUrl;
+  // Open Graph + Twitter
+  const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.content = val; };
+  setMeta('og-title', pageTitle);
+  setMeta('og-desc',  pageDesc);
+  setMeta('og-url',   pageUrl);
+  setMeta('tw-title', pageTitle);
+  setMeta('tw-desc',  pageDesc);
+
+  // JSON-LD structured data — RealEstateAgent + BreadcrumbList
+  const ldAgent = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": a.name,
+    "url": pageUrl,
+    ...(a.company && { "worksFor": { "@type": "Organization", "name": a.company } }),
+    ...(a.phone   && { "telephone": a.phone }),
+    ...(a.email   && { "email": a.email }),
+    ...(a.website && { "sameAs": [a.website] }),
+    ...((a.city || a.state) && {
+      "address": {
+        "@type": "PostalAddress",
+        ...(a.address && { "streetAddress": a.address }),
+        ...(a.city    && { "addressLocality": a.city }),
+        ...(a.state   && { "addressRegion": a.state }),
+        ...(a.zip     && { "postalCode": a.zip }),
+        "addressCountry": "US"
+      }
+    }),
+    ...(loc_meta && { "areaServed": loc_meta }),
+    ...(a.bio && { "description": a.bio })
+  };
+  const ldCrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",   "item": "https://horsepropertyagents.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Agents", "item": "https://horsepropertyagents.com/agents/" },
+      { "@type": "ListItem", "position": 3, "name": a.name,   "item": pageUrl }
+    ]
+  };
+  const injectLD = (obj, id) => {
+    const s = document.createElement('script');
+    s.type = 'application/ld+json'; s.id = id;
+    s.textContent = JSON.stringify(obj);
+    document.head.appendChild(s);
+  };
+  injectLD(ldAgent, 'ld-agent');
+  injectLD(ldCrumb, 'ld-breadcrumb');
+
+  // breadcrumb
+  document.getElementById('bc-name').textContent = a.name;
+
+  // avatar
+  const av = document.getElementById('hero-avatar');
+  if (a.profile_image) { av.src = a.profile_image; av.alt = a.name; } else { av.style.display = 'none'; }
+
+  document.getElementById('hero-name').textContent = a.name;
+  if (a.company) { const co = document.getElementById('hero-company'); co.textContent = a.company; co.style.display = ''; }
+  const loc = [a.city, a.state].filter(Boolean).join(', ');
+  document.getElementById('hero-location').textContent = loc;
+
+  if (a.tagline) {
+    const t = document.getElementById('hero-tagline');
+    t.textContent = a.tagline; t.style.display = '';
+  }
+
+  // contact bar
+  if (a.phone) {
+    const el = document.getElementById('bar-phone');
+    el.href = `tel:${a.phone.replace(/\D/g,'')}`;
+    document.getElementById('bar-phone-text').textContent = a.phone;
+    el.style.display = '';
+  }
+  if (a.email) {
+    const el = document.getElementById('bar-email');
+    el.href = `mailto:${a.email}`;
+    document.getElementById('bar-email-text').textContent = a.email;
+    el.style.display = '';
+  }
+  document.getElementById('modal-title').textContent = `Message ${a.name.split(' ')[0]}`;
+
+  // bio
+  if (a.bio?.trim()) {
+    document.getElementById('bio-text').textContent = a.bio; document.getElementById('bio-text').style.wordBreak = 'break-word';
+    document.getElementById('bio-section').style.display = '';
+  }
+
+  // claims
+  const claims = parseList(a.claims_to_fame);
+  if (claims.length) {
+    const ul = document.getElementById('claims-list');
+    claims.forEach(c => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="claims-bullet"></span><span>${c}</span>`;
+      ul.appendChild(li);
+    });
+    document.getElementById('claims-section').style.display = '';
+  }
+
+  // specialties
+  const specs = parseList(a.specialties);
+  if (specs.length) {
+    const wrap = document.getElementById('tags-wrap');
+    specs.forEach(s => {
+      const sp = document.createElement('span');
+      sp.className = 'tag'; sp.textContent = s;
+      wrap.appendChild(sp);
+    });
+    document.getElementById('specialties-section').style.display = '';
+  }
+
+  // gallery
+  const imgs = Array.isArray(a.gallery_images) ? a.gallery_images.filter(Boolean) : [];
+  if (imgs.length) {
+    const grid = document.getElementById('gallery-grid');
+    imgs.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src; img.alt = 'Gallery'; img.loading = 'lazy';
+      img.onclick = () => openLightbox(src);
+      grid.appendChild(img);
+    });
+    document.getElementById('gallery-section').style.display = '';
+  }
+
+  document.getElementById('state-screen').style.display = 'none';
+  document.getElementById('profile-page').style.display = '';
+}
+
+async function load() {
+  const slug = getSlug();
+  if (!slug) { showError('No agent specified.'); return; }
+  try {
+    const { data, error } = await db.from('agents').select('*').eq('slug', slug).limit(1).single();
+    if (error || !data) { showError('Agent not found.'); return; }
+    render(data);
+  } catch(e) { showError('Unable to load profile.'); }
+}
+
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target===e.currentTarget) closeLightbox(); });
+
+function openModal() {
+  document.getElementById('contact-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('contact-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('contact-modal').addEventListener('click', e => { if (e.target===e.currentTarget) closeModal(); });
+
+function sendMsg() {
+  const name = document.getElementById('m-name').value.trim();
+  const email = document.getElementById('m-email').value.trim();
+  const msg = document.getElementById('m-msg').value.trim();
+  if (!name||!email||!msg) { alert('Please fill in name, email, and message.'); return; }
+  closeModal();
+  alert('Message sent! The agent will be in touch soon.');
+}
+
+document.addEventListener('keydown', e => { if (e.key==='Escape') { closeLightbox(); closeModal(); } });
+load();
+</script>
+<script src="/nav.js" defer></script>
+</body>
+</html>
