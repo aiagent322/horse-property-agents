@@ -4,8 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agent Profile | HorsePropertyAgents.com</title>
-<link rel="canonical" href="https://horsepropertyagents.com/agents/">
+<link rel="canonical" id="canonical-link" href="https://horsepropertyagents.com/agent/">
 <meta name="description" content="Horse property specialist profile.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="HorsePropertyAgents.com">
+<meta property="og:title" id="og-title" content="Agent Profile | HorsePropertyAgents.com">
+<meta property="og:description" id="og-desc" content="Horse property specialist profile.">
+<meta property="og:url" id="og-url" content="https://horsepropertyagents.com/agent/">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" id="tw-title" content="Agent Profile | HorsePropertyAgents.com">
+<meta name="twitter:description" id="tw-desc" content="Horse property specialist profile.">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -513,8 +525,63 @@ function showError(msg) {
 
 function render(a) {
   // meta
-  document.title = `${a.name} — Horse Property Specialist`;
-  document.querySelector('meta[name="description"]').content = `${a.name} — horse property specialist in ${[a.city,a.state].filter(Boolean).join(', ')}.`;
+  const loc_meta = [a.city, a.state].filter(Boolean).join(', ');
+  const pageTitle = `${a.name} — Horse Property Specialist${loc_meta ? ' in ' + loc_meta : ''}`;
+  const pageDesc  = `${a.name}${a.company ? ' of ' + a.company : ''} — horse property specialist${loc_meta ? ' in ' + loc_meta : ''}.`;
+  const pageUrl   = `https://horsepropertyagents.com/agent/${a.slug}/`;
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').content = pageDesc;
+  // canonical — critical: point to this specific agent's URL, not /agents/
+  const canon = document.getElementById('canonical-link');
+  if (canon) canon.href = pageUrl;
+  // Open Graph + Twitter
+  const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.content = val; };
+  setMeta('og-title', pageTitle);
+  setMeta('og-desc',  pageDesc);
+  setMeta('og-url',   pageUrl);
+  setMeta('tw-title', pageTitle);
+  setMeta('tw-desc',  pageDesc);
+
+  // JSON-LD structured data — RealEstateAgent + BreadcrumbList
+  const ldAgent = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": a.name,
+    "url": pageUrl,
+    ...(a.company && { "worksFor": { "@type": "Organization", "name": a.company } }),
+    ...(a.phone   && { "telephone": a.phone }),
+    ...(a.email   && { "email": a.email }),
+    ...(a.website && { "sameAs": [a.website] }),
+    ...((a.city || a.state) && {
+      "address": {
+        "@type": "PostalAddress",
+        ...(a.address && { "streetAddress": a.address }),
+        ...(a.city    && { "addressLocality": a.city }),
+        ...(a.state   && { "addressRegion": a.state }),
+        ...(a.zip     && { "postalCode": a.zip }),
+        "addressCountry": "US"
+      }
+    }),
+    ...(loc_meta && { "areaServed": loc_meta }),
+    ...(a.bio && { "description": a.bio })
+  };
+  const ldCrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",   "item": "https://horsepropertyagents.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Agents", "item": "https://horsepropertyagents.com/agents/" },
+      { "@type": "ListItem", "position": 3, "name": a.name,   "item": pageUrl }
+    ]
+  };
+  const injectLD = (obj, id) => {
+    const s = document.createElement('script');
+    s.type = 'application/ld+json'; s.id = id;
+    s.textContent = JSON.stringify(obj);
+    document.head.appendChild(s);
+  };
+  injectLD(ldAgent, 'ld-agent');
+  injectLD(ldCrumb, 'ld-breadcrumb');
 
   // breadcrumb
   document.getElementById('bc-name').textContent = a.name;
