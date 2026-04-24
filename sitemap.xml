@@ -7,13 +7,13 @@
 
   <!-- Learn section -->
   <url><loc>https://horsepropertyagents.com/learn/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/types-of-listings.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/agents-vs-brokers.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/appraisals.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/disclosures.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/escrow.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/financing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://horsepropertyagents.com/learn/zoning.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/types-of-listings/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/agents-vs-brokers/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/appraisals/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/disclosures/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/escrow/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/financing/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://horsepropertyagents.com/learn/zoning/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Agent detail pages (335) -->
   <url><loc>https://horsepropertyagents.com/agent/aaron-laura-shriner/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

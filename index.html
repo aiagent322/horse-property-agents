@@ -43,6 +43,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -693,13 +694,29 @@ async function loadStats() {
 }
 
 async function loadFeatured() {
+  // Prefer hand-picked featured agents; pull up to 40 then shuffle + slice to 8 for variety per pageview
   var result = await db.from('agents')
     .select('name,slug,city,state,phone,email,company,specialties')
-    .order('name', { ascending: true })
-    .limit(8);
-  var data = result.data;
+    .eq('featured', true)
+    .limit(40);
+  var data = result.data || [];
+  if (!data.length) {
+    // Fallback: alphabetical if nothing is flagged featured
+    var fb = await db.from('agents')
+      .select('name,slug,city,state,phone,email,company,specialties')
+      .order('name', { ascending: true })
+      .limit(8);
+    data = fb.data || [];
+  } else {
+    // Fisher–Yates shuffle, then take 8
+    for (var i = data.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = data[i]; data[i] = data[j]; data[j] = tmp;
+    }
+    data = data.slice(0, 8);
+  }
   var grid = document.getElementById('agent-grid');
-  if (!data || !data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
+  if (!data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
   grid.innerHTML = '';
   data.forEach(function(a) {
     var card = document.createElement('a');
