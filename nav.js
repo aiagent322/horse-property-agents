@@ -22,6 +22,7 @@
       '<a href="/" class="nav-logo">HorsePropertyAgents.com</a>' +
       '<button class="nav-toggle" aria-label="Menu" id="nav-btn"><span></span><span></span><span></span></button>' +
       '<ul class="nav-links">' + liItems + '</ul>' +
+      '<a href="https://www.bridleandbit.com" target="_blank" rel="noopener" class="bb-nav-logo"><img src="https://imagedelivery.net/9VlM7Y9GaQMXOu5Ypg50yA/bb-hp-0/public" alt="Bridle &amp; Bit Magazine" height="34"></a>' +
     '</div>';
 
   const style = document.createElement('style');
@@ -93,6 +94,8 @@
 @media (min-width: 769px) {
   .nav-inner { padding: 0 24px; }
 }
+.bb-nav-logo { display:none; align-items:center; line-height:0; margin-left:12px; flex-shrink:0; }
+@media (min-width: 769px) { .bb-nav-logo { display:flex; } }
   `;
 
   // Insert into page
