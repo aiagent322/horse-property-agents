@@ -113,3 +113,10 @@
     if (nav && !nav.contains(e.target)) nav.classList.remove('open');
   });
 })();
+
+// Hide avatar section site-wide (no profile photos)
+(function(){
+  const style = document.createElement('style');
+  style.textContent = '.avatar-wrap{display:none!important} .hero-bio-row{gap:0!important}';
+  document.head.appendChild(style);
+})();
