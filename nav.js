@@ -28,7 +28,7 @@
   const style = document.createElement('style');
   style.textContent = `
 #site-nav {
-  background: #2c5f2e;
+  background: #0b3c5d;
   position: sticky; top: 0; z-index: 200;
   border-bottom: 1px solid rgba(0,0,0,.15);
   box-shadow: 0 1px 4px rgba(0,0,0,.12);
@@ -82,7 +82,7 @@
   .nav-links {
     display: none; position: absolute;
     top: 54px; left: 0; right: 0;
-    background: #2c5f2e; flex-direction: column;
+    background: #0b3c5d; flex-direction: column;
     gap: 0; border-top: 1px solid rgba(255,255,255,.1);
     padding: 6px 0; box-shadow: 0 4px 16px rgba(0,0,0,.25);
     z-index: 199;
