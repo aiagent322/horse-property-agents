@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://horsepropertyagents.com/sitemap.xml
+ 
