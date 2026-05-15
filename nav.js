@@ -8,7 +8,6 @@
     { href: 'https://bridleandbit.com', label: 'Bridle & Bit', external: true },
   ];
 
-  // Build nav HTML
   const liItems = links.map(l => {
     const active = !l.external && (path === l.href || (l.href !== '/' && path.startsWith(l.href))) ? ' class="active"' : '';
     const ext = l.external ? ' target="_blank" rel="noopener"' : '';
@@ -19,6 +18,10 @@
   navEl.id = 'site-nav';
   navEl.innerHTML =
     '<div class="nav-inner">' +
+      '<a href="/contact/" class="contact-btn">' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+        'Contact Us' +
+      '</a>' +
       '<a href="/" class="nav-logo">HorsePropertyAgents.com</a>' +
       '<button class="nav-toggle" aria-label="Menu" id="nav-btn"><span></span><span></span><span></span></button>' +
       '<ul class="nav-links">' + liItems + '</ul>' +
@@ -38,6 +41,16 @@
   display: flex; align-items: center;
   padding: 0 16px; height: 54px; gap: 8px;
 }
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #b8860b; color: #fff;
+  border-radius: 4px; padding: 6px 12px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: .78rem; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+  flex-shrink: 0; transition: background .15s;
+}
+.contact-btn:hover { background: #c49a6c; color: #fff; }
 .nav-logo {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: .9rem; font-weight: 700;
@@ -77,6 +90,7 @@
 }
 .nav-toggle:hover span { background: #fff; }
 @media (max-width: 768px) {
+  .contact-btn { font-size: .72rem; padding: 5px 9px; }
   .nav-logo { font-size: .82rem; }
   .nav-toggle { display: flex; }
   .nav-links {
@@ -98,16 +112,13 @@
 @media (min-width: 769px) { .bb-nav-logo { display:flex; } }
   `;
 
-  // Insert into page
   document.head.appendChild(style);
   document.body.insertBefore(navEl, document.body.firstChild);
 
-  // Hamburger toggle
   document.getElementById('nav-btn').addEventListener('click', function() {
     document.getElementById('site-nav').classList.toggle('open');
   });
 
-  // Close on outside click
   document.addEventListener('click', function(e) {
     const nav = document.getElementById('site-nav');
     if (nav && !nav.contains(e.target)) nav.classList.remove('open');
