@@ -722,9 +722,9 @@ const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function loadStats() {
-  const { count } = await db.from('agents').select('*', { count: 'exact', head: true });
+  const { count } = await db.from('agents_public').select('*', { count: 'exact', head: true });
   document.getElementById('stat-agents').textContent = count || '—';
-  const { data } = await db.from('agents').select('state');
+  const { data } = await db.from('agents_public').select('state');
   if (data) {
     const states = new Set(data.map(a => a.state).filter(Boolean));
     document.getElementById('stat-states').textContent = states.size || '—';
@@ -733,14 +733,14 @@ async function loadStats() {
 
 async function loadFeatured() {
   // Prefer hand-picked featured agents; pull up to 40 then shuffle + slice to 8 for variety per pageview
-  var result = await db.from('agents')
+  var result = await db.from('agents_public')
     .select('name,slug,city,state,phone,email,company,specialties')
     .eq('featured', true)
     .limit(40);
   var data = result.data || [];
   if (!data.length) {
     // Fallback: alphabetical if nothing is flagged featured
-    var fb = await db.from('agents')
+    var fb = await db.from('agents_public')
       .select('name,slug,city,state,phone,email,company,specialties')
       .order('name', { ascending: true })
       .limit(8);
@@ -826,7 +826,7 @@ async function loadFeatured() {
 }
 
 async function loadStates() {
-  const { data } = await db.from('agents').select('state');
+  const { data } = await db.from('agents_public').select('state');
   if (!data) return;
   const counts = {};
   data.forEach(a => { if (a.state) counts[a.state] = (counts[a.state] || 0) + 1; });
