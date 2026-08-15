@@ -539,14 +539,9 @@ function clearFilters() {
 
 async function init() {
   // Fetch lat/lng too — needed for Near Me
-  // TEMPORARY: agents_public view does not yet expose lat/lng (column doesn't
-  // exist on the view) -- selecting them causes a 400 on every request and
-  // blocks the whole directory. Dropped for now so the page works; Near Me
-  // will show zero results until the view is extended to include lat/lng.
-  // See HANDOFF.md for the exact SQL needed.
   var result = await db
     .from('agents_public')
-    .select('name,slug,city,state,specialties,phone,email,company')
+    .select('name,slug,city,state,specialties,phone,email,company,lat,lng')
     .order('name', { ascending: true })
     .limit(1000);
 
