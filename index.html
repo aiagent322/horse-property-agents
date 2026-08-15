@@ -736,42 +736,72 @@ const SUPABASE_ANON_KEY = 'sb_publishable_xTN_2K1voJSEIMb3chrORQ_l7PyBGoy';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+async function withRetry(queryFn, retries) {
+  if (retries === undefined) retries = 1;
+  for (var attempt = 0; attempt <= retries; attempt++) {
+    try {
+      var result = await queryFn();
+      if (result && result.error) throw result.error;
+      return result;
+    } catch (err) {
+      if (attempt === retries) throw err;
+      await new Promise(function (r) { setTimeout(r, 800); });
+    }
+  }
+}
+
 async function loadStats() {
-  const { count } = await db.from('agents_public').select('*', { count: 'exact', head: true });
-  document.getElementById('stat-agents').textContent = count || '—';
-  const { data } = await db.from('agents_public').select('state');
-  if (data) {
-    const states = new Set(data.map(a => a.state).filter(Boolean));
-    document.getElementById('stat-states').textContent = states.size || '—';
+  try {
+    const statsResult = await withRetry(function () {
+      return db.from('agents_public').select('*', { count: 'exact', head: true });
+    });
+    document.getElementById('stat-agents').textContent = statsResult.count || '—';
+
+    const statesResult = await withRetry(function () {
+      return db.from('agents_public').select('state');
+    });
+    if (statesResult.data) {
+      const states = new Set(statesResult.data.map(a => a.state).filter(Boolean));
+      document.getElementById('stat-states').textContent = states.size || '—';
+    }
+  } catch (err) {
+    console.error('loadStats failed after retry:', err);
+    // Decorative header stats only — leave the existing "—" placeholder rather
+    // than showing an error banner for a non-critical failure.
   }
 }
 
 async function loadFeatured() {
-  // Prefer hand-picked featured agents; pull up to 40 then shuffle + slice to 8 for variety per pageview
-  var result = await db.from('agents_public')
-    .select('name,slug,city,state,phone,email,company,specialties')
-    .eq('featured', true)
-    .limit(40);
-  var data = result.data || [];
-  if (!data.length) {
-    // Fallback: alphabetical if nothing is flagged featured
-    var fb = await db.from('agents_public')
-      .select('name,slug,city,state,phone,email,company,specialties')
-      .order('name', { ascending: true })
-      .limit(8);
-    data = fb.data || [];
-  } else {
-    // Fisher–Yates shuffle, then take 8
-    for (var i = data.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = data[i]; data[i] = data[j]; data[j] = tmp;
-    }
-    data = data.slice(0, 8);
-  }
   var grid = document.getElementById('agent-grid');
-  if (!data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
-  grid.innerHTML = '';
-  data.forEach(function(a) {
+  try {
+    // Prefer hand-picked featured agents; pull up to 40 then shuffle + slice to 8 for variety per pageview
+    var result = await withRetry(function () {
+      return db.from('agents_public')
+        .select('name,slug,city,state,phone,email,company,specialties')
+        .eq('featured', true)
+        .limit(40);
+    });
+    var data = result.data || [];
+    if (!data.length) {
+      // Fallback: alphabetical if nothing is flagged featured
+      var fb = await withRetry(function () {
+        return db.from('agents_public')
+          .select('name,slug,city,state,phone,email,company,specialties')
+          .order('name', { ascending: true })
+          .limit(8);
+      });
+      data = fb.data || [];
+    } else {
+      // Fisher–Yates shuffle, then take 8
+      for (var i = data.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = data[i]; data[i] = data[j]; data[j] = tmp;
+      }
+      data = data.slice(0, 8);
+    }
+    if (!data.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No agents found.</p>'; return; }
+    grid.innerHTML = '';
+    data.forEach(function(a) {
     var card = document.createElement('a');
     card.href = '/agent/' + a.slug + '/';
     card.className = 'agent-card';
@@ -838,6 +868,10 @@ async function loadFeatured() {
 
     grid.appendChild(card);
   });
+  } catch (err) {
+    console.error('loadFeatured failed after retry:', err);
+    grid.innerHTML = '<p style="color:var(--muted);font-size:.9rem;grid-column:1/-1;text-align:center;padding:20px 0;">Couldn\'t load agents right now — please refresh.</p>';
+  }
 }
 
 async function loadStates() {
