@@ -518,7 +518,7 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1"></script>
 <script>
 const SUPABASE_URL      = 'https://ykkfziyxipeuugocwswo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlra2Z6aXl4aXBldXVnb2N3c3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzIyMDUsImV4cCI6MjA4OTU0ODIwNX0.BbTuMNHEXm8PUjFgKc0Te6rjoW7ns-2A8dzCtShV8-4';
+const SUPABASE_ANON_KEY = 'sb_publishable_xTN_2K1voJSEIMb3chrORQ_l7PyBGoy';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -677,14 +677,14 @@ function render(a) {
   }
 
   document.getElementById('state-screen').style.display = 'none';
-  document.getElementById('profile-page').style.display = '';
+  document.getElementById('profile-page').style.display = 'block';
 }
 
 async function load() {
   const slug = getSlug();
   if (!slug) { showError('No agent specified.'); return; }
   try {
-    const { data, error } = await db.from('agents').select('*').eq('slug', slug).limit(1).single();
+    const { data, error } = await db.from('agents_public').select('*').eq('slug', slug).limit(1).single();
     if (error || !data) { showError('Agent not found.'); return; }
     render(data);
   } catch(e) { showError('Unable to load profile.'); }

@@ -244,7 +244,7 @@ footer{background:#162017;padding:20px 16px;text-align:center;}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.104.1"></script>
 <script>
 const SUPABASE_URL      = 'https://ykkfziyxipeuugocwswo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlra2Z6aXl4aXBldXVnb2N3c3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzIyMDUsImV4cCI6MjA4OTU0ODIwNX0.BbTuMNHEXm8PUjFgKc0Te6rjoW7ns-2A8dzCtShV8-4';
+const SUPABASE_ANON_KEY = 'sb_publishable_xTN_2K1voJSEIMb3chrORQ_l7PyBGoy';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -539,9 +539,14 @@ function clearFilters() {
 
 async function init() {
   // Fetch lat/lng too — needed for Near Me
+  // TEMPORARY: agents_public view does not yet expose lat/lng (column doesn't
+  // exist on the view) -- selecting them causes a 400 on every request and
+  // blocks the whole directory. Dropped for now so the page works; Near Me
+  // will show zero results until the view is extended to include lat/lng.
+  // See HANDOFF.md for the exact SQL needed.
   var result = await db
-    .from('agents')
-    .select('name,slug,city,state,specialties,phone,email,company,lat,lng')
+    .from('agents_public')
+    .select('name,slug,city,state,specialties,phone,email,company')
     .order('name', { ascending: true })
     .limit(1000);
 
