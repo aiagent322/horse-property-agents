@@ -786,6 +786,7 @@ async function loadFeatured() {
     var result = await withRetry(function () {
       return db.from('agents_public')
         .select('name,slug,city,state,phone,email,company,specialties')
+        .in('state', ['AZ', 'Arizona'])
         .eq('featured', true)
         .limit(40);
     });
@@ -795,6 +796,7 @@ async function loadFeatured() {
       var fb = await withRetry(function () {
         return db.from('agents_public')
           .select('name,slug,city,state,phone,email,company,specialties')
+          .in('state', ['AZ', 'Arizona'])
           .order('name', { ascending: true })
           .limit(8);
       });
